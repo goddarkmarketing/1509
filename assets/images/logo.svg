@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Wenxin Chinese">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e63946"/>
+      <stop offset="100%" stop-color="#c41e24"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#g)"/>
+  <text x="60" y="54" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="42" font-weight="700">�</text>
+  <text x="60" y="88" text-anchor="middle" fill="#ffe8ea" font-family="Arial,sans-serif" font-size="14" font-weight="600" letter-spacing="2">WENXIN</text>
+</svg>

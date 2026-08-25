@@ -1,0 +1,581 @@
+@layer components {
+  /* ── Filters ── */
+  .admin-filter-toolbar {
+    @apply mb-4 flex w-full items-center justify-between;
+    gap: 1rem;
+  }
+
+  .admin-filter-toolbar .admin-filter-active {
+    @apply m-0 min-w-0 flex-1 truncate text-sm;
+    color: #64748b;
+  }
+
+  .admin-filter-toolbar .admin-filter-active strong {
+    color: #1e293b;
+  }
+
+  .admin-filter-bar {
+    @apply mb-0 flex shrink-0 flex-nowrap items-stretch justify-end;
+    gap: 0.65rem;
+  }
+
+  .admin-filter-bar label {
+    @apply self-center;
+  }
+
+  .admin-filter-bar .form-control {
+    @apply h-auto min-h-11 min-w-[200px] shrink-0;
+    width: 320px;
+    max-width: 320px;
+    flex: 0 0 320px;
+  }
+
+  .admin-filter-bar .btn {
+    @apply inline-flex min-h-11 items-center justify-center self-stretch whitespace-nowrap px-5;
+  }
+
+  .admin-filter-bar .btn-sm {
+    @apply px-4 text-sm;
+  }
+
+  @media (max-width: 900px) {
+    .admin-filter-toolbar {
+      @apply flex-col items-stretch;
+    }
+
+    .admin-filter-toolbar .admin-filter-active {
+      @apply whitespace-normal;
+    }
+
+    .admin-filter-bar {
+      @apply flex-wrap justify-start;
+    }
+
+    .admin-filter-bar .form-control {
+      @apply w-full max-w-none flex-[1_1_100%];
+    }
+  }
+
+  /* ── Backup ── */
+  .backup-create-form .btn {
+    @apply min-h-[38px] px-[1.1rem] py-[0.55rem] text-sm;
+  }
+
+  .backup-intro {
+    @apply m-0 mb-2;
+    color: var(--color-text);
+  }
+
+  .backup-intro-note {
+    @apply m-0 text-sm;
+    color: var(--color-text-muted);
+  }
+
+  .backup-count {
+    @apply text-sm;
+    color: var(--color-text-muted);
+  }
+
+  .backup-filename {
+    @apply rounded bg-slate-100 px-[0.4rem] py-[0.15rem] text-[0.82rem];
+  }
+
+  .backup-delete-form {
+    @apply inline;
+  }
+
+  .backup-tips {
+    @apply m-0 pl-5;
+    color: var(--color-text-muted);
+  }
+
+  .backup-tips li + li {
+    @apply mt-2;
+  }
+
+  /* ── Payments ── */
+  .admin-card--spaced {
+    @apply mb-4;
+  }
+
+  .payments-table--compact .payments-table-row td {
+    @apply max-h-12 align-middle py-2.5;
+    vertical-align: middle;
+  }
+
+  .payments-table--compact .payment-date {
+    @apply whitespace-nowrap text-[0.84rem];
+    color: var(--color-text-muted);
+  }
+
+  .payments-table--compact .payment-payer,
+  .payments-table--compact .payment-courses {
+    @apply max-w-[16rem] overflow-hidden text-ellipsis whitespace-nowrap text-sm;
+  }
+
+  .payments-table--compact .payment-courses {
+    @apply max-w-[22rem];
+  }
+
+  .payments-table--compact .payment-amount {
+    @apply whitespace-nowrap font-bold;
+    color: var(--color-text-heading);
+  }
+
+  .payments-table--compact .payment-status {
+    @apply whitespace-nowrap;
+  }
+
+  .payments-table--compact .payment-actions-cell {
+    @apply whitespace-nowrap text-right;
+  }
+
+  .payments-table--compact .payment-actions-cell .badge {
+    @apply mx-1 align-middle;
+  }
+
+  .payment-actions-muted {
+    @apply text-sm;
+    color: var(--color-text-muted);
+  }
+
+  .admin-card-meta {
+    @apply text-sm;
+    color: var(--color-text-muted);
+  }
+
+  .admin-pagination {
+    @apply flex flex-wrap items-center justify-center gap-1 border-t border-gray-100 px-4 py-4;
+  }
+
+  .admin-pagination-link {
+    @apply inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg border border-gray-200 bg-white px-2.5 text-sm font-medium text-gray-700 no-underline transition;
+  }
+
+  .admin-pagination-link:hover {
+    @apply border-gray-300 bg-gray-50 text-gray-900;
+  }
+
+  .admin-pagination-link.is-active {
+    @apply border-red-600 bg-red-600 text-white;
+  }
+
+  .payment-slip-btn {
+    @apply min-w-0 px-2.5;
+  }
+
+  .payment-action-form {
+    @apply ml-1 inline-flex flex-row flex-nowrap items-center justify-end align-middle;
+    gap: 0.35rem;
+  }
+
+  .payment-action-form .btn-sm {
+    @apply px-2.5 py-1 text-xs;
+  }
+
+  /* ── Content CMS ── */
+  .content-tabs {
+    @apply mb-6 flex flex-wrap gap-2 border-b border-gray-200 pb-4;
+  }
+
+  .content-tab {
+    @apply inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-600 no-underline transition hover:border-gray-300 hover:bg-gray-50;
+  }
+
+  .content-tab:hover {
+    @apply text-brand-500;
+  }
+
+  .content-tab.is-active {
+    @apply border-brand-500/30 bg-brand-50 text-brand-600;
+  }
+
+  .content-editor-form h3 {
+    @apply my-6 mb-[0.85rem] text-base;
+  }
+
+  .content-editor-form h3:first-of-type {
+    @apply mt-0;
+  }
+
+  .content-hint {
+    @apply mb-[0.85rem] text-[0.84rem];
+    color: var(--color-text-muted);
+  }
+
+  .content-repeat-list {
+    @apply grid gap-[0.85rem];
+  }
+
+  .content-link-row {
+    @apply mb-[0.35rem];
+  }
+
+  .content-section-title {
+    @apply block font-semibold;
+    color: var(--color-text-heading);
+  }
+
+  .content-section-summary {
+    @apply mt-[0.2rem] block text-xs leading-snug;
+    color: var(--color-text-muted);
+  }
+
+  .content-section-meta {
+    @apply whitespace-nowrap text-[0.84rem];
+    color: var(--color-text-muted);
+  }
+
+  .content-section-thumb {
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-[10px] border-none object-none;
+  }
+
+  .content-section-thumb--home {
+    @apply bg-red-100 text-brand-500;
+  }
+
+  .content-section-thumb--contact {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  .content-section-thumb--footer {
+    @apply bg-gray-100 text-gray-700;
+  }
+
+  .content-section-thumb--faq {
+    @apply bg-amber-100 text-amber-700;
+  }
+
+  .content-subcard {
+    @apply overflow-hidden border;
+    border-color: var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+
+  .content-subcard .admin-card-header {
+    @apply border-b bg-slate-50 px-4 py-[0.85rem];
+    border-color: var(--color-border);
+  }
+
+  .content-subcard .admin-card-header h3 {
+    @apply m-0 text-[0.95rem];
+  }
+
+  .content-sections-table .content-section-thumb--sparkles,
+  .content-sections-table .content-section-thumb--chart-column,
+  .content-sections-table .content-section-thumb--graduation-cap {
+    @apply bg-red-100 text-brand-500;
+  }
+
+  .content-sections-table .content-section-thumb--book-open,
+  .content-sections-table .content-section-thumb--mail {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  .content-sections-table .content-section-thumb--star,
+  .content-sections-table .content-section-thumb--messages-square,
+  .content-sections-table .content-section-thumb--circle-help {
+    @apply bg-amber-100 text-amber-700;
+  }
+
+  .content-sections-table .content-section-thumb--list-ordered {
+    @apply bg-violet-100 text-violet-700;
+  }
+
+  .content-sections-table .content-section-thumb--map-pinned {
+    @apply bg-green-100 text-green-700;
+  }
+
+  .content-sections-table .content-section-thumb--link,
+  .content-sections-table .content-section-thumb--file-text {
+    @apply bg-gray-100 text-gray-700;
+  }
+
+  .content-sections-table .content-section-thumb--life-buoy {
+    @apply bg-cyan-100 text-cyan-700;
+  }
+
+  /* ── Students ── */
+  .students-list-card {
+    @apply w-full;
+  }
+
+  .students-list-scroll {
+    @apply max-h-[360px] overflow-y-auto;
+  }
+
+  .students-compact-table th,
+  .students-compact-table td {
+    @apply px-[0.85rem] py-[0.65rem] text-sm;
+  }
+
+  .students-name {
+    @apply block font-semibold text-slate-800;
+  }
+
+  .students-note {
+    @apply mt-[0.15rem] block text-xs text-amber-700;
+  }
+
+  .students-col-email {
+    @apply max-w-[220px] break-words text-[0.84rem] text-slate-600;
+  }
+
+  .students-col-date {
+    @apply whitespace-nowrap text-[0.84rem] text-slate-600;
+  }
+
+  .students-col-actions {
+    @apply w-[4.5rem] whitespace-nowrap text-center;
+  }
+
+  .students-status-badge.badge-active {
+    @apply bg-emerald-100 text-green-700;
+  }
+
+  .students-status-badge--muted {
+    @apply bg-gray-100 text-gray-500;
+  }
+
+  .students-icon-btn {
+    @apply inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500 transition hover:border-gray-300 hover:bg-gray-50 hover:text-brand-500;
+  }
+
+  .students-icon-btn--open {
+    @apply border-green-200 bg-green-50 text-green-700;
+  }
+
+  .students-icon-btn--open:hover {
+    @apply border-green-300 bg-green-100 text-green-800;
+  }
+
+  .students-icon-btn--cancel {
+    @apply border-red-200 bg-red-50 text-red-700;
+  }
+
+  .students-icon-btn--cancel:hover {
+    @apply border-red-300 bg-red-100 text-red-800;
+  }
+
+  .students-icon-actions {
+    @apply inline-flex items-center justify-center;
+    gap: 0.35rem;
+  }
+
+  .students-icon-form {
+    @apply m-0 inline-flex;
+  }
+
+  /* ── Coupons ── */
+  .coupons-admin-page {
+    @apply flex w-full flex-col;
+    gap: var(--spacing-admin-gutter);
+  }
+
+  .coupons-form-actions {
+    @apply mt-4 flex flex-wrap;
+    gap: 0.5rem;
+  }
+
+  .coupon-modal-form .form-group:last-of-type {
+    @apply mb-3;
+  }
+
+  .coupons-code--pill {
+    @apply inline-block rounded-full bg-slate-100 px-[0.55rem] py-[0.2rem] text-[0.82rem] tracking-wide;
+  }
+
+  .coupons-empty {
+    @apply px-4 py-8 text-center text-slate-500;
+  }
+
+  .coupons-list-card {
+    @apply w-full;
+  }
+
+  .coupons-list-scroll {
+    @apply max-h-[420px] overflow-y-auto;
+  }
+
+  .coupons-compact-table {
+    @apply w-full table-fixed;
+  }
+
+  .coupons-compact-table th,
+  .coupons-compact-table td {
+    @apply px-4 py-[0.7rem] text-sm;
+  }
+
+  .coupons-code {
+    @apply font-semibold tracking-wide;
+  }
+
+  .coupons-col-date {
+    @apply whitespace-nowrap text-slate-600;
+  }
+
+  .coupons-col-actions {
+    @apply w-44 whitespace-nowrap text-right;
+  }
+
+  .coupons-row-actions {
+    @apply inline-flex flex-row flex-nowrap items-center justify-end;
+    gap: 0.5rem;
+  }
+
+  .coupons-delete-form {
+    @apply m-0 inline;
+  }
+
+  .coupons-status-badge.badge-active {
+    @apply bg-emerald-100 text-green-700;
+  }
+
+  .coupons-status-badge--muted {
+    @apply bg-gray-100 text-gray-500;
+  }
+
+  /* ── Settings integrations (Omise / LINE) ── */
+  .admin-settings-integration {
+    @apply mb-8 rounded-2xl border border-gray-200 bg-white p-6;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .admin-settings-integration-head {
+    @apply mb-5 flex flex-wrap items-center gap-4;
+  }
+
+  .admin-settings-integration-icon {
+    @apply inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl;
+  }
+
+  .admin-settings-integration-icon--omise {
+    @apply bg-indigo-100 text-indigo-700;
+  }
+
+  .admin-settings-integration-icon--line-oa {
+    background: #e8f9ef;
+    color: #06c755;
+  }
+
+  .admin-settings-integration-icon--line-notify {
+    background: #e8f9ef;
+    color: #06c755;
+  }
+
+  .admin-settings-integration-icon--promptpay {
+    background: #e8f1fa;
+    color: #00427a;
+  }
+
+  .admin-settings-brand-icon {
+    @apply block;
+  }
+
+  .admin-settings-integration-title {
+    @apply m-0 text-lg font-semibold text-gray-800;
+    font-family: var(--font-heading);
+  }
+
+  .admin-settings-integration-desc {
+    @apply m-0 mt-0.5 text-sm text-gray-500;
+  }
+
+  .admin-settings-integration-badge {
+    @apply ml-auto inline-flex rounded-full px-3 py-1 text-xs font-medium;
+    background: #f2f4f7;
+    color: #667085;
+  }
+
+  .admin-settings-integration-badge--on {
+    @apply bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200/60 ring-inset;
+  }
+
+  .admin-settings-webhook {
+    @apply mb-5 flex flex-wrap items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-600;
+  }
+
+  .admin-settings-code {
+    @apply break-all rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-800;
+  }
+
+  .admin-settings-label-with-icon {
+    @apply inline-flex items-center gap-2;
+  }
+
+  .admin-settings-label-icon {
+    @apply shrink-0 text-gray-400;
+  }
+
+  .admin-line-setup-box .form-hint a,
+  .admin-line-setup-steps a {
+    @apply font-medium text-emerald-700 underline underline-offset-2 decoration-emerald-400/80;
+  }
+
+  .admin-line-setup-box .form-hint a:hover,
+  .admin-line-setup-steps a:hover {
+    @apply text-emerald-800 decoration-emerald-600;
+  }
+
+  .admin-settings-integration--omise {
+    @apply border-indigo-200/80;
+  }
+
+  .admin-settings-integration--promptpay {
+    border-color: rgb(0 66 122 / 0.22);
+  }
+
+  .admin-settings-integration--line-oa,
+  .admin-settings-integration--line {
+    border-color: rgb(6 199 85 / 0.25);
+  }
+
+  .admin-line-setup-box {
+    @apply mt-4 rounded-xl border border-gray-200 bg-gray-50/80 p-4;
+  }
+
+  .admin-line-webhook-url {
+    @apply block w-full break-all text-[0.82rem];
+  }
+
+  .admin-line-env-badge {
+    @apply ml-2 inline-flex rounded-full px-2 py-0.5 text-[0.68rem] font-semibold uppercase tracking-wide;
+  }
+
+  .admin-line-env-badge--dev {
+    @apply bg-amber-100 text-amber-800;
+  }
+
+  .admin-line-env-badge--prod {
+    @apply bg-emerald-100 text-emerald-800;
+  }
+
+  .admin-line-setup-steps {
+    @apply my-4 list-decimal space-y-2 pl-5 text-[0.88rem] leading-relaxed text-gray-600;
+  }
+
+  .admin-line-setup-steps code {
+    @apply break-all text-[0.8rem];
+  }
+
+  .admin-line-dev-hint,
+  .admin-line-siteurl-hint {
+    @apply mt-3 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-3 py-2.5 text-xs leading-relaxed text-gray-500;
+  }
+
+  .admin-line-siteurl-hint {
+    @apply border-amber-200/80 bg-amber-50/60 text-amber-900;
+  }
+
+  .admin-table-row--muted {
+    background: #fffbeb;
+  }
+
+  .admin-table-hint {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    color: #b45309;
+  }
+}

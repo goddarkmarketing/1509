@@ -1,0 +1,203 @@
+@layer components {
+  .admin-layout {
+    @apply flex min-h-screen w-full bg-gray-50;
+  }
+
+  /* TailAdmin dark sidebar — flat panel, no gradient */
+  .admin-sidebar {
+    @apply flex shrink-0 flex-col sticky top-0 h-screen z-[9999];
+    width: var(--spacing-sidebar);
+    background: var(--color-sidebar);
+    color: var(--color-surface);
+    border-right: 1px solid var(--color-sidebar-border);
+  }
+
+  .admin-sidebar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .admin-sidebar::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-white/10;
+  }
+
+  .admin-brand {
+    @apply flex shrink-0 items-center gap-3 no-underline;
+    padding: 1.25rem 1.25rem 1rem;
+    min-height: var(--spacing-topbar);
+    border-bottom: 1px solid var(--color-sidebar-border);
+  }
+
+  .admin-brand img {
+    @apply h-10 w-10 rounded-xl object-contain;
+  }
+
+  .admin-brand-text {
+    @apply flex flex-col leading-tight;
+  }
+
+  .admin-brand-text strong {
+    @apply text-base font-semibold;
+    color: var(--color-accent-gold);
+    font-family: var(--font-heading);
+  }
+
+  .admin-brand-text small {
+    @apply text-xs font-medium uppercase tracking-wider text-white/40;
+  }
+
+  .admin-nav {
+    @apply flex-1 overflow-x-hidden overflow-y-auto px-4 py-6;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  .admin-nav-group {
+    @apply mb-6;
+  }
+
+  .admin-nav-group:last-of-type {
+    @apply mb-4;
+  }
+
+  /* TailAdmin "MENU" group label */
+  .admin-nav-label {
+    @apply mb-3 block px-3 text-xs font-semibold uppercase tracking-wider text-white/35;
+  }
+
+  /* TailAdmin menu-item pattern */
+  .admin-nav a {
+    @apply relative mb-1 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-colors;
+    color: rgb(255 255 255 / 0.65);
+  }
+
+  .admin-nav a .nav-icon {
+    @apply h-[22px] w-[22px] shrink-0 opacity-90;
+  }
+
+  .admin-nav a:hover {
+    background: var(--color-sidebar-hover);
+    color: var(--color-surface);
+  }
+
+  .admin-nav a.active {
+    background: rgb(196 30 36 / 0.15);
+    color: #fff;
+  }
+
+  .admin-nav a.active::before {
+    content: none;
+  }
+
+  .admin-nav a.active .nav-icon {
+    @apply opacity-100;
+    color: #fca5a5;
+  }
+
+  .admin-nav a.logout {
+    @apply text-red-300;
+  }
+
+  .admin-nav a.logout:hover {
+    @apply bg-red-500/15 text-red-200;
+  }
+
+  .admin-nav-divider {
+    @apply my-4 h-px bg-white/10;
+    margin-inline: 0.75rem;
+  }
+
+  .admin-user {
+    @apply shrink-0 border-t border-white/10 px-5 py-4;
+    background: var(--color-sidebar-elevated);
+  }
+
+  .admin-user::before {
+    content: none;
+  }
+
+  .admin-user small {
+    @apply mb-1 block text-xs font-medium uppercase tracking-wide text-white/40;
+  }
+
+  .admin-user strong {
+    @apply block truncate text-sm font-semibold text-white;
+  }
+
+  .admin-main {
+    @apply flex min-w-0 flex-1 flex-col;
+  }
+
+  /* TailAdmin sticky header */
+  .admin-topbar {
+    @apply sticky top-0 z-[999] flex items-center border-b border-gray-200 bg-white;
+    min-height: var(--spacing-topbar);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .admin-topbar-inner {
+    @apply flex w-full items-center justify-between gap-4 px-4 md:px-6;
+  }
+
+  .admin-topbar h1 {
+    @apply m-0 flex-1 truncate text-xl font-semibold text-gray-800;
+    font-family: var(--font-heading);
+  }
+
+  .admin-topbar-meta {
+    @apply flex shrink-0 items-center gap-3 text-sm text-gray-500;
+  }
+
+  .admin-topbar-pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700;
+  }
+
+  .admin-menu-toggle {
+    @apply inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs transition hover:bg-gray-50 lg:hidden;
+  }
+
+  .admin-content {
+    @apply flex-1 p-4 md:p-6;
+  }
+
+  .admin-content-inner {
+    @apply flex w-full max-w-[1600px] flex-col gap-6;
+  }
+
+  .admin-content-inner > .stats-grid,
+  .admin-content-inner > .admin-grid-2,
+  .admin-content-inner > .admin-card,
+  .admin-content-inner > .admin-form-panel,
+  .admin-content-inner > .alert {
+    @apply mb-0;
+  }
+
+  .admin-overlay {
+    @apply fixed inset-0 z-[9998] hidden bg-gray-900/50 backdrop-blur-[2px];
+  }
+
+  body.admin-sidebar-open .admin-overlay {
+    @apply block;
+  }
+
+  @media (max-width: 1023px) {
+    .admin-sidebar {
+      @apply fixed left-0 top-0 shadow-lg;
+      transform: translateX(-100%);
+      transition: transform 0.28s ease;
+    }
+
+    body.admin-sidebar-open .admin-sidebar {
+      transform: translateX(0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .admin-content {
+      @apply p-4;
+    }
+
+    .admin-topbar h1 {
+      @apply text-lg;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply box-border m-0 p-0;
+  }
+
+  html {
+    font-family: var(--font-body);
+  }
+
+  body.admin-body {
+    @apply bg-gray-50 text-base font-normal leading-normal antialiased text-gray-600;
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .admin-topbar h1,
+  .admin-card-header h2,
+  .admin-brand-text strong {
+    font-family: var(--font-heading);
+    @apply font-bold;
+    color: var(--color-text-heading);
+  }
+}

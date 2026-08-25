@@ -1,0 +1,8 @@
+﻿python : Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut 
+from Settings > Apps > Advanced app settings > App execution aliases.
+At C:\Users\OPTIONCOMPUTER\AppData\Local\Temp\ps-script-79974331-ba1e-40a0-add2-56788a391c22.ps1:90 char:1
++ python -c "print(open(r'C:\Users\OPTIONCOMPUTER\AppData\Local\Temp\le ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Python was not ...cution aliases.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

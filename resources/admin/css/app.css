@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@source "../../../admin/**/*.php";
+@source "../../../includes/admin/**/*.php";
+@source "../../../includes/admin_header.php";
+@source "../../../includes/admin_footer.php";
+
+@import "./_theme.css";
+@import "./_base.css";
+@import "./_layout.css";
+@import "./_components.css";
+@import "./_modals.css";
+@import "./_auth.css";
+@import "./_utilities.css";

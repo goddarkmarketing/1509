@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กวดวิชาเดอะลีโอน่า | กวดวิชาเดอะลีโอน่า</title>
+    <meta name="description" content="ติวสังคมศึกษา ศาสนา หน้าที่พลเมือง เศรษฐศาสตร์ ภูมิศาสตร์ ประวัติศาสตร์ และกฎหมาย — เน้นความเข้าใจควบคู่ทำข้อสอบ">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="http://localhost/LMS/assets/fonts/BetterTogether/BetterTogether-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="http://localhost/LMS/assets/css/fonts-bettertogether.css?v=1">
+    <link rel="stylesheet" href="http://localhost/LMS/assets/css/style.css?v=130">
+    <link rel="icon" href="http://localhost/LMS/assets/images/logo.png" type="image/svg+xml">
+</head>
+<body class="page-home">
+<header class="site-header leona-header" id="top">
+    <div class="container header-inner">
+        <a href="http://localhost/LMS/public/index.php" class="brand">
+            <img src="http://localhost/LMS/assets/images/logo.png" alt="กวดวิชาเดอะลีโอน่า" class="brand-logo">
+            <span class="brand-text">
+                <strong>THE LEONA</strong>
+                <small>TUTORS</small>
+            </span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="เปิดเมนู">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav" id="siteNav">
+            <div class="site-nav-links">
+                <a href="http://localhost/LMS/public/index.php">หน้าแรก</a>
+                <a href="http://localhost/LMS/public/index.php#about">เกี่ยวกับเรา</a>
+                <a href="http://localhost/LMS/public/courses.php">คอร์สเรียน</a>
+                <a href="http://localhost/LMS/public/index.php#subjects">วิชาที่เปิดสอน</a>
+                <a href="http://localhost/LMS/public/index.php#reviews">รีวิว</a>
+                <a href="http://localhost/LMS/public/announcements.php">ข่าวสาร</a>
+                <a href="http://localhost/LMS/public/contact.php">ติดต่อเรา</a>
+            </div>
+            <div class="header-actions">
+                <button id="cartToggle" type="button" class="cart-toggle header-action-btn header-btn-cart" aria-controls="cartDrawer" aria-expanded="false" title="ตะกร้า">
+                    <span class="cart-toggle-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>                    </span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                                <a href="http://localhost/LMS/public/register.php" class="btn btn-primary btn-sm header-action-btn header-btn-enroll">สมัครเรียน</a>
+                <a href="http://localhost/LMS/public/login.php" class="header-user-btn" aria-label="เข้าสู่ระบบ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" /></svg>                </a>
+                            </div>
+        </nav>
+    </div>
+</header>
+<div class="cart-overlay" id="cartOverlay" aria-hidden="true"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="ตะกร้าสินค้า">
+    <div class="cart-drawer-header">
+        <h3>ตะกร้าของคุณ</h3>
+        <button type="button" class="cart-close" id="cartCloseBtn" aria-label="ปิดตะกร้า">✕</button>
+    </div>
+    <div class="cart-drawer-body">
+                    <p class="cart-empty">ยังไม่มีคอร์สในตะกร้า</p>
+            </div>
+    <div class="cart-drawer-footer">
+        <div class="cart-total-row">
+            <span>รวม</span>
+            <strong>ติดต่อสอบถาม</strong>
+        </div>
+        <a class="btn btn-primary btn-block cart-checkout"
+           href="http://localhost/LMS/public/cart.php"
+           aria-disabled="true"
+           style="pointer-events:none;opacity:.6;">
+            ดูตะกร้า
+        </a>
+    </div>
+</aside>
+<main>
+
+
+<section class="leona-hero" id="about" aria-label="แบนเนอร์หลัก">
+    <div class="leona-hero-media" aria-hidden="true">
+        <img
+            src="http://localhost/LMS/assets/images/leona/hero.jpg"
+            alt=""
+            width="1600"
+            height="900"
+            fetchpriority="high"
+            decoding="async"
+        >
+    </div>
+    <div class="leona-hero-shade" aria-hidden="true"></div>
+    <div class="container leona-hero-inner">
+        <div class="leona-hero-copy leona-reveal">
+            <p class="leona-hero-eyebrow">กวดวิชาเดอะลีโอน่า</p>
+            <h1>THE LEONA<br>TUTORS</h1>
+            <p class="leona-hero-lead">ติวสังคมศึกษาเข้าใจง่าย เห็นผลจริง<br>ครบทุกวิชา ทุกระดับชั้น</p>
+            <ul class="leona-hero-pills">
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" /></svg>                    <span>ใกล้ชิด</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></svg>                    <span>เข้าใจง่าย</span>
+                </li>
+                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg>                    <span>ผลลัพธ์ชัด</span>
+                </li>
+            </ul>
+            <p class="leona-hero-levels">ประถม · มัธยม · เตรียมสอบ / A-Level</p>
+            <div class="leona-hero-actions">
+                <a href="http://localhost/LMS/public/register.php" class="btn btn-primary">สมัครเรียน</a>
+                <a href="http://localhost/LMS/public/courses.php" class="btn btn-outline">ทดลองเรียน / ดูคอร์ส</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="leona-features" aria-label="จุดเด่น">
+    <div class="container">
+        <ul class="leona-features-grid">
+                        <li class="leona-feature-item leona-reveal">
+                <span class="leona-feature-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /> <path d="M22 10v6" /> <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg>                </span>
+                <div>
+                    <strong>ติวเตอร์คุณภาพ</strong>
+                    <span>คัดเลือกและมีประสบการณ์จริง</span>
+                </div>
+            </li>
+                        <li class="leona-feature-item leona-reveal">
+                <span class="leona-feature-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg>                </span>
+                <div>
+                    <strong>หลักสูตรมาตรฐาน</strong>
+                    <span>เข้มข้นแต่เข้าใจง่าย</span>
+                </div>
+            </li>
+                        <li class="leona-feature-item leona-reveal">
+                <span class="leona-feature-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> <polyline points="16 11 18 13 22 9" /></svg>                </span>
+                <div>
+                    <strong>ดูแลใกล้ชิด</strong>
+                    <span>วางแผนและรายงานความก้าวหน้า</span>
+                </div>
+            </li>
+                        <li class="leona-feature-item leona-reveal">
+                <span class="leona-feature-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /> <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /> <path d="M4 22h16" /> <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" /> <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /> <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" /></svg>                </span>
+                <div>
+                    <strong>ผลลัพธ์ชัดเจน</strong>
+                    <span>คะแนนดีขึ้นอย่างเห็นได้ชัด</span>
+                </div>
+            </li>
+                    </ul>
+    </div>
+</section>
+
+<section class="leona-section" id="subjects">
+    <div class="container">
+        <header class="leona-section-head leona-reveal">
+            <span class="leona-ornament" aria-hidden="true"></span>
+            <h2>วิชาที่เปิดสอน</h2>
+            <span class="leona-ornament" aria-hidden="true"></span>
+        </header>
+        <div class="leona-subjects-grid">
+                        <article class="leona-subject-card leona-reveal">
+                <span class="leona-subject-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22" /> <line x1="6" x2="6" y1="18" y2="11" /> <line x1="10" x2="10" y1="18" y2="11" /> <line x1="14" x2="14" y1="18" y2="11" /> <line x1="18" x2="18" y1="18" y2="11" /> <polygon points="12 2 20 7 4 7" /></svg>                </span>
+                <h3>สังคมศึกษา</h3>
+                <p>ประถม – ม.ปลาย</p>
+            </article>
+                        <article class="leona-subject-card leona-reveal">
+                <span class="leona-subject-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 12h-5" /> <path d="M15 8h-5" /> <path d="M19 17V5a2 2 0 0 0-2-2H4" /> <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" /></svg>                </span>
+                <h3>ประวัติศาสตร์</h3>
+                <p>ม.ต้น – ม.ปลาย</p>
+            </article>
+                        <article class="leona-subject-card leona-reveal">
+                <span class="leona-subject-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" /> <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" /> <path d="M7 21h10" /> <path d="M12 3v18" /> <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" /></svg>                </span>
+                <h3>หน้าที่พลเมือง</h3>
+                <p>ประถม – ม.ปลาย</p>
+            </article>
+                        <article class="leona-subject-card leona-reveal">
+                <span class="leona-subject-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6" /> <path d="M18.09 10.37A6 6 0 1 1 10.34 18" /> <path d="M7 6h1v4" /> <path d="m16.71 10.0 0.71.71-2.82 2.82" /></svg>                </span>
+                <h3>เศรษฐศาสตร์</h3>
+                <p>ม.ต้น – ม.ปลาย</p>
+            </article>
+                        <article class="leona-subject-card leona-reveal">
+                <span class="leona-subject-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.54 15H17a2 2 0 0 0-2 2v4.54" /> <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17" /> <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05" /> <circle cx="12" cy="12" r="10" /></svg>                </span>
+                <h3>ภูมิศาสตร์</h3>
+                <p>ประถม – ม.ปลาย</p>
+            </article>
+                        <article class="leona-subject-card leona-reveal">
+                <span class="leona-subject-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.5 12.5-8 8a2.119 2.119 0 1 1-3-3l8-8" /> <path d="m16 16 6-6" /> <path d="m8 8 6-6" /> <path d="m9 7 8 8" /> <path d="m21 11-8-8" /></svg>                </span>
+                <h3>กฎหมาย</h3>
+                <p>ม.ปลาย / A-Level</p>
+            </article>
+                    </div>
+    </div>
+</section>
+
+<section class="leona-section leona-section-soft" id="results">
+    <div class="container leona-results-layout">
+        <div class="leona-results-copy">
+            <header class="leona-section-head leona-section-head-left leona-reveal">
+                <span class="leona-ornament" aria-hidden="true"></span>
+                <h2>ผลการเรียนของเรา</h2>
+            </header>
+            <ul class="leona-results-list">
+                                <li class="leona-reveal">
+                    <span class="leona-results-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15" /> <path d="M11 12 5.12 2.2" /> <path d="m13 12 5.88-9.8" /> <path d="M8 7h8" /> <circle cx="12" cy="17" r="5" /> <path d="M12 18v-2h-.5" /></svg>                    </span>
+                    <div>
+                        <strong>ติวเข้ม</strong>
+                        <span>สอบเข้า ม.1 / ม.4 และ A-Level</span>
+                    </div>
+                </li>
+                                <li class="leona-reveal">
+                    <span class="leona-results-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>                    </span>
+                    <div>
+                        <strong>สด + ออนไลน์</strong>
+                        <span>เลือกได้ตามไลฟ์สไตล์</span>
+                    </div>
+                </li>
+                                <li class="leona-reveal">
+                    <span class="leona-results-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" /> <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /> <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2" /> <path d="M10 6h4" /> <path d="M10 10h4" /> <path d="M10 14h4" /> <path d="M10 18h4" /></svg>                    </span>
+                    <div>
+                        <strong>1 ปี</strong>
+                        <span>อายุการเข้าถึงคอร์สหลังสมัคร</span>
+                    </div>
+                </li>
+                                <li class="leona-reveal">
+                    <span class="leona-results-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /> <path d="m9 12 2 2 4-4" /></svg>                    </span>
+                    <div>
+                        <strong>FIRST25</strong>
+                        <span>เรียนครั้งแรกลด 25%</span>
+                    </div>
+                </li>
+                            </ul>
+        </div>
+        <figure class="leona-results-media leona-reveal">
+            <img
+                src="http://localhost/LMS/assets/images/leona/results-students.jpg"
+                alt="นักเรียนกวดวิชาเดอะลีโอน่า"
+                width="900"
+                height="675"
+                loading="lazy"
+                decoding="async"
+            >
+        </figure>
+    </div>
+</section>
+
+<section class="leona-section" id="courses">
+    <div class="container">
+        <div class="leona-section-head-row">
+            <header class="leona-section-head leona-section-head-left leona-reveal">
+                <span class="leona-ornament" aria-hidden="true"></span>
+                <h2>คอร์สเรียนยอดนิยม</h2>
+            </header>
+            <a href="http://localhost/LMS/public/courses.php" class="section-link-more">ดูคอร์สทั้งหมด →</a>
+        </div>
+                <div class="courses-grid courses-home-grid">
+                            <article class="course-card" data-category="exam_prep" data-type="live">
+    <a href="http://localhost/LMS/public/course.php?slug=m1-intensive-live" class="course-card-image-link">
+        <div class="course-card-image">
+            <img src="http://localhost/LMS/assets/images/courses/cover-exam.svg?v=1783405229" alt="คอร์สติวเข้มสอบเข้า ม.1 (สอนสด)" loading="lazy">
+            <div class="course-card-image-overlay">
+                <span class="badge badge-red">ติวสอบ</span>
+                <span class="badge badge-gold">เริ่มต้น</span>
+                                <span class="badge badge-live">คลาสออนไลน์ (Live)</span>
+                            </div>
+        </div>
+    </a>
+    <div class="course-card-body">
+        <h3 class="course-card-title">
+            <a href="http://localhost/LMS/public/course.php?slug=m1-intensive-live">คอร์สติวเข้มสอบเข้า ม.1 (สอนสด)</a>
+        </h3>
+                    <p class="course-card-sub">จำนวน 70 ชั่วโมง · สอนสด</p>
+                <p class="course-card-desc">คอร์สติวเข้มสอบเข้า ม.1 วิชาสังคมศึกษา จำนวน 70 ชั่วโมง รูปแบบสอนสด
+
+เน้นเนื้อหาที่ออกสอบบ่อย เทค...</p>
+                    <ul class="course-tags">
+                                    <li>สอนสด 70 ชั่วโมง
+เน้นข้อสอบเข้า ม.1
+เอกสารประกอบการเรียน
+เข้าถึงคอร์ส 1 ปี</li>
+                            </ul>
+                <div class="course-mini-meta" aria-label="ข้อมูลคอร์ส">
+            <div class="course-mini-item" title="จำนวนบทเรียน">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg>                <span>0</span>
+            </div>
+            <div class="course-mini-item" title="ระยะเวลา">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></svg>                <span>70 ชม.</span>
+            </div>
+            <div class="course-mini-item" title="หมวดหมู่">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg>                <span>ติวสอบ</span>
+            </div>
+        </div>
+        <div class="course-card-footer">
+            <div class="course-price">6,999 บาท</div>
+        </div>
+        <div class="course-card-actions">
+            <a href="http://localhost/LMS/public/cart_add.php?course_id=13&amp;return=%2Fpublic%2F" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>            </a>
+            <a href="http://localhost/LMS/public/book.php?course=m1-intensive-live" class="course-buy-main-btn">จองคลาส Live</a>
+        </div>
+    </div>
+</article>
+                            <article class="course-card" data-category="exam_prep" data-type="recorded">
+    <a href="http://localhost/LMS/public/course.php?slug=m1-intensive-online" class="course-card-image-link">
+        <div class="course-card-image">
+            <img src="http://localhost/LMS/assets/images/courses/cover-exam.svg?v=1783405229" alt="คอร์สติวเข้มสอบเข้า ม.1 (ออนไลน์)" loading="lazy">
+            <div class="course-card-image-overlay">
+                <span class="badge badge-red">ติวสอบ</span>
+                <span class="badge badge-gold">เริ่มต้น</span>
+                            </div>
+        </div>
+    </a>
+    <div class="course-card-body">
+        <h3 class="course-card-title">
+            <a href="http://localhost/LMS/public/course.php?slug=m1-intensive-online">คอร์สติวเข้มสอบเข้า ม.1 (ออนไลน์)</a>
+        </h3>
+                    <p class="course-card-sub">จำนวน 70 ชั่วโมง · ออนไลน์ / ย้อนหลัง</p>
+                <p class="course-card-desc">คอร์สติวเข้มสอบเข้า ม.1 วิชาสังคมศึกษา จำนวน 70 ชั่วโมง รูปแบบออนไลน์
+
+เน้นเนื้อหาที่ออกสอบบ่อย เ...</p>
+                    <ul class="course-tags">
+                                    <li>ออนไลน์ 70 ชั่วโมง
+ดูย้อนหลังได้
+เอกสารประกอบการเรียน
+เข้าถึงคอร์ส 1 ปี</li>
+                            </ul>
+                <div class="course-mini-meta" aria-label="ข้อมูลคอร์ส">
+            <div class="course-mini-item" title="จำนวนบทเรียน">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg>                <span>0</span>
+            </div>
+            <div class="course-mini-item" title="ระยะเวลา">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></svg>                <span>70 ชม.</span>
+            </div>
+            <div class="course-mini-item" title="หมวดหมู่">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg>                <span>ติวสอบ</span>
+            </div>
+        </div>
+        <div class="course-card-footer">
+            <div class="course-price">2,999 บาท</div>
+        </div>
+        <div class="course-card-actions">
+            <a href="http://localhost/LMS/public/cart_add.php?course_id=14&amp;return=%2Fpublic%2F" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>            </a>
+            <a href="http://localhost/LMS/public/cart_buy.php?course_id=14" class="course-buy-main-btn">ซื้อคอร์สนี้</a>
+        </div>
+    </div>
+</article>
+                            <article class="course-card" data-category="exam_prep" data-type="live">
+    <a href="http://localhost/LMS/public/course.php?slug=m4-intensive-live" class="course-card-image-link">
+        <div class="course-card-image">
+            <img src="http://localhost/LMS/assets/images/courses/cover-exam.svg?v=1783405229" alt="คอร์สติวเข้มสอบเข้า ม.4 (สอนสด)" loading="lazy">
+            <div class="course-card-image-overlay">
+                <span class="badge badge-red">ติวสอบ</span>
+                <span class="badge badge-gold">ปานกลาง</span>
+                                <span class="badge badge-live">คลาสออนไลน์ (Live)</span>
+                            </div>
+        </div>
+    </a>
+    <div class="course-card-body">
+        <h3 class="course-card-title">
+            <a href="http://localhost/LMS/public/course.php?slug=m4-intensive-live">คอร์สติวเข้มสอบเข้า ม.4 (สอนสด)</a>
+        </h3>
+                    <p class="course-card-sub">จำนวน 70 ชั่วโมง · สอนสด</p>
+                <p class="course-card-desc">คอร์สติวเข้มสอบเข้า ม.4 วิชาสังคมศึกษา จำนวน 70 ชั่วโมง รูปแบบสอนสด
+
+ราคาออนไลน์: 2,999 บาท</p>
+                    <ul class="course-tags">
+                                    <li>สอนสด 70 ชั่วโมง
+เน้นข้อสอบเข้า ม.4
+เอกสารประกอบการเรียน
+เข้าถึงคอร์ส 1 ปี</li>
+                            </ul>
+                <div class="course-mini-meta" aria-label="ข้อมูลคอร์ส">
+            <div class="course-mini-item" title="จำนวนบทเรียน">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg>                <span>0</span>
+            </div>
+            <div class="course-mini-item" title="ระยะเวลา">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></svg>                <span>70 ชม.</span>
+            </div>
+            <div class="course-mini-item" title="หมวดหมู่">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg>                <span>ติวสอบ</span>
+            </div>
+        </div>
+        <div class="course-card-footer">
+            <div class="course-price">6,999 บาท</div>
+        </div>
+        <div class="course-card-actions">
+            <a href="http://localhost/LMS/public/cart_add.php?course_id=15&amp;return=%2Fpublic%2F" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>            </a>
+            <a href="http://localhost/LMS/public/book.php?course=m4-intensive-live" class="course-buy-main-btn">จองคลาส Live</a>
+        </div>
+    </div>
+</article>
+                            <article class="course-card" data-category="exam_prep" data-type="recorded">
+    <a href="http://localhost/LMS/public/course.php?slug=m4-intensive-online" class="course-card-image-link">
+        <div class="course-card-image">
+            <img src="http://localhost/LMS/assets/images/courses/cover-exam.svg?v=1783405229" alt="คอร์สติวเข้มสอบเข้า ม.4 (ออนไลน์)" loading="lazy">
+            <div class="course-card-image-overlay">
+                <span class="badge badge-red">ติวสอบ</span>
+                <span class="badge badge-gold">ปานกลาง</span>
+                            </div>
+        </div>
+    </a>
+    <div class="course-card-body">
+        <h3 class="course-card-title">
+            <a href="http://localhost/LMS/public/course.php?slug=m4-intensive-online">คอร์สติวเข้มสอบเข้า ม.4 (ออนไลน์)</a>
+        </h3>
+                    <p class="course-card-sub">จำนวน 70 ชั่วโมง · ออนไลน์ / ย้อนหลัง</p>
+                <p class="course-card-desc">คอร์สติวเข้มสอบเข้า ม.4 วิชาสังคมศึกษา จำนวน 70 ชั่วโมง รูปแบบออนไลน์
+
+ราคาสอนสด: 6,999 บาท</p>
+                    <ul class="course-tags">
+                                    <li>ออนไลน์ 70 ชั่วโมง
+ดูย้อนหลังได้
+เอกสารประกอบการเรียน
+เข้าถึงคอร์ส 1 ปี</li>
+                            </ul>
+                <div class="course-mini-meta" aria-label="ข้อมูลคอร์ส">
+            <div class="course-mini-item" title="จำนวนบทเรียน">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg>                <span>0</span>
+            </div>
+            <div class="course-mini-item" title="ระยะเวลา">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></svg>                <span>70 ชม.</span>
+            </div>
+            <div class="course-mini-item" title="หมวดหมู่">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg>                <span>ติวสอบ</span>
+            </div>
+        </div>
+        <div class="course-card-footer">
+            <div class="course-price">2,999 บาท</div>
+        </div>
+        <div class="course-card-actions">
+            <a href="http://localhost/LMS/public/cart_add.php?course_id=16&amp;return=%2Fpublic%2F" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>            </a>
+            <a href="http://localhost/LMS/public/cart_buy.php?course_id=16" class="course-buy-main-btn">ซื้อคอร์สนี้</a>
+        </div>
+    </div>
+</article>
+                            <article class="course-card" data-category="exam_prep" data-type="live">
+    <a href="http://localhost/LMS/public/course.php?slug=alevel-social-live" class="course-card-image-link">
+        <div class="course-card-image">
+            <img src="http://localhost/LMS/assets/images/courses/cover-exam.svg?v=1783405229" alt="คอร์สติวเข้มสอบ A-Level สังคมศึกษา (สอนสด)" loading="lazy">
+            <div class="course-card-image-overlay">
+                <span class="badge badge-red">ติวสอบ</span>
+                <span class="badge badge-gold">ขั้นสูง</span>
+                                <span class="badge badge-live">คลาสออนไลน์ (Live)</span>
+                            </div>
+        </div>
+    </a>
+    <div class="course-card-body">
+        <h3 class="course-card-title">
+            <a href="http://localhost/LMS/public/course.php?slug=alevel-social-live">คอร์สติวเข้มสอบ A-Level สังคมศึกษา (สอนสด)</a>
+        </h3>
+                    <p class="course-card-sub">เตรียมสอบ A-Level สังคมศึกษา · สอนสด</p>
+                <p class="course-card-desc">คอร์สติวเข้มสอบ A-Level วิชาสังคมศึกษา รูปแบบสอนสด
+
+ราคาออนไลน์: 2,999 บาท</p>
+                    <ul class="course-tags">
+                                    <li>สอนสด
+โฟกัส A-Level สังคม
+เทคนิคทำข้อสอบ
+เข้าถึงคอร์ส 1 ปี</li>
+                            </ul>
+                <div class="course-mini-meta" aria-label="ข้อมูลคอร์ส">
+            <div class="course-mini-item" title="จำนวนบทเรียน">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg>                <span>0</span>
+            </div>
+            <div class="course-mini-item" title="ระยะเวลา">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></svg>                <span>70 ชม.</span>
+            </div>
+            <div class="course-mini-item" title="หมวดหมู่">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg>                <span>ติวสอบ</span>
+            </div>
+        </div>
+        <div class="course-card-footer">
+            <div class="course-price">6,999 บาท</div>
+        </div>
+        <div class="course-card-actions">
+            <a href="http://localhost/LMS/public/cart_add.php?course_id=17&amp;return=%2Fpublic%2F" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>            </a>
+            <a href="http://localhost/LMS/public/book.php?course=alevel-social-live" class="course-buy-main-btn">จองคลาส Live</a>
+        </div>
+    </div>
+</article>
+                            <article class="course-card" data-category="exam_prep" data-type="recorded">
+    <a href="http://localhost/LMS/public/course.php?slug=alevel-social-online" class="course-card-image-link">
+        <div class="course-card-image">
+            <img src="http://localhost/LMS/assets/images/courses/cover-exam.svg?v=1783405229" alt="คอร์สติวเข้มสอบ A-Level สังคมศึกษา (ออนไลน์)" loading="lazy">
+            <div class="course-card-image-overlay">
+                <span class="badge badge-red">ติวสอบ</span>
+                <span class="badge badge-gold">ขั้นสูง</span>
+                            </div>
+        </div>
+    </a>
+    <div class="course-card-body">
+        <h3 class="course-card-title">
+            <a href="http://localhost/LMS/public/course.php?slug=alevel-social-online">คอร์สติวเข้มสอบ A-Level สังคมศึกษา (ออนไลน์)</a>
+        </h3>
+                    <p class="course-card-sub">เตรียมสอบ A-Level สังคมศึกษา · ออนไลน์</p>
+                <p class="course-card-desc">คอร์สติวเข้มสอบ A-Level วิชาสังคมศึกษา รูปแบบออนไลน์
+
+ราคาสอนสด: 6,999 บาท</p>
+                    <ul class="course-tags">
+                                    <li>ออนไลน์
+โฟกัส A-Level สังคม
+ดูย้อนหลังได้
+เข้าถึงคอร์ส 1 ปี</li>
+                            </ul>
+                <div class="course-mini-meta" aria-label="ข้อมูลคอร์ส">
+            <div class="course-mini-item" title="จำนวนบทเรียน">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></svg>                <span>0</span>
+            </div>
+            <div class="course-mini-item" title="ระยะเวลา">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></svg>                <span>70 ชม.</span>
+            </div>
+            <div class="course-mini-item" title="หมวดหมู่">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></svg>                <span>ติวสอบ</span>
+            </div>
+        </div>
+        <div class="course-card-footer">
+            <div class="course-price">2,999 บาท</div>
+        </div>
+        <div class="course-card-actions">
+            <a href="http://localhost/LMS/public/cart_add.php?course_id=18&amp;return=%2Fpublic%2F" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>            </a>
+            <a href="http://localhost/LMS/public/cart_buy.php?course_id=18" class="course-buy-main-btn">ซื้อคอร์สนี้</a>
+        </div>
+    </div>
+</article>
+                    </div>
+            </div>
+</section>
+
+<section class="leona-section leona-section-soft" id="tutors">
+    <div class="container leona-tutors-layout">
+        <div class="leona-tutors-block leona-reveal">
+            <header class="leona-section-head leona-section-head-left">
+                <span class="leona-ornament" aria-hidden="true"></span>
+                <h2>ทีมติวเตอร์</h2>
+            </header>
+            <div class="leona-tutor-card">
+                <div class="leona-tutor-photo">
+                                        <img src="http://localhost/LMS/assets/images/instructor/wenxin-portrait.png" alt="ครูบอล" loading="lazy">
+                                    </div>
+                <div class="leona-tutor-meta">
+                    <h3>ครูบอล</h3>
+                    <p class="leona-tutor-role">ผู้สอนหลัก · กวดวิชาเดอะลีโอน่า</p>
+                    <p>ติวสังคมศึกษาและประวัติศาสตร์ · เตรียมสอบเข้า ม.1 ม.4 และ A-Level</p>
+                    <a href="http://localhost/LMS/public/instructor.php" class="section-link-more">ดูโปรไฟล์ →</a>
+                </div>
+            </div>
+        </div>
+        <div class="leona-reviews-block" id="reviews">
+            <header class="leona-section-head leona-section-head-left leona-reveal">
+                <span class="leona-ornament" aria-hidden="true"></span>
+                <h2>รีวิวจากผู้ปกครอง</h2>
+            </header>
+            <div class="leona-review-list">
+                                <article class="leona-review-card leona-reveal">
+                    <div class="leona-review-top">
+                        <span class="leona-review-avatar" style="--avatar-hue: 160">
+                            ผ                        </span>
+                        <div>
+                            <div class="review-stars" aria-label="5 จาก 5 ดาว">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                            </div>
+                            <strong>คุณผู้ปกครอง ม.1</strong>
+                        </div>
+                    </div>
+                    <blockquote>&ldquo;เนื้อหาเข้าใจง่าย มีเทคนิคทำข้อสอบชัดเจน เตรียมสอบเข้า ม.1 ได้มั่นใจขึ้นมาก&rdquo;</blockquote>
+                </article>
+                                <article class="leona-review-card leona-reveal">
+                    <div class="leona-review-top">
+                        <span class="leona-review-avatar" style="--avatar-hue: 40">
+                            น                        </span>
+                        <div>
+                            <div class="review-stars" aria-label="5 จาก 5 ดาว">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="review-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                                                            </div>
+                            <strong>คุณนักเรียน ม.ต้น</strong>
+                        </div>
+                    </div>
+                    <blockquote>&ldquo;พื้นฐานไม่แน่นมาก่อน แต่เรียนแล้วจับประเด็นได้เร็วขึ้น เอกสารสรุปดีมาก&rdquo;</blockquote>
+                </article>
+                            </div>
+        </div>
+    </div>
+</section>
+
+<section class="leona-promo" aria-label="โปรโมชั่น">
+    <div class="container leona-promo-inner leona-reveal">
+        <div class="leona-promo-badge" aria-hidden="true">
+            <span>SPECIAL</span>
+            <strong>OFFER</strong>
+        </div>
+        <div class="leona-promo-copy">
+            <p class="leona-promo-kicker">สมัครวันนี้ รับส่วนลดทันที</p>
+            <h2><span>25%</span> เมื่อสมัครคอร์สเรียนครั้งแรก</h2>
+            <p>ใช้รหัส <strong>FIRST25</strong> · นักเรียนเก่าใช้ <strong>ALUMNI10</strong> ลด 10%</p>
+        </div>
+        <a href="http://localhost/LMS/public/register.php" class="btn leona-promo-btn">สมัครเลย →</a>
+    </div>
+</section>
+
+<section class="leona-contact-strip">
+    <div class="container leona-contact-strip-inner">
+        <p>สอบถามรอบเรียนกับครูบอลได้เลย</p>
+        <div class="leona-contact-strip-actions">
+                        <a href="tel:082-8672627" class="btn btn-outline">082-8672627</a>
+                        <a href="http://localhost/LMS/public/contact.php" class="btn btn-primary">ติดต่อเรา</a>
+        </div>
+    </div>
+</section>
+
+<script>
+(() => {
+  const nodes = document.querySelectorAll('.leona-reveal');
+  if (!nodes.length) return;
+  if (!('IntersectionObserver' in window)) {
+    nodes.forEach((el) => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+  nodes.forEach((el) => io.observe(el));
+})();
+</script>
+
+<div class="contact-fab" id="contactFab">
+    <div class="contact-fab-panel" id="contactFabPanel" role="dialog" aria-label="ช่องทางติดต่อ" aria-hidden="true">
+        <div class="contact-fab-head">
+            <strong>ติดต่อเรา</strong>
+            <button type="button" class="contact-fab-close" id="contactFabClose" aria-label="ปิด">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg>            </button>
+        </div>
+        <ul class="contact-fab-list">
+                        <li>
+                <a href="https://www.facebook.com/search/top?q=%E0%B8%84%E0%B8%A3%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%20%E0%B8%AA%E0%B8%AD%E0%B8%99%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1" class="contact-fab-link contact-fab-link--fb" target="_blank" rel="noopener">
+                    <span class="contact-fab-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>                    </span>
+                    <span class="contact-fab-text">
+                        <span class="contact-fab-label">Facebook</span>
+                        <span class="contact-fab-value">Facebook</span>
+                    </span>
+                </a>
+            </li>
+                        <li>
+                <a href="tel:082-8672627" class="contact-fab-link contact-fab-link--phone">
+                    <span class="contact-fab-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>                    </span>
+                    <span class="contact-fab-text">
+                        <span class="contact-fab-label">โทรศัพท์</span>
+                        <span class="contact-fab-value">082-8672627</span>
+                    </span>
+                </a>
+            </li>
+                        <li>
+                <a href="mailto:admin@theleonatutors.com" class="contact-fab-link contact-fab-link--email">
+                    <span class="contact-fab-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>                    </span>
+                    <span class="contact-fab-text">
+                        <span class="contact-fab-label">อีเมล</span>
+                        <span class="contact-fab-value">admin@theleonatutors.com</span>
+                    </span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    <div class="contact-fab-anchor">
+        <div class="contact-fab-bubble" id="contactFabBubble" role="status" aria-live="polite" aria-hidden="true">
+            <button type="button" class="contact-fab-bubble-close" id="contactFabBubbleClose" aria-label="ปิดข้อความ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg>            </button>
+            <p class="contact-fab-bubble-text"><strong>น้องหน่อไม้</strong>สวัสดีครับ มีอะไรให้ช่วยเหลือไหมครับ?</p>
+        </div>
+        <button
+            type="button"
+            class="contact-fab-hit"
+            id="contactFabTrigger"
+            aria-expanded="false"
+            aria-controls="contactFabPanel"
+            aria-label="ติดต่อเรา"
+        ></button>
+        <img
+            src="http://localhost/LMS/assets/images/contact/contact-fab-mascot.png?v=1781245652"
+            class="contact-fab-mascot"
+            alt=""
+            width="128"
+            height="128"
+            loading="lazy"
+            decoding="async"
+            aria-hidden="true"
+        >
+    </div>
+</div>
+
+</main>
+
+<footer class="site-footer" id="contact">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+            <a href="http://localhost/LMS/public/index.php" class="footer-brand-link">
+                <img src="http://localhost/LMS/assets/images/logo.png" alt="กวดวิชาเดอะลีโอน่า" class="footer-logo">
+                <span class="footer-brand-name">THE LEONA TUTORS</span>
+            </a>
+            <p class="footer-desc">ติวสังคมศึกษา ศาสนา หน้าที่พลเมือง เศรษฐศาสตร์ ภูมิศาสตร์ ประวัติศาสตร์ และกฎหมาย — เน้นความเข้าใจควบคู่ทำข้อสอบ</p>
+            <div class="footer-social">
+                                <a href="https://www.facebook.com/search/top?q=%E0%B8%84%E0%B8%A3%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%20%E0%B8%AA%E0%B8%AD%E0%B8%99%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1" class="footer-social-link footer-social-fb" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>                </a>
+                                                                <a href="tel:082-8672627" class="footer-social-link footer-social-phone" aria-label="โทรศัพท์">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>                </a>
+                                                <a href="mailto:admin@theleonatutors.com" class="footer-social-link footer-social-email" aria-label="อีเมล">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>                </a>
+                                <a href="#" class="footer-social-link footer-social-tiktok" aria-label="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.75a8.18 8.18 0 0 0 4.76 1.52V6.82a4.85 4.85 0 0 1-1-.13z"/></svg>                </a>
+                            </div>
+        </div>
+
+        <div class="footer-col">
+
+            <h4>คอร์สเรียน</h4>
+
+            <ul>
+
+                
+                <li><a href="http://localhost/LMS/public/course.php?slug=m1-intensive-live">คอร์สติวเข้มสอบเข้า ม.1 (สอนสด)</a></li>
+
+                
+                <li><a href="http://localhost/LMS/public/course.php?slug=m1-intensive-online">คอร์สติวเข้มสอบเข้า ม.1 (ออนไลน์)</a></li>
+
+                
+                <li><a href="http://localhost/LMS/public/course.php?slug=m4-intensive-live">คอร์สติวเข้มสอบเข้า ม.4 (สอนสด)</a></li>
+
+                
+                <li><a href="http://localhost/LMS/public/course.php?slug=m4-intensive-online">คอร์สติวเข้มสอบเข้า ม.4 (ออนไลน์)</a></li>
+
+                
+                <li><a href="http://localhost/LMS/public/course.php?slug=alevel-social-live">คอร์สติวเข้มสอบ A-Level สังคมศึกษา (สอนสด)</a></li>
+
+                
+                <li><a href="http://localhost/LMS/public/course.php?slug=alevel-social-online">คอร์สติวเข้มสอบ A-Level สังคมศึกษา (ออนไลน์)</a></li>
+
+                
+                <li><a href="http://localhost/LMS/public/course.php?slug=foundation-primary">คอร์สปรับพื้นฐานสังคม–ประวัติฯ (ประถมศึกษา)</a></li>
+
+                
+                <li><a href="http://localhost/LMS/public/course.php?slug=foundation-lower-secondary">คอร์สปรับพื้นฐานสังคม–ประวัติฯ (มัธยมต้น)</a></li>
+
+                
+                
+            </ul>
+
+        </div>
+
+        <div class="footer-col">
+
+            <h4>เกี่ยวกับเรา</h4>
+
+            <ul>
+
+                                <li><a href="http://localhost/LMS/public/index.php">เกี่ยวกับเรา</a></li>
+                                <li><a href="http://localhost/LMS/public/instructor.php">อาจารย์ผู้สอน</a></li>
+                                <li><a href="http://localhost/LMS/public/index.php#reviews">รีวิวจากผู้เรียน</a></li>
+                                <li><a href="http://localhost/LMS/public/announcements.php">บอร์ดประชาสัมพันธ์</a></li>
+                
+            </ul>
+
+        </div>
+
+        <div class="footer-col">
+
+            <h4>ช่วยเหลือ</h4>
+
+            <ul>
+
+                                                <li><a href="http://localhost/LMS/public/faq.php">คำถามที่พบบ่อย</a></li>
+                                                <li><a href="http://localhost/LMS/public/register.php">วิธีการสมัครเรียน</a></li>
+                                                <li><a href="http://localhost/LMS/public/cart.php">แจ้งชำระเงิน</a></li>
+                                                <li><a href="http://localhost/LMS/public/contact.php">ติดต่อเรา</a></li>
+                
+            </ul>
+
+        </div>
+
+        <div class="footer-col footer-contact-col">
+
+            <h4>ติดต่อเรา</h4>
+
+            <ul class="footer-contact-list">
+
+                
+                
+                <li>
+                    <a href="tel:082-8672627" class="footer-contact-chip footer-contact-chip--phone">
+                        <span class="footer-contact-chip-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>                        </span>
+                        <span class="footer-contact-chip-text">
+                            <small>โทร</small>
+                            <strong>082-8672627</strong>
+                        </span>
+                    </a>
+                </li>
+
+                
+                
+                <li>
+                    <a href="mailto:admin@theleonatutors.com" class="footer-contact-chip footer-contact-chip--email">
+                        <span class="footer-contact-chip-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2" /> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>                        </span>
+                        <span class="footer-contact-chip-text">
+                            <small>อีเมล</small>
+                            <strong>admin@theleonatutors.com</strong>
+                        </span>
+                    </a>
+                </li>
+
+                
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <div class="container footer-bottom-inner">
+
+            <p>&copy; 2026 THE LEONA TUTORS. All Rights Reserved.</p>
+
+            <div class="footer-bottom-links">
+
+                <a href="http://localhost/LMS/public/privacy.php">นโยบายความเป็นส่วนตัว</a>
+
+                <span class="footer-bottom-sep" aria-hidden="true">|</span>
+
+                <a href="http://localhost/LMS/public/terms.php">เงื่อนไขการให้บริการ</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="http://localhost/LMS/assets/js/main.js"></script>
+
+</body>
+
+</html>
+
+

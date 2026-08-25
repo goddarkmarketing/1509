@@ -1,0 +1,25 @@
+{
+  "name": "wenxin-lms-tests",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:e2e": "playwright test tests/e2e",
+    "test:php": "php tests/php/run_all.php",
+    "test:php:schema": "php tests/php/schema_test.php",
+    "test:php:courses": "php tests/php/courses_test.php",
+    "test:php:booking": "php tests/php/booking_test.php",
+    "test:php:integration": "php tests/php/integration_flow_test.php",
+    "test:flow": "php tests/php/run_all.php && playwright test tests/e2e",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "build:admin": "tailwindcss -i resources/admin/css/app.css -o assets/css/admin.css --minify",
+    "watch:admin": "tailwindcss -i resources/admin/css/app.css -o assets/css/admin.css --watch"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@tailwindcss/cli": "^4.1.11",
+    "lucide-static": "^1.34.0",
+    "tailwindcss": "^4.1.11"
+  }
+}

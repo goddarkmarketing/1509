@@ -1,0 +1,448 @@
+@layer components {
+  /* ── Stats (TailAdmin metric cards) ── */
+  .stats-grid {
+    @apply mb-0 grid gap-6;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .stat-card {
+    @apply flex min-h-[120px] flex-col justify-between rounded-2xl border border-gray-200 bg-white p-6;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .stat-card h3 {
+    @apply mb-2 text-sm font-medium text-gray-500;
+    font-family: var(--font-body);
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .stat-card .stat-value {
+    @apply text-3xl font-bold leading-tight text-brand-500;
+    font-family: var(--font-body);
+  }
+
+  .stat-card.gold .stat-value {
+    color: var(--color-accent-gold);
+  }
+
+  .stat-card .stat-value.is-money {
+    @apply text-2xl;
+  }
+
+  .admin-panel-empty {
+    @apply px-6 py-10 text-center text-sm text-gray-500;
+  }
+
+  .admin-subsection {
+    @apply mt-8;
+  }
+
+  .admin-subsection:first-child {
+    @apply mt-0;
+  }
+
+  .admin-form-panel {
+    @apply mb-6 rounded-xl border border-gray-200 bg-gray-50 p-6;
+  }
+
+  /* ── Cards (TailAdmin rounded-2xl panels) ── */
+  .admin-card {
+    @apply mb-6 w-full overflow-hidden rounded-2xl border border-gray-200 bg-white;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .admin-card:last-child {
+    @apply mb-0;
+  }
+
+  .admin-card-header {
+    @apply flex min-h-[4.25rem] flex-wrap items-center justify-between gap-4 border-b border-gray-100 px-6 py-4;
+  }
+
+  .admin-card-header h2 {
+    @apply m-0 text-lg font-semibold text-gray-800;
+    font-family: var(--font-heading);
+  }
+
+  .admin-card-body {
+    @apply p-6;
+  }
+
+  .admin-card-body.is-flush {
+    @apply p-0;
+  }
+
+  .admin-card-body.is-flush .data-table th:first-child,
+  .admin-card-body.is-flush .data-table td:first-child,
+  .admin-card-body.is-flush .admin-table th:first-child,
+  .admin-card-body.is-flush .admin-table td:first-child {
+    @apply pl-6;
+  }
+
+  .admin-card-body.is-flush .data-table th:last-child,
+  .admin-card-body.is-flush .data-table td:last-child,
+  .admin-card-body.is-flush .admin-table th:last-child,
+  .admin-card-body.is-flush .admin-table td:last-child {
+    @apply pr-6;
+  }
+
+  .admin-grid-2 {
+    @apply grid w-full items-stretch gap-6;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-grid-2 > .admin-card {
+    @apply mb-0 h-full;
+  }
+
+  .admin-card-toolbar {
+    @apply w-full border-b border-gray-100 px-6 pb-5 pt-6;
+  }
+
+  .admin-card-toolbar .admin-filter-toolbar,
+  .admin-card-toolbar .admin-inline-form {
+    @apply mb-0;
+  }
+
+  .admin-card-toolbar .admin-inline-form {
+    @apply flex w-full flex-nowrap items-stretch gap-3;
+  }
+
+  .admin-card-toolbar .admin-inline-form .form-control {
+    @apply min-h-11 min-w-[180px] flex-1;
+  }
+
+  .admin-card-toolbar .admin-inline-form .btn,
+  .admin-card-toolbar .admin-inline-form .btn.btn-sm {
+    @apply inline-flex min-h-11 items-center justify-center self-stretch whitespace-nowrap px-5 text-sm;
+  }
+
+  .admin-card-toolbar + .admin-card-body.is-flush {
+    @apply pt-0;
+  }
+
+  .admin-card-header .table-actions {
+    @apply ml-auto;
+  }
+
+  /* ── Tables (TailAdmin table spacing) ── */
+  .data-table,
+  .admin-table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .data-table th,
+  .data-table td,
+  .admin-table th,
+  .admin-table td {
+    @apply border-b border-gray-200 px-5 py-4 text-left align-middle;
+  }
+
+  .data-table th,
+  .admin-table th {
+    @apply whitespace-nowrap bg-gray-50 text-xs font-medium uppercase tracking-wide text-gray-500;
+  }
+
+  .data-table tbody tr:last-child td,
+  .admin-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .data-table tbody tr:hover td,
+  .admin-table tbody tr:hover td {
+    @apply bg-gray-50;
+  }
+
+  .data-table tr.is-selected td,
+  .admin-table tr.is-selected td {
+    @apply bg-brand-50;
+  }
+
+  .data-table th.actions,
+  .admin-table th.actions,
+  .data-table td.actions,
+  .admin-table td.actions {
+    @apply min-w-[14rem] whitespace-nowrap text-right;
+  }
+
+  .table-actions {
+    @apply ml-auto flex flex-row flex-nowrap items-center justify-end gap-2;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .table-actions form {
+    @apply m-0 inline-flex shrink-0;
+  }
+
+  .table-actions .btn,
+  .table-actions .btn-sm {
+    @apply w-auto shrink-0;
+  }
+
+  .admin-table .col-thumb {
+    @apply w-[4.5rem] pr-2;
+  }
+
+  .admin-table-thumb {
+    @apply block h-11 w-16 rounded-lg border border-gray-200 bg-gray-100 object-cover;
+  }
+
+  .admin-table-thumb--empty {
+    @apply inline-flex items-center justify-center text-gray-400;
+  }
+
+  .data-table tbody td:not(.actions) a,
+  .admin-table tbody td:not(.actions) a {
+    @apply font-medium text-brand-500 no-underline hover:underline;
+  }
+
+  .data-table .actions a.btn,
+  .admin-table .actions a.btn,
+  .table-actions a.btn {
+    @apply font-medium no-underline;
+  }
+
+  .table-responsive {
+    @apply w-full overflow-x-auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-empty {
+    @apply px-6 py-10 text-center text-sm text-gray-500;
+  }
+
+  /* ── Forms (TailAdmin h-11 inputs) ── */
+  .form-row {
+    @apply grid gap-6;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-row-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .form-row-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .form-group {
+    @apply mb-5;
+  }
+
+  .form-group:last-child {
+    @apply mb-0;
+  }
+
+  .form-group label {
+    @apply mb-2 block text-sm font-medium text-gray-700;
+  }
+
+  .form-group label.admin-settings-label-with-icon {
+    @apply inline-flex items-center gap-2;
+  }
+
+  .form-group small,
+  .form-hint {
+    @apply mt-1.5 block text-xs leading-relaxed text-gray-500;
+  }
+
+  .form-control-follow {
+    @apply mt-2;
+  }
+
+  .form-preview-img {
+    @apply mt-3 block max-w-[220px] rounded-lg border border-gray-200;
+  }
+
+  .form-control {
+    @apply w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-800 shadow-xs transition-[border-color,box-shadow];
+    min-height: 2.75rem;
+  }
+
+  .form-control:focus {
+    @apply border-brand-500 outline-none;
+    box-shadow: var(--shadow-focus);
+  }
+
+  textarea.form-control {
+    @apply min-h-[120px] resize-y;
+  }
+
+  .form-group > label:has(input[type="checkbox"]),
+  .form-group > label:has(input[type="radio"]) {
+    @apply mb-0 inline-flex cursor-pointer items-center gap-2.5 font-normal text-gray-700;
+  }
+
+  .admin-form-section {
+    @apply mb-8 border-b border-gray-200 pb-8;
+  }
+
+  .admin-form-section:last-of-type {
+    @apply mb-0 border-b-0 pb-0;
+  }
+
+  .admin-form-section > h3,
+  .admin-card-body > h3 {
+    @apply mb-5 flex items-center gap-2 text-base font-semibold text-gray-800;
+  }
+
+  .admin-form-section > h3::before,
+  .admin-card-body > h3::before {
+    content: "";
+    @apply h-5 w-1 shrink-0 rounded-full bg-brand-500;
+  }
+
+  .admin-form-section h4,
+  .admin-subsection-title {
+    @apply mb-4 mt-6 text-sm font-semibold text-gray-600;
+  }
+
+  .admin-subform-panel {
+    @apply mb-8 rounded-xl border border-gray-200 bg-gray-50 p-6;
+  }
+
+  .admin-form-actions {
+    @apply mt-6 flex flex-wrap items-center gap-3 border-t border-gray-200 pt-6;
+  }
+
+  .admin-form-actions--compact {
+    @apply mt-3 border-t-0 pt-0;
+  }
+
+  .admin-inline-form {
+    @apply flex w-full flex-wrap items-center gap-3;
+  }
+
+  .admin-inline-form .form-control {
+    @apply min-w-[200px] flex-1;
+  }
+
+  .modal-form {
+    @apply w-full max-w-full;
+  }
+
+  /* ── Buttons (TailAdmin px-5 py-3.5 rounded-lg) ── */
+  .btn {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-lg border border-transparent px-5 py-3 text-sm font-medium no-underline transition-colors;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .btn-primary {
+    @apply border-brand-500 bg-brand-500 text-white hover:bg-brand-600 hover:border-brand-600;
+  }
+
+  .btn-secondary {
+    @apply border-gray-300 bg-white text-gray-700 hover:bg-gray-50;
+  }
+
+  .btn-outline {
+    @apply border-gray-300 bg-white text-gray-700 hover:bg-gray-50;
+  }
+
+  .btn-danger {
+    @apply border-red-600 bg-red-600 text-white hover:border-red-700 hover:bg-red-700;
+  }
+
+  .btn-sm {
+    @apply min-h-10 min-w-[5rem] px-4 py-2.5 text-sm;
+  }
+
+  .table-actions .btn-sm,
+  .data-table .actions .btn-sm,
+  .payment-action-form .btn-sm,
+  .coupons-row-actions .btn-sm {
+    @apply min-h-10 min-w-[5rem];
+  }
+
+  .btn-link {
+    @apply cursor-pointer border-none bg-transparent p-0 font-medium text-brand-500 underline shadow-none;
+  }
+
+  .btn-block {
+    @apply w-full;
+  }
+
+  .btn-with-icon {
+    @apply inline-flex items-center gap-2;
+  }
+
+  .btn-with-icon .btn-icon {
+    @apply shrink-0;
+  }
+
+  .admin-shortcuts {
+    @apply flex flex-wrap gap-3;
+  }
+
+  /* ── Badges & alerts ── */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+
+  .badge-pending {
+    @apply bg-amber-50 text-amber-700 ring-1 ring-amber-200/60 ring-inset;
+  }
+
+  .badge-verified,
+  .badge-completed {
+    @apply bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200/60 ring-inset;
+  }
+
+  .badge-rejected,
+  .badge-cancelled {
+    @apply bg-red-50 text-red-700 ring-1 ring-red-200/60 ring-inset;
+  }
+
+  .badge-active {
+    @apply bg-brand-50 text-brand-600 ring-1 ring-brand-100 ring-inset;
+  }
+
+  .alert {
+    @apply mb-6 w-full rounded-xl border px-4 py-3.5 text-sm;
+  }
+
+  .alert-success {
+    @apply border-emerald-200 bg-emerald-50 text-emerald-800;
+  }
+
+  .alert-error {
+    @apply border-red-200 bg-red-50 text-red-800;
+  }
+
+  @media (max-width: 1280px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .admin-grid-2,
+    .form-row,
+    .form-row-3 {
+      grid-template-columns: 1fr;
+    }
+
+    .form-row-4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .stats-grid,
+    .form-row-4 {
+      grid-template-columns: 1fr;
+    }
+
+    .admin-card-header,
+    .admin-card-body {
+      @apply px-4 py-4;
+    }
+
+    .data-table,
+    .admin-table {
+      @apply block overflow-x-auto;
+    }
+  }
+}

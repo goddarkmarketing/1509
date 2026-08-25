@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2172 724" role="img" aria-label="@+'44 1I 2)25C+I@G@#7H-H2"">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="55%" stop-color="#c41e24"/>
+      <stop offset="100%" stop-color="#8b1018"/>
+    </linearGradient>
+  </defs>
+  <rect width="2172" height="724" fill="url(#bg)"/>
+  <circle cx="1850" cy="120" r="280" fill="#fff" opacity=".06"/>
+  <circle cx="200" cy="620" r="200" fill="#fff" opacity=".05"/>
+  <text x="120" y="280" fill="#fff" font-family="Arial,sans-serif" font-size="88" font-weight="700">@#5" 2)251 Wenxin</text>
+  <text x="120" y="380" fill="#ffd6da" font-family="Arial,sans-serif" font-size="42">1I 2)25C+I@G@#7H-H2"  4-46 HSK 5</text>
+  <text x="120" y="480" fill="#fff" font-family="Arial,sans-serif" font-size="32" opacity=".9">-#L*--D%L#'# � @#5"DI85H8@'%2</text>
+</svg>
