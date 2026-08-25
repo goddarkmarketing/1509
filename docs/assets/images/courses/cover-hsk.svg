@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" role="img">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b1218"/>
+      <stop offset="50%" stop-color="#c41e24"/>
+      <stop offset="100%" stop-color="#d4a017"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="225" fill="url(#bg)"/>
+  <circle cx="80" cy="180" r="90" fill="#fff" opacity="0.08"/>
+  <text x="32" y="110" fill="#fff" font-family="sans-serif" font-size="52" font-weight="700">HSK</text>
+  <text x="32" y="155" fill="#f0c84a" font-family="sans-serif" font-size="20">คอร์สเรียนภาษาจีน</text>
+  <text x="32" y="195" fill="#fff" font-family="sans-serif" font-size="14" opacity="0.85">Wenxin Chinese</text>
+</svg>

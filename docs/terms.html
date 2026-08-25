@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <base href="/1509/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้อกำหนดการใช้งาน | กวดวิชาเดอะลีโอน่า</title>
+  <meta name="description" content="ติวสังคมศึกษา ประวัติศาสตร์ · สอบเข้า ม.1 ม.4 และ A-Level">
+    <link rel="preload" href="assets/fonts/BetterTogether/BetterTogether-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts-bettertogether.css?v=1">
+    <link rel="stylesheet" href="assets/css/style.css?v=159">
+</head>
+<body class="">
+<style>
+.demo-preview-banner{position:sticky;top:0;z-index:9999;background:#1e3f3a;color:#fff;text-align:center;padding:.55rem 1rem;font-size:.88rem;font-family:BetterTogether,sans-serif}
+.demo-preview-banner a{color:#e2cc8a;margin-left:.5rem}
+.demo-preview-banner strong{color:#e2cc8a}
+</style>
+<div class="demo-preview-banner">
+  <strong>เดโมหน้าตาเท่านั้น</strong> — ยังไม่ได้เชื่อมระบบจริง (สมัคร/ล็อกอิน/ชำระเงินใช้ดูเลย์เอาต์ได้)
+  <a href="index.html">หน้าแรก</a>
+  <a href="courses.html">คอร์ส</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">ติดต่อ</a>
+</div>
+<header class="site-header leona-header" id="top">
+    <div class="container header-inner">
+        <a href="index.html" class="brand">
+            <span class="brand-text">
+                <strong>THE LEONA</strong>
+                <span>TUTORS</span>
+            </span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="เปิดเมนู">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav" id="siteNav">
+            <div class="site-nav-links">
+                <a href="index.html">หน้าแรก</a>
+                <a href="index.html#about">เกี่ยวกับเรา</a>
+                <a href="courses.html">คอร์สเรียน</a>
+                <a href="index.html#subjects">วิชาที่เปิดสอน</a>
+                <a href="index.html#reviews">รีวิว</a>
+                <a href="announcements.html">ข่าวสาร</a>
+                <a href="contact.html">ติดต่อเรา</a>
+            </div>
+            <div class="header-actions">
+                <button id="cartToggle" type="button" class="cart-toggle header-action-btn header-btn-cart" aria-controls="cartDrawer" aria-expanded="false" title="ตะกร้า">
+                    <span class="cart-toggle-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" />
+  <circle cx="19" cy="21" r="1" />
+  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>                    </span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                                <a href="register.html" class="btn btn-primary btn-sm header-action-btn header-btn-enroll">สมัครเรียน</a>
+                <a href="login.html" class="header-user-btn" aria-label="เข้าสู่ระบบ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" /></svg>                </a>
+                            </div>
+        </nav>
+    </div>
+</header>
+<div class="cart-overlay" id="cartOverlay" aria-hidden="true"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="ตะกร้าสินค้า">
+    <div class="cart-drawer-header">
+        <h3>ตะกร้าของคุณ</h3>
+        <button type="button" class="cart-close" id="cartCloseBtn" aria-label="ปิดตะกร้า"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></svg></button>
+    </div>
+    <div class="cart-drawer-body">
+                    <p class="cart-empty">ยังไม่มีคอร์สในตะกร้า</p>
+            </div>
+    <div class="cart-drawer-footer">
+        <div class="cart-total-row">
+            <span>รวม</span>
+            <strong>ติดต่อสอบถาม</strong>
+        </div>
+        <a class="btn btn-primary btn-block cart-checkout"
+           href="courses.html"
+           aria-disabled="true"
+           style="pointer-events:none;opacity:.6;">
+            ดูตะกร้า
+        </a>
+    </div>
+</aside>
+<main>
+
+<header class="page-header legal-page-header">
+    <div class="container">
+        <nav class="breadcrumb" aria-label="breadcrumb">
+            <a href="index.html">หน้าแรก</a>
+            <span aria-hidden="true">/</span>
+            <span>ข้อกำหนดการใช้งาน</span>
+        </nav>
+        <h1>ข้อกำหนดและเงื่อนไขการใช้งาน</h1>
+                    <p>อ่านเงื่อนไขการใช้บริการเว็บไซต์และคอร์สเรียนออนไลน์ของ กวดวิชาเดอะลีโอน่า</p>
+            </div>
+</header>
+
+<section class="legal-page-section">
+    <div class="container">
+        <div class="legal-page-toolbar">
+            <p class="legal-page-meta">
+                <span class="legal-page-meta-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v3" />
+  <path d="M16 2v3" />
+  <rect x="3" y="3" width="18" height="18" rx="2" />
+  <path d="M3 9h18" /></svg>                </span>
+                อัปเดตล่าสุด: 25/08/2026            </p>
+            <nav class="legal-page-tabs" aria-label="เอกสารทางกฎหมาย">
+                <a
+                    href="terms.html"
+                    class="legal-page-tab is-active"
+                    aria-current="page"                >ข้อกำหนดการใช้งาน</a>
+                <a
+                    href="privacy.html"
+                    class="legal-page-tab"
+                                    >นโยบายความเป็นส่วนตัว</a>
+            </nav>
+        </div>
+
+        <article class="legal-page-card">
+            <div class="legal-content prose-legal">
+                <p><strong>นโยบายการเรียน — กวดวิชาเดอะลีโอน่า</strong></p><ul><li>อายุการสมัครลงเรียน <strong>1 ปี</strong> สามารถเข้ามาดูเนื้อหาได้ตลอดในช่วงเวลานี้</li><li>รูปแบบเรียนขึ้นกับคอร์ส: สอนสด และ/หรือ ออนไลน์ / วิดีโอย้อนหลัง</li><li>หากคอร์สมีระบบย้อนหลัง นักเรียนสามารถทบทวนตามเงื่อนไขของคอร์สนั้น</li><li>โปรโมชั่น: เรียนครั้งแรกลด 25% (รหัส FIRST25) · นักเรียนเก่าลด 10% (รหัส ALUMNI10)</li></ul>            </div>
+        </article>
+
+        <div class="legal-page-actions">
+            <a href="index.html" class="btn btn-secondary">กลับหน้าแรก</a>
+            <a href="contact.html" class="btn btn-primary">ติดต่อเรา</a>
+        </div>
+    </div>
+</section>
+<div class="contact-fab" id="contactFab">
+    <div class="contact-fab-panel" id="contactFabPanel" role="dialog" aria-label="ช่องทางติดต่อ" aria-hidden="true">
+        <div class="contact-fab-head">
+            <strong>ติดต่อเรา</strong>
+            <button type="button" class="contact-fab-close" id="contactFabClose" aria-label="ปิด">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></svg>            </button>
+        </div>
+        <ul class="contact-fab-list">
+                        <li>
+                <a href="https://www.facebook.com/search/top?q=%E0%B8%84%E0%B8%A3%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%20%E0%B8%AA%E0%B8%AD%E0%B8%99%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1" class="contact-fab-link contact-fab-link--fb" target="_blank" rel="noopener">
+                    <span class="contact-fab-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073C24 5.446 18.627.073 12 .073S0 5.446 0 12.073C0 18.063 4.388 23.027 10.125 23.927v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073"/></svg>                    </span>
+                    <span class="contact-fab-text">
+                        <span class="contact-fab-label">Facebook</span>
+                        <span class="contact-fab-value">Facebook</span>
+                    </span>
+                </a>
+            </li>
+                        <li>
+                <a href="tel:082-8672627" class="contact-fab-link contact-fab-link--phone">
+                    <span class="contact-fab-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg>                    </span>
+                    <span class="contact-fab-text">
+                        <span class="contact-fab-label">โทรศัพท์</span>
+                        <span class="contact-fab-value">082-8672627</span>
+                    </span>
+                </a>
+            </li>
+                        <li>
+                <a href="mailto:admin@theleonatutors.com" class="contact-fab-link contact-fab-link--email">
+                    <span class="contact-fab-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+  <rect x="2" y="4" width="20" height="16" rx="2" /></svg>                    </span>
+                    <span class="contact-fab-text">
+                        <span class="contact-fab-label">อีเมล</span>
+                        <span class="contact-fab-value">admin@theleonatutors.com</span>
+                    </span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    <button
+        type="button"
+        class="contact-fab-hit"
+        id="contactFabTrigger"
+        aria-expanded="false"
+        aria-controls="contactFabPanel"
+        aria-label="ติดต่อเรา"
+    >
+        <span class="contact-fab-hit-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg>        </span>
+    </button>
+</div>
+
+</main>
+
+<footer class="site-footer" id="contact">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+            <a href="index.html" class="footer-brand-link">
+                <span class="footer-brand-name">THE LEONA TUTORS</span>
+            </a>
+            <p class="footer-desc">ติวสังคมศึกษา ประวัติศาสตร์ · สอบเข้า ม.1 ม.4 และ A-Level</p>
+            <div class="footer-social">
+                                <a href="https://www.facebook.com/search/top?q=%E0%B8%84%E0%B8%A3%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%20%E0%B8%AA%E0%B8%AD%E0%B8%99%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1" class="footer-social-link footer-social-fb" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12.073C24 5.446 18.627.073 12 .073S0 5.446 0 12.073C0 18.063 4.388 23.027 10.125 23.927v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073"/></svg>                </a>
+                                                                <a href="tel:082-8672627" class="footer-social-link footer-social-phone" aria-label="โทรศัพท์">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="#25D366" d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.02l-2.2 2.19z"/></svg>                </a>
+                                                <a href="mailto:admin@theleonatutors.com" class="footer-social-link footer-social-email" aria-label="อีเมล">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>                </a>
+                                                            </div>
+        </div>
+
+        <div class="footer-col">
+
+            <h4>คอร์สเรียน</h4>
+
+            <ul>
+
+                
+                
+                <li><a href="courses.html">ดูคอร์สทั้งหมด</a></li>
+
+                
+            </ul>
+
+        </div>
+
+        <div class="footer-col">
+
+            <h4>เกี่ยวกับเรา</h4>
+
+            <ul>
+
+                                <li><a href="index.html">เกี่ยวกับเรา</a></li>
+                                <li><a href="instructor.html">อาจารย์ผู้สอน</a></li>
+                                <li><a href="index.html#reviews">รีวิวจากผู้เรียน</a></li>
+                                <li><a href="announcements.html">บอร์ดประชาสัมพันธ์</a></li>
+                
+            </ul>
+
+        </div>
+
+        <div class="footer-col">
+
+            <h4>ช่วยเหลือ</h4>
+
+            <ul>
+
+                                                <li><a href="faq.html">คำถามที่พบบ่อย</a></li>
+                                                <li><a href="register.html">วิธีการสมัครเรียน</a></li>
+                                                <li><a href="courses.html">แจ้งชำระเงิน</a></li>
+                                                <li><a href="contact.html">ติดต่อเรา</a></li>
+                
+            </ul>
+
+        </div>
+
+        <div class="footer-col footer-contact-col">
+
+            <h4>ติดต่อเรา</h4>
+
+            <ul class="footer-contact-list">
+
+                
+                
+                <li>
+                    <a href="tel:082-8672627" class="footer-contact-chip footer-contact-chip--phone">
+                        <span class="footer-contact-chip-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="#25D366" d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.02l-2.2 2.19z"/></svg>                        </span>
+                        <span class="footer-contact-chip-text">
+                            <small>โทร</small>
+                            <strong>082-8672627</strong>
+                        </span>
+                    </a>
+                </li>
+
+                
+                
+                <li>
+                    <a href="mailto:admin@theleonatutors.com" class="footer-contact-chip footer-contact-chip--email">
+                        <span class="footer-contact-chip-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>                        </span>
+                        <span class="footer-contact-chip-text">
+                            <small>อีเมล</small>
+                            <strong>admin@theleonatutors.com</strong>
+                        </span>
+                    </a>
+                </li>
+
+                
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <div class="container footer-bottom-inner">
+
+            <p>&copy; 2026 กวดวิชาเดอะลีโอน่า. All Rights Reserved.</p>
+
+            <div class="footer-bottom-links">
+
+                <a href="privacy.html">นโยบายความเป็นส่วนตัว</a>
+
+                <span class="footer-bottom-sep" aria-hidden="true">|</span>
+
+                <a href="terms.html">เงื่อนไขการให้บริการ</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="assets/js/main.js?v=149"></script>
+
+</body>
+
+</html>
+
+

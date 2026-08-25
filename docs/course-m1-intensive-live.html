@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <base href="/1509/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คอร์สติวเข้มสอบเข้า ม.1 (สอนสด) | กวดวิชาเดอะลีโอน่า</title>
+  <meta name="description" content="ติวสังคมศึกษา ประวัติศาสตร์ · สอบเข้า ม.1 ม.4 และ A-Level">
+    <link rel="preload" href="assets/fonts/BetterTogether/BetterTogether-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts-bettertogether.css?v=1">
+    <link rel="stylesheet" href="assets/css/style.css?v=159">
+</head>
+<body class="">
+<style>
+.demo-preview-banner{position:sticky;top:0;z-index:9999;background:#1e3f3a;color:#fff;text-align:center;padding:.55rem 1rem;font-size:.88rem;font-family:BetterTogether,sans-serif}
+.demo-preview-banner a{color:#e2cc8a;margin-left:.5rem}
+.demo-preview-banner strong{color:#e2cc8a}
+</style>
+<div class="demo-preview-banner">
+  <strong>เดโมหน้าตาเท่านั้น</strong> — ยังไม่ได้เชื่อมระบบจริง (สมัคร/ล็อกอิน/ชำระเงินใช้ดูเลย์เอาต์ได้)
+  <a href="index.html">หน้าแรก</a>
+  <a href="courses.html">คอร์ส</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">ติดต่อ</a>
+</div>
+<header class="site-header leona-header" id="top">
+    <div class="container header-inner">
+        <a href="index.html" class="brand">
+            <span class="brand-text">
+                <strong>THE LEONA</strong>
+                <span>TUTORS</span>
+            </span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="เปิดเมนู">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav" id="siteNav">
+            <div class="site-nav-links">
+                <a href="index.html">หน้าแรก</a>
+                <a href="index.html#about">เกี่ยวกับเรา</a>
+                <a href="courses.html">คอร์สเรียน</a>
+                <a href="index.html#subjects">วิชาที่เปิดสอน</a>
+                <a href="index.html#reviews">รีวิว</a>
+                <a href="announcements.html">ข่าวสาร</a>
+                <a href="contact.html">ติดต่อเรา</a>
+            </div>
+            <div class="header-actions">
+                <button id="cartToggle" type="button" class="cart-toggle header-action-btn header-btn-cart" aria-controls="cartDrawer" aria-expanded="false" title="ตะกร้า">
+                    <span class="cart-toggle-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" />
+  <circle cx="19" cy="21" r="1" />
+  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>                    </span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                                <a href="register.html" class="btn btn-primary btn-sm header-action-btn header-btn-enroll">สมัครเรียน</a>
+                <a href="login.html" class="header-user-btn" aria-label="เข้าสู่ระบบ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" /></svg>                </a>
+                            </div>
+        </nav>
+    </div>
+</header>
+<div class="cart-overlay" id="cartOverlay" aria-hidden="true"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="ตะกร้าสินค้า">
+    <div class="cart-drawer-header">
+        <h3>ตะกร้าของคุณ</h3>
+        <button type="button" class="cart-close" id="cartCloseBtn" aria-label="ปิดตะกร้า"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></svg></button>
+    </div>
+    <div class="cart-drawer-body">
+                    <p class="cart-empty">ยังไม่มีคอร์สในตะกร้า</p>
+            </div>
+    <div class="cart-drawer-footer">
+        <div class="cart-total-row">
+            <span>รวม</span>
+            <strong>ติดต่อสอบถาม</strong>
+        </div>
+        <a class="btn btn-primary btn-block cart-checkout"
+           href="courses.html"
+           aria-disabled="true"
+           style="pointer-events:none;opacity:.6;">
+            ดูตะกร้า
+        </a>
+    </div>
+</aside>
+<main>
+
+<section class="course-hero">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">หน้าแรก</a> /
+            <a href="courses.html">คอร์ส</a> /
+            คอร์สติวเข้มสอบเข้า ม.1 (สอนสด)        </div>
+        <div class="course-card-meta">
+            <span class="badge badge-red">ติวสอบ</span>
+            <span class="badge badge-gold">เริ่มต้น</span>
+                        <span class="badge badge-live">คลาสออนไลน์ (Live)</span>
+                    </div>
+        <h1>คอร์สติวเข้มสอบเข้า ม.1 (สอนสด)</h1>
+                    <p class="course-hero-sub">จำนวน 70 ชั่วโมง · สอนสด</p>
+                        <div class="course-hero-actions">
+                                    <a href="#" class="btn btn-outline">จองคลาส Live</a>
+                                </div>
+            </div>
+</section>
+
+<section class="section course-detail-section">
+    <div class="container course-detail-grid">
+        <div class="course-detail-main">
+            <section class="course-block">
+                <h2 class="course-block-title">รายละเอียดคอร์ส</h2>
+                <p class="course-desc">คอร์สติวเข้มสอบเข้า ม.1 วิชาสังคมศึกษา จำนวน 70 ชั่วโมง รูปแบบสอนสด<br />
+<br />
+เน้นเนื้อหาที่ออกสอบบ่อย เทคนิคการทำข้อสอบ และการฝึกโจทย์อย่างเป็นระบบ<br />
+<br />
+ราคาออนไลน์: 2,999 บาท</p>
+            </section>
+
+            <section class="course-block">
+                <h2 class="course-block-title">คอร์สนี้เหมาะกับใคร</h2>
+                <ul class="course-bullet-list">
+                                            <li>ผู้ที่เรียนครบระดับแล้วและกำลังเตรียมสอบ HSK</li>
+                                            <li>ผู้ที่ต้องการฝึกทำข้อสอบและทบทวนจุดอ่อนก่อนสอบจริง</li>
+                                            <li>ผู้ที่ต้องการเทคนิคการทำข้อสอบและจัดการเวลาในห้องสอบ</li>
+                                    </ul>
+            </section>
+
+                        <section class="course-block">
+                <h2 class="course-block-title">สิ่งที่จะได้เรียน</h2>
+                <ul class="course-tags">
+                                            <li>สอนสด 70 ชั่วโมง
+เน้นข้อสอบเข้า ม.1
+เอกสารประกอบการเรียน
+เข้าถึงคอร์ส 1 ปี</li>
+                                    </ul>
+            </section>
+            
+            <section class="course-block">
+                <h2 class="course-block-title">สิ่งที่ได้รับหลังสมัคร</h2>
+                <div class="course-included-grid">
+                                            <div class="course-included-item">
+                            <div class="course-included-icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+  <rect x="2" y="6" width="14" height="12" rx="2" /></svg>                            </div>
+                            <div>
+                                <strong>วิดีโอบทเรียนออนไลน์</strong>
+                                <p>เรียนทีละบท ดูซ้ำได้ตามต้องการ</p>
+                            </div>
+                        </div>
+                                            <div class="course-included-item">
+                            <div class="course-included-icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
+  <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+  <path d="M10 9H8" />
+  <path d="M16 13H8" />
+  <path d="M16 17H8" /></svg>                            </div>
+                            <div>
+                                <strong>เอกสารประกอบ</strong>
+                                <p>ทบทวนและดาวน์โหลดตามที่อาจารย์แนบในแต่ละบท</p>
+                            </div>
+                        </div>
+                                            <div class="course-included-item">
+                            <div class="course-included-icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8" />
+  <path d="M10 19v-3.96 3.15" />
+  <path d="M7 19h5" />
+  <rect width="6" height="10" x="16" y="12" rx="2" /></svg>                            </div>
+                            <div>
+                                <strong>เรียนได้ทุกอุปกรณ์</strong>
+                                <p>เข้าเรียนผ่านมือถือ แท็บเล็ต หรือคอมพิวเตอร์</p>
+                            </div>
+                        </div>
+                                            <div class="course-included-item">
+                            <div class="course-included-icon" aria-hidden="true">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" />
+  <path d="m4.93 4.93 4.24 4.24" />
+  <path d="m14.83 9.17 4.24-4.24" />
+  <path d="m14.83 14.83 4.24 4.24" />
+  <path d="m9.17 14.83-4.24 4.24" />
+  <circle cx="12" cy="12" r="4" /></svg>                            </div>
+                            <div>
+                                <strong>สอบถามทีมงาน</strong>
+                                <p>ติดต่อผ่าน Line / Facebook หลังแจ้งชำระเงิน</p>
+                            </div>
+                        </div>
+                                    </div>
+            </section>
+
+            <section class="course-block">
+                <h2 class="course-block-title">หลักสูตร / บทเรียนในคอร์ส</h2>
+                                    <div class="lesson-empty">บทเรียนจะเพิ่มเติมเร็วๆ นี้ สามารถเพิ่มวิดีโอและเอกสารได้จากหลังบ้าน</div>
+                            </section>
+
+            
+            <section class="course-block course-payment-info">
+                <h2 class="course-block-title">วิธีเรียนและชำระเงิน</h2>
+                <ol class="course-steps-list">
+                    <li>เลือกคอร์สและกด <strong>ซื้อคอร์สนี้</strong> หรือเพิ่มลงตะกร้า</li>
+                    <li>โอนเงินตามบัญชี กรุงไทย เลขที่ </li>
+                    <li>แจ้งหลักฐานการโอนผ่านฟอร์มชำระเงิน</li>
+                    <li>ทีมงานเปิดสิทธิ์เรียน แล้วเข้าเรียนทีละบทได้ทันที</li>
+                </ol>
+                <a href="courses.html" class="btn btn-outline btn-sm">ดูตะกร้า / ชำระเงิน</a>
+            </section>
+
+            <section class="course-block">
+                <h2 class="course-block-title">คำถามที่พบบ่อย</h2>
+                <div class="course-faq">
+                                            <details class="course-faq-item">
+                            <summary>หลังชำระเงินแล้ว เปิดสิทธิ์เรียนเมื่อไหร่?</summary>
+                            <p>ทีมงานจะตรวจสอบสลิปและเปิดสิทธิ์ให้โดยเร็วที่สุด โดยปกติภายใน 1–2 วันทำการหลังแจ้งชำระเงิน</p>
+                        </details>
+                                            <details class="course-faq-item">
+                            <summary>เรียนซ้ำหรือย้อนดูบทเรียนได้ไหม?</summary>
+                            <p>ได้ครับ สามารถกลับมาดูวิดีโอและทบทวนเนื้อหาในบทที่เรียนแล้วได้ตลอด</p>
+                        </details>
+                                            <details class="course-faq-item">
+                            <summary>มีบททดลองเรียนฟรีไหม?</summary>
+                            <p>บทที่ระบุป้าย &quot;ทดลองเรียนฟรี&quot; สามารถเข้าเรียนได้ก่อนสมัครคอร์ส (ถ้ามีในคอร์สนั้น)</p>
+                        </details>
+                                            <details class="course-faq-item">
+                            <summary>ชำระเงินผ่านช่องทางไหนได้บ้าง?</summary>
+                            <p>โอนเงินตามบัญชีที่ระบบแสดง แล้วแจ้งหลักฐานการโอนผ่านฟอร์มชำระเงินบนเว็บไซต์</p>
+                        </details>
+                                            <details class="course-faq-item">
+                            <summary>สมัครหลายคอร์สพร้อมกันได้ไหม?</summary>
+                            <p>ได้ครับ เพิ่มคอร์สลงตะกร้าแล้วชำระรวมในครั้งเดียวได้</p>
+                        </details>
+                                    </div>
+            </section>
+        </div>
+
+        <aside class="course-sidebar">
+            <a href="course-m1-intensive-live.html" class="course-sidebar-cover-link">
+                <img src="assets/images/courses/leona-m1.jpg?v=1787627559" alt="คอร์สติวเข้มสอบเข้า ม.1 (สอนสด)" class="course-sidebar-cover">
+            </a>
+
+            <ul class="course-sidebar-stats" aria-label="ข้อมูลคอร์ส">
+                                                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6l4 2" /></svg>                    <span><strong>70</strong> ชั่วโมงโดยประมาณ</span>
+                </li>
+                                <li>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></svg>                    <span>ระดับ เริ่มต้น</span>
+                </li>
+                                            </ul>
+
+            <a href="instructor.html" class="instructor-chip instructor-chip--sidebar" title="ดูโปรไฟล์ผู้สอน">
+    <img
+        class="instructor-chip-avatar"
+        src="assets/images/instructor/wenxin-portrait.png"
+        alt="ครูบอล"
+        width="36"
+        height="36"
+        loading="lazy"
+    >
+    <span class="instructor-chip-text">
+        <span class="instructor-chip-label">ผู้สอน</span>
+        <span class="instructor-chip-name">ครูบอล</span>
+    </span>
+</a>
+
+            <div class="course-sidebar-price">6,999 บาท</div>
+
+            <div class="course-sidebar-actions">
+                                                                            <a href="#" class="btn btn-primary btn-block btn-sm">จองคลาส Live</a>
+                                        <a href="contact.html" class="btn btn-outline btn-block btn-sm">ติดต่อสอบถาม</a>
+                            </div>
+
+            <p class="course-sidebar-note">ชำระได้ด้วยโอนบัญชีกรุงไทย / สแกน QR Code หรือสอบถามชำระบัตรเครดิต หลังชำระกรุณาแจ้งหลักฐานเพื่อเปิดสิทธิ์เรียน (อายุการเข้าถึงคอร์ส 1 ปี)</p>
+        </aside>
+    </div>
+</section>
+
+<section class="section section-alt course-related-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>คอร์สที่เกี่ยวข้อง</h2>
+            <p>คอร์สอื่นในหมวด ติวสอบ ที่อาจเหมาะกับคุณ</p>
+        </div>
+        <div class="courses-grid">
+                            <article class="course-card" data-category="exam_prep" data-type="recorded">
+    <a href="course-m1-intensive-online.html" class="course-card-image-link">
+        <div class="course-card-image">
+            <img src="assets/images/courses/leona-m1.jpg?v=1787627559" alt="คอร์สติวเข้มสอบเข้า ม.1 (ออนไลน์)" loading="lazy">
+            <div class="course-card-image-overlay">
+                <span class="badge badge-red">ติวสอบ</span>
+                <span class="badge badge-gold">เริ่มต้น</span>
+                            </div>
+        </div>
+    </a>
+    <div class="course-card-body">
+        <h3 class="course-card-title">
+            <a href="course-m1-intensive-online.html">คอร์สติวเข้มสอบเข้า ม.1 (ออนไลน์)</a>
+        </h3>
+                    <ul class="course-tags">
+                                    <li>ออนไลน์ 70 ชั่วโมง
+ดูย้อนหลังได้
+เอกสารประกอบการเรียน
+เข้าถึงคอร์ส 1 ปี</li>
+                            </ul>
+                <div class="course-mini-meta" aria-label="ข้อมูลคอร์ส">
+            <div class="course-mini-item" title="จำนวนบทเรียน">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg>                <span>0</span>
+            </div>
+            <div class="course-mini-item" title="ระยะเวลา">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6l4 2" /></svg>                <span>70 ชม.</span>
+            </div>
+            <div class="course-mini-item" title="หมวดหมู่">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" />
+  <path d="M18 17V9" />
+  <path d="M13 17V5" />
+  <path d="M8 17v-3" /></svg>                <span>ติวสอบ</span>
+            </div>
+        </div>
+        <div class="course-card-footer">
+            <div class="course-price">2,999 บาท</div>
+        </div>
+        <div class="course-card-actions">
+            <a href="#" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" />
+  <circle cx="19" cy="21" r="1" />
+  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>            </a>
+            <a href="#" class="course-buy-main-btn">ซื้อคอร์สนี้</a>
+        </div>
+    </div>
+</article>
+                            <article class="course-card" data-category="exam_prep" data-type="live">
+    <a href="course-m4-intensive-live.html" class="course-card-image-link">
+        <div class="course-card-image">
+            <img src="assets/images/courses/leona-m4.jpg?v=1787627560" alt="คอร์สติวเข้มสอบเข้า ม.4 (สอนสด)" loading="lazy">
+            <div class="course-card-image-overlay">
+                <span class="badge badge-red">ติวสอบ</span>
+                <span class="badge badge-gold">ปานกลาง</span>
+                                <span class="badge badge-live">คลาสออนไลน์ (Live)</span>
+                            </div>
+        </div>
+    </a>
+    <div class="course-card-body">
+        <h3 class="course-card-title">
+            <a href="course-m4-intensive-live.html">คอร์สติวเข้มสอบเข้า ม.4 (สอนสด)</a>
+        </h3>
+                    <ul class="course-tags">
+                                    <li>สอนสด 70 ชั่วโมง
+เน้นข้อสอบเข้า ม.4
+เอกสารประกอบการเรียน
+เข้าถึงคอร์ส 1 ปี</li>
+                            </ul>
+                <div class="course-mini-meta" aria-label="ข้อมูลคอร์ส">
+            <div class="course-mini-item" title="จำนวนบทเรียน">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg>                <span>0</span>
+            </div>
+            <div class="course-mini-item" title="ระยะเวลา">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6l4 2" /></svg>                <span>70 ชม.</span>
+            </div>
+            <div class="course-mini-item" title="หมวดหมู่">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" />
+  <path d="M18 17V9" />
+  <path d="M13 17V5" />
+  <path d="M8 17v-3" /></svg>                <span>ติวสอบ</span>
+            </div>
+        </div>
+        <div class="course-card-footer">
+            <div class="course-price">6,999 บาท</div>
+        </div>
+        <div class="course-card-actions">
+            <a href="#" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" />
+  <circle cx="19" cy="21" r="1" />
+  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>            </a>
+            <a href="#" class="course-buy-main-btn">จองคลาส Live</a>
+        </div>
+    </div>
+</article>
+                            <article class="course-card" data-category="exam_prep" data-type="recorded">
+    <a href="course-m4-intensive-online.html" class="course-card-image-link">
+        <div class="course-card-image">
+            <img src="assets/images/courses/leona-m4.jpg?v=1787627560" alt="คอร์สติวเข้มสอบเข้า ม.4 (ออนไลน์)" loading="lazy">
+            <div class="course-card-image-overlay">
+                <span class="badge badge-red">ติวสอบ</span>
+                <span class="badge badge-gold">ปานกลาง</span>
+                            </div>
+        </div>
+    </a>
+    <div class="course-card-body">
+        <h3 class="course-card-title">
+            <a href="course-m4-intensive-online.html">คอร์สติวเข้มสอบเข้า ม.4 (ออนไลน์)</a>
+        </h3>
+                    <ul class="course-tags">
+                                    <li>ออนไลน์ 70 ชั่วโมง
+ดูย้อนหลังได้
+เอกสารประกอบการเรียน
+เข้าถึงคอร์ส 1 ปี</li>
+                            </ul>
+                <div class="course-mini-meta" aria-label="ข้อมูลคอร์ส">
+            <div class="course-mini-item" title="จำนวนบทเรียน">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg>                <span>0</span>
+            </div>
+            <div class="course-mini-item" title="ระยะเวลา">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6l4 2" /></svg>                <span>70 ชม.</span>
+            </div>
+            <div class="course-mini-item" title="หมวดหมู่">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" />
+  <path d="M18 17V9" />
+  <path d="M13 17V5" />
+  <path d="M8 17v-3" /></svg>                <span>ติวสอบ</span>
+            </div>
+        </div>
+        <div class="course-card-footer">
+            <div class="course-price">2,999 บาท</div>
+        </div>
+        <div class="course-card-actions">
+            <a href="#" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" />
+  <circle cx="19" cy="21" r="1" />
+  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>            </a>
+            <a href="#" class="course-buy-main-btn">ซื้อคอร์สนี้</a>
+        </div>
+    </div>
+</article>
+                    </div>
+    </div>
+</section>
+
+<div class="course-mobile-bar" aria-hidden="false">
+    <div class="course-mobile-bar-price">6,999 บาท</div>
+    <div class="course-mobile-bar-actions">
+        <a href="#" class="btn btn-outline btn-sm js-cart-add" aria-label="เพิ่มลงตะกร้า">ตะกร้า</a>
+        <a href="#" class="btn btn-primary btn-sm">ซื้อคอร์ส</a>
+    </div>
+</div>
+
+<script>document.body.classList.add('has-course-mobile-bar');</script>
+<div class="contact-fab" id="contactFab">
+    <div class="contact-fab-panel" id="contactFabPanel" role="dialog" aria-label="ช่องทางติดต่อ" aria-hidden="true">
+        <div class="contact-fab-head">
+            <strong>ติดต่อเรา</strong>
+            <button type="button" class="contact-fab-close" id="contactFabClose" aria-label="ปิด">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></svg>            </button>
+        </div>
+        <ul class="contact-fab-list">
+                        <li>
+                <a href="https://www.facebook.com/search/top?q=%E0%B8%84%E0%B8%A3%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%20%E0%B8%AA%E0%B8%AD%E0%B8%99%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1" class="contact-fab-link contact-fab-link--fb" target="_blank" rel="noopener">
+                    <span class="contact-fab-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073C24 5.446 18.627.073 12 .073S0 5.446 0 12.073C0 18.063 4.388 23.027 10.125 23.927v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073"/></svg>                    </span>
+                    <span class="contact-fab-text">
+                        <span class="contact-fab-label">Facebook</span>
+                        <span class="contact-fab-value">Facebook</span>
+                    </span>
+                </a>
+            </li>
+                        <li>
+                <a href="tel:082-8672627" class="contact-fab-link contact-fab-link--phone">
+                    <span class="contact-fab-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg>                    </span>
+                    <span class="contact-fab-text">
+                        <span class="contact-fab-label">โทรศัพท์</span>
+                        <span class="contact-fab-value">082-8672627</span>
+                    </span>
+                </a>
+            </li>
+                        <li>
+                <a href="mailto:admin@theleonatutors.com" class="contact-fab-link contact-fab-link--email">
+                    <span class="contact-fab-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+  <rect x="2" y="4" width="20" height="16" rx="2" /></svg>                    </span>
+                    <span class="contact-fab-text">
+                        <span class="contact-fab-label">อีเมล</span>
+                        <span class="contact-fab-value">admin@theleonatutors.com</span>
+                    </span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    <button
+        type="button"
+        class="contact-fab-hit"
+        id="contactFabTrigger"
+        aria-expanded="false"
+        aria-controls="contactFabPanel"
+        aria-label="ติดต่อเรา"
+    >
+        <span class="contact-fab-hit-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg>        </span>
+    </button>
+</div>
+
+</main>
+
+<footer class="site-footer" id="contact">
+
+    <div class="container footer-grid">
+
+        <div class="footer-brand">
+            <a href="index.html" class="footer-brand-link">
+                <span class="footer-brand-name">THE LEONA TUTORS</span>
+            </a>
+            <p class="footer-desc">ติวสังคมศึกษา ประวัติศาสตร์ · สอบเข้า ม.1 ม.4 และ A-Level</p>
+            <div class="footer-social">
+                                <a href="https://www.facebook.com/search/top?q=%E0%B8%84%E0%B8%A3%E0%B8%B9%E0%B8%9A%E0%B8%AD%E0%B8%A5%20%E0%B8%AA%E0%B8%AD%E0%B8%99%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1" class="footer-social-link footer-social-fb" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M24 12.073C24 5.446 18.627.073 12 .073S0 5.446 0 12.073C0 18.063 4.388 23.027 10.125 23.927v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073"/></svg>                </a>
+                                                                <a href="tel:082-8672627" class="footer-social-link footer-social-phone" aria-label="โทรศัพท์">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="#25D366" d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.02l-2.2 2.19z"/></svg>                </a>
+                                                <a href="mailto:admin@theleonatutors.com" class="footer-social-link footer-social-email" aria-label="อีเมล">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>                </a>
+                                                            </div>
+        </div>
+
+        <div class="footer-col">
+
+            <h4>คอร์สเรียน</h4>
+
+            <ul>
+
+                
+                
+                <li><a href="courses.html">ดูคอร์สทั้งหมด</a></li>
+
+                
+            </ul>
+
+        </div>
+
+        <div class="footer-col">
+
+            <h4>เกี่ยวกับเรา</h4>
+
+            <ul>
+
+                                <li><a href="index.html">เกี่ยวกับเรา</a></li>
+                                <li><a href="instructor.html">อาจารย์ผู้สอน</a></li>
+                                <li><a href="index.html#reviews">รีวิวจากผู้เรียน</a></li>
+                                <li><a href="announcements.html">บอร์ดประชาสัมพันธ์</a></li>
+                
+            </ul>
+
+        </div>
+
+        <div class="footer-col">
+
+            <h4>ช่วยเหลือ</h4>
+
+            <ul>
+
+                                                <li><a href="faq.html">คำถามที่พบบ่อย</a></li>
+                                                <li><a href="register.html">วิธีการสมัครเรียน</a></li>
+                                                <li><a href="courses.html">แจ้งชำระเงิน</a></li>
+                                                <li><a href="contact.html">ติดต่อเรา</a></li>
+                
+            </ul>
+
+        </div>
+
+        <div class="footer-col footer-contact-col">
+
+            <h4>ติดต่อเรา</h4>
+
+            <ul class="footer-contact-list">
+
+                
+                
+                <li>
+                    <a href="tel:082-8672627" class="footer-contact-chip footer-contact-chip--phone">
+                        <span class="footer-contact-chip-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill="#25D366" d="M6.62 10.79a15.15 15.15 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.02l-2.2 2.19z"/></svg>                        </span>
+                        <span class="footer-contact-chip-text">
+                            <small>โทร</small>
+                            <strong>082-8672627</strong>
+                        </span>
+                    </a>
+                </li>
+
+                
+                
+                <li>
+                    <a href="mailto:admin@theleonatutors.com" class="footer-contact-chip footer-contact-chip--email">
+                        <span class="footer-contact-chip-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#EA4335" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>                        </span>
+                        <span class="footer-contact-chip-text">
+                            <small>อีเมล</small>
+                            <strong>admin@theleonatutors.com</strong>
+                        </span>
+                    </a>
+                </li>
+
+                
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <div class="container footer-bottom-inner">
+
+            <p>&copy; 2026 กวดวิชาเดอะลีโอน่า. All Rights Reserved.</p>
+
+            <div class="footer-bottom-links">
+
+                <a href="privacy.html">นโยบายความเป็นส่วนตัว</a>
+
+                <span class="footer-bottom-sep" aria-hidden="true">|</span>
+
+                <a href="terms.html">เงื่อนไขการให้บริการ</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="assets/js/main.js?v=149"></script>
+
+</body>
+
+</html>
+
+

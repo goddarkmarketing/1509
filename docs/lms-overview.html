@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <base href="/1509/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>ระบบ LMS — รายละเอียดฟังก์ชั่น | กวดวิชาเดอะลีโอน่า</title>
+    <meta name="description" content="สรุปฟังก์ชั่นระบบ LMS: ขายคอร์ส ชำระเงิน เรียนวิดีโอ คลาส Live และหลังบ้านผู้ดูแล">
+    <link rel="preload" href="assets/fonts/BetterTogether/BetterTogether-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts-bettertogether.css?v=1">
+    <link rel="stylesheet" href="assets/css/lms-overview.css?v=1787642302">
+</head>
+<body class="lms-overview">
+<style>
+.demo-preview-banner{position:sticky;top:0;z-index:9999;background:#1e3f3a;color:#fff;text-align:center;padding:.55rem 1rem;font-size:.88rem;font-family:BetterTogether,sans-serif}
+.demo-preview-banner a{color:#e2cc8a;margin-left:.5rem}
+.demo-preview-banner strong{color:#e2cc8a}
+</style>
+<div class="demo-preview-banner">
+  <strong>เดโมหน้าตาเท่านั้น</strong> — ยังไม่ได้เชื่อมระบบจริง (สมัคร/ล็อกอิน/ชำระเงินใช้ดูเลย์เอาต์ได้)
+  <a href="index.html">หน้าแรก</a>
+  <a href="courses.html">คอร์ส</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">ติดต่อ</a>
+</div>
+    <main>
+        <section class="lo-hero">
+            <div class="lo-shell lo-hero-grid">
+                <div class="lo-hero-left">
+                    <p class="lo-label">เอกสารแนะนำระบบ</p>
+                    <h1>ระบบ LMS ออนไลน์<br>ครบวงจร</h1>
+                </div>
+                <div class="lo-hero-right">
+                    <p>แพลตฟอร์มสำหรับขายคอร์ส จัดการการเรียน การชำระเงิน และการเปิดสิทธิ์ผู้เรียน ในระบบเดียว</p>
+                    <div class="lo-actions">
+                        <a class="lo-btn" href="#functions">ดูฟังก์ชั่นทั้งหมด</a>
+                        <a class="lo-btn lo-btn--line" href="#contact">ขอรายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="lo-block lo-block--border" id="video">
+            <div class="lo-shell">
+                <div class="lo-video-head">
+                    <h2>ดูตัวอย่างระบบ</h2>
+                </div>
+
+                <div class="lo-video-showcase">
+                    <div class="lo-slide-wrap" data-lo-slider>
+                        <div class="lo-slide-viewport">
+                            <div class="lo-slide-track">
+                                                                <figure class="lo-slide-item is-active">
+                                    <div class="lo-phone">
+                                        <img
+                                            src="assets/images/lms-overview/slide-home.png"
+                                            alt="หน้าแรก"
+                                            loading="eager"
+                                            decoding="async"
+                                        >
+                                    </div>
+                                    <figcaption>
+                                        <strong>หน้าแรก</strong>
+                                        <span>แบนเนอร์และภาพรวมสถาบัน</span>
+                                    </figcaption>
+                                </figure>
+                                                                <figure class="lo-slide-item">
+                                    <div class="lo-phone">
+                                        <img
+                                            src="assets/images/lms-overview/slide-courses.png"
+                                            alt="รายการคอร์ส"
+                                            loading="lazy"
+                                            decoding="async"
+                                        >
+                                    </div>
+                                    <figcaption>
+                                        <strong>รายการคอร์ส</strong>
+                                        <span>ค้นหา กรอง และเลือกคอร์ส</span>
+                                    </figcaption>
+                                </figure>
+                                                                <figure class="lo-slide-item">
+                                    <div class="lo-phone">
+                                        <img
+                                            src="assets/images/lms-overview/slide-course.png"
+                                            alt="รายละเอียดคอร์ส"
+                                            loading="lazy"
+                                            decoding="async"
+                                        >
+                                    </div>
+                                    <figcaption>
+                                        <strong>รายละเอียดคอร์ส</strong>
+                                        <span>ข้อมูลคอร์ส ราคา และปุ่มซื้อ</span>
+                                    </figcaption>
+                                </figure>
+                                                                <figure class="lo-slide-item">
+                                    <div class="lo-phone">
+                                        <img
+                                            src="assets/images/lms-overview/slide-cart.png"
+                                            alt="ตะกร้าสินค้า"
+                                            loading="lazy"
+                                            decoding="async"
+                                        >
+                                    </div>
+                                    <figcaption>
+                                        <strong>ตะกร้าสินค้า</strong>
+                                        <span>สรุปรายการและรหัสส่วนลด</span>
+                                    </figcaption>
+                                </figure>
+                                                                <figure class="lo-slide-item">
+                                    <div class="lo-phone">
+                                        <img
+                                            src="assets/images/lms-overview/slide-payment.png"
+                                            alt="ชำระเงิน"
+                                            loading="lazy"
+                                            decoding="async"
+                                        >
+                                    </div>
+                                    <figcaption>
+                                        <strong>ชำระเงิน</strong>
+                                        <span>โอนธนาคารและบัตรเครดิต</span>
+                                    </figcaption>
+                                </figure>
+                                                            </div>
+                        </div>
+                        <div class="lo-slide-nav">
+                            <div class="lo-slide-dots" role="tablist" aria-label="จุดสไลด์">
+                                                                <button
+                                    type="button"
+                                    class="lo-slide-dot is-active"
+                                    data-lo-dot="0"
+                                    aria-label="หน้าแรก"
+                                    aria-selected="true"
+                                ></button>
+                                                                <button
+                                    type="button"
+                                    class="lo-slide-dot"
+                                    data-lo-dot="1"
+                                    aria-label="รายการคอร์ส"
+                                    aria-selected="false"
+                                ></button>
+                                                                <button
+                                    type="button"
+                                    class="lo-slide-dot"
+                                    data-lo-dot="2"
+                                    aria-label="รายละเอียดคอร์ส"
+                                    aria-selected="false"
+                                ></button>
+                                                                <button
+                                    type="button"
+                                    class="lo-slide-dot"
+                                    data-lo-dot="3"
+                                    aria-label="ตะกร้าสินค้า"
+                                    aria-selected="false"
+                                ></button>
+                                                                <button
+                                    type="button"
+                                    class="lo-slide-dot"
+                                    data-lo-dot="4"
+                                    aria-label="ชำระเงิน"
+                                    aria-selected="false"
+                                ></button>
+                                                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lo-video-player" data-lo-video>
+                        <video
+                            controls
+                            playsinline
+                            preload="metadata"
+                            controlslist="nodownload"
+                            title="วิดีโอแนะนำระบบ LMS"
+                        >
+                            <source src="assets/videos/lms-overview-web.mp4" type="video/mp4">
+                            เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+                        </video>
+                        <button type="button" class="lo-video-play-btn" data-lo-play aria-label="เล่นวิดีโอ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" /></svg>                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="lo-block" id="summary">
+            <div class="lo-shell lo-two">
+                <div class="lo-col">
+                    <h2>ภาพรวมระบบ</h2>
+                    <p>เหมาะกับสถาบันสอนออนไลน์ที่ต้องการมีเว็บขายคอร์ส พื้นที่เรียน และหลังบ้านบริหารในที่เดียว</p>
+                </div>
+                <div class="lo-col">
+                    <ul class="lo-plain">
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 5H3" />
+  <path d="M10 12H3" />
+  <path d="M10 19H3" />
+  <path d="M15 12.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997a1 1 0 0 1-1.517-.86z" /></svg></span>
+                            <span>รองรับคอร์สวิดีโอ (Recorded)</span>
+                        </li>
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+  <rect x="2" y="6" width="14" height="12" rx="2" /></svg></span>
+                            <span>รองรับคลาสสด (Live) และ Hybrid</span>
+                        </li>
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2" />
+  <line x1="2" x2="22" y1="10" y2="10" /></svg></span>
+                            <span>ชำระเงินหลายช่องทาง</span>
+                        </li>
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+  <rect x="2" y="4" width="20" height="16" rx="2" /></svg></span>
+                            <span>แจ้งเตือนผ่านอีเมลและ LINE</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="lo-block lo-block--border" id="functions">
+            <div class="lo-shell">
+                <div class="lo-section-title lo-two">
+                    <h2>ฟังก์ชั่นในระบบ</h2>
+                    <p>สรุปรายการหลักที่ผู้เรียนและผู้ดูแลใช้งานได้</p>
+                </div>
+
+                <div class="lo-two lo-gap">
+                    <article class="lo-panel">
+                        <h3>ฝั่งผู้เรียน</h3>
+                        <ul>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <circle cx="9" cy="7" r="4" />
+  <line x1="19" x2="19" y1="8" y2="14" />
+  <line x1="22" x2="16" y1="11" y2="11" /></svg></span>
+                                <span>สมัครสมาชิก / เข้าสู่ระบบ / ลืมรหัสผ่าน</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" /></svg></span>
+                                <span>ดูคอร์ส ค้นหา และดูรายละเอียดคอร์ส</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1" />
+  <circle cx="19" cy="21" r="1" />
+  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg></span>
+                                <span>ตะกร้าสินค้า ซื้อหลายคอร์สพร้อมกัน</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+  <path d="M13 5v2" />
+  <path d="M13 17v2" />
+  <path d="M13 11v2" /></svg></span>
+                                <span>ใช้คูปองส่วนลด</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 18v-7" />
+  <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" />
+  <path d="M14 18v-7" />
+  <path d="M18 18v-7" />
+  <path d="M3 22h18" />
+  <path d="M6 18v-7" /></svg></span>
+                                <span>ชำระเงิน: โอนธนาคาร + แนบสลิป</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+  <path d="M12 18h.01" /></svg></span>
+                                <span>ชำระเงิน: PromptPay QR</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2" />
+  <line x1="2" x2="22" y1="10" y2="10" /></svg></span>
+                                <span>ชำระเงิน: บัตรเครดิต/เดบิต (Omise)</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z" />
+  <circle cx="12" cy="12" r="10" /></svg></span>
+                                <span>เรียนวิดีโอ + ติดตามความคืบหน้า</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v3" />
+  <path d="M16 2v3" />
+  <rect x="3" y="3" width="18" height="18" rx="2" />
+  <path d="M3 9h18" /></svg></span>
+                                <span>จองรอบคลาส Live + เข้า Zoom</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="m9 14 2 2 4-4" /></svg></span>
+                                <span>ทำแบบทดสอบ (Quiz)</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+  <circle cx="12" cy="8" r="6" /></svg></span>
+                                <span>รับใบประกาศนียบัตรเมื่อเรียนจบ</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+  <circle cx="9" cy="7" r="4" /></svg></span>
+                                <span>โปรไฟล์: คอร์สของฉัน / การจอง / ใบประกาศ</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg></span>
+                                <span>เชื่อม LINE OA เพื่อรับแจ้งเตือน</span>
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="lo-panel">
+                        <h3>ฝั่งผู้ดูแล (Admin)</h3>
+                        <ul>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" /></svg></span>
+                                <span>แดชบอร์ดภาพรวม</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></svg></span>
+                                <span>จัดการคอร์ส บทเรียน ปก และเอกสาร</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v3" />
+  <path d="M16 2v3" />
+  <rect x="3" y="3" width="18" height="18" rx="2" />
+  <path d="M3 9h18" /></svg></span>
+                                <span>สร้างตารางคลาส Live / Hybrid</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+  <path d="m9 14 2 2 4-4" /></svg></span>
+                                <span>จัดการการจองคลาส (ยืนยัน / ยกเลิก)</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="12" x="2" y="6" rx="2" />
+  <circle cx="12" cy="12" r="2" />
+  <path d="M6 12h.01M18 12h.01" /></svg></span>
+                                <span>ตรวจสอบการชำระเงิน (ยืนยัน / ปฏิเสธ)</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+  <path d="m9 12 2 2 4-4" /></svg></span>
+                                <span>เปิดสิทธิ์เรียนหลังอนุมัติชำระเงิน</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 11 2 2 4-4" />
+  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <circle cx="9" cy="7" r="4" /></svg></span>
+                                <span>จัดการนักเรียนและสิทธิ์การเรียน</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5h10" />
+  <path d="M11 12h10" />
+  <path d="M11 19h10" />
+  <path d="M4 4h1v5" />
+  <path d="M4 9h2" />
+  <path d="M6.5 20H3.4c0-1 2.6-1.925 2.6-3.5a1.5 1.5 0 0 0-2.6-1.02" /></svg></span>
+                                <span>สร้างแบบทดสอบและคำถาม</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+  <path d="M13 5v2" />
+  <path d="M13 17v2" />
+  <path d="M13 11v2" /></svg></span>
+                                <span>จัดการคูปองส่วนลด</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" />
+  <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" />
+  <path d="M8 6v8" /></svg></span>
+                                <span>จัดการข่าวสาร / เนื้อหาเว็บไซต์</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" />
+  <path d="M18 17V9" />
+  <path d="M13 17V5" />
+  <path d="M8 17v-3" /></svg></span>
+                                <span>ดูรายงานยอดขายและการลงทะเบียน</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+  <circle cx="12" cy="12" r="3" /></svg></span>
+                                <span>ตั้งค่าเว็บ การชำระเงิน อีเมล LINE Omise</span>
+                            </li>
+                            <li>
+                                <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3" />
+  <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+  <path d="M3 12A9 3 0 0 0 21 12" /></svg></span>
+                                <span>สำรองข้อมูลระบบ</span>
+                            </li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="lo-block" id="courses">
+            <div class="lo-shell">
+                <div class="lo-section-title lo-two">
+                    <h2>ประเภทคอร์ส</h2>
+                    <p>เลือกใช้ตามรูปแบบการสอนของสถาบัน</p>
+                </div>
+                <div class="lo-three">
+                    <div class="lo-item">
+                        <h3>Recorded</h3>
+                        <p>เรียนวิดีโอย้อนหลังได้ตามสะดวก พร้อมล็อกบทเรียนและติดตามความคืบหน้า</p>
+                    </div>
+                    <div class="lo-item">
+                        <h3>Live</h3>
+                        <p>จองรอบเรียน จำกัดจำนวนที่นั่ง และเข้าเรียนผ่านลิงก์ Zoom เมื่อยืนยันแล้ว</p>
+                    </div>
+                    <div class="lo-item">
+                        <h3>Hybrid</h3>
+                        <p>รวมทั้งวิดีโอและคลาสสดในคอร์สเดียว ตามโครงสร้างที่กำหนด</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="lo-block lo-block--border" id="payments">
+            <div class="lo-shell lo-two">
+                <div class="lo-col">
+                    <h2>การชำระเงินและการเชื่อมต่อ</h2>
+                    <p>รองรับการขายจริง พร้อมแจ้งทีมงานและผู้เรียนอัตโนมัติ</p>
+                </div>
+                <div class="lo-col">
+                    <ul class="lo-plain">
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 18v-7" />
+  <path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" />
+  <path d="M14 18v-7" />
+  <path d="M18 18v-7" />
+  <path d="M3 22h18" />
+  <path d="M6 18v-7" /></svg></span>
+                            <span>โอนธนาคาร + อัปโหลดสลิป</span>
+                        </li>
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+  <path d="M12 18h.01" /></svg></span>
+                            <span>PromptPay QR บนหน้าชำระเงิน</span>
+                        </li>
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2" />
+  <line x1="2" x2="22" y1="10" y2="10" /></svg></span>
+                            <span>บัตรเครดิต/เดบิต ผ่าน Omise</span>
+                        </li>
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" />
+  <rect x="2" y="4" width="20" height="16" rx="2" /></svg></span>
+                            <span>แจ้งเตือนอีเมล และ LINE</span>
+                        </li>
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+  <rect x="2" y="6" width="14" height="12" rx="2" /></svg></span>
+                            <span>ลิงก์ Zoom ในรอบคลาส Live</span>
+                        </li>
+                        <li>
+                            <span class="lo-li-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+  <path d="M13 5v2" />
+  <path d="M13 17v2" />
+  <path d="M13 11v2" /></svg></span>
+                            <span>คูปองส่วนลด</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="lo-block lo-block--border" id="pricing">
+            <div class="lo-shell">
+                <div class="lo-section-title lo-two">
+                    <h2>ราคา</h2>
+                    <p>แพ็กเกจเริ่มต้นสำหรับเปิดใช้งานระบบ</p>
+                </div>
+                <div class="lo-price-grid">
+                    <div class="lo-price-main">
+                        <span class="lo-price-badge">ราคาปิดท้าย</span>
+                        <p class="lo-price-label">ระบบ LMS ครบวงจร</p>
+                        <p class="lo-price-amount">3,990 <span>บาท</span></p>
+                        <p class="lo-price-note">ค่าพัฒนาระบบ / ติดตั้งแพลตฟอร์ม</p>
+                    </div>
+                    <div class="lo-price-side">
+                        <p class="lo-price-side-title">ค่าบริการเพิ่มเติม</p>
+                        <div class="lo-price-row">
+                            <span class="lo-price-name">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lo-price-icon"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>                                โดเมน
+                            </span>
+                            <strong>450 บาท</strong>
+                        </div>
+                        <div class="lo-price-row">
+                            <span class="lo-price-name">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lo-price-icon"><ellipse cx="12" cy="5" rx="9" ry="3" />
+  <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+  <path d="M3 12A9 3 0 0 0 21 12" /></svg>                                โฮสติ้ง
+                            </span>
+                            <strong>690 บาท</strong>
+                        </div>
+                        <p class="lo-price-hint">โดเมนและโฮสติ้งคิดแยกตามรอบบริการจริง</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="lo-block" id="contact">
+            <div class="lo-shell lo-two lo-contact">
+                <div class="lo-col">
+                    <h2>สนใจใช้งานระบบ</h2>
+                </div>
+                <div class="lo-col lo-contact-actions">
+                    <a class="lo-btn" href="https://lin.ee/QlZ3xn9" target="_blank" rel="noopener">LINE · @939dgokv</a>
+                    <a class="lo-btn lo-btn--line" href="tel:0824835020">โทร 0824835020</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+    (() => {
+      const root = document.querySelector('[data-lo-slider]');
+      if (!root) return;
+
+      const viewport = root.querySelector('.lo-slide-viewport');
+      const track = root.querySelector('.lo-slide-track');
+      const items = Array.from(root.querySelectorAll('.lo-slide-item'));
+      const dots = Array.from(root.querySelectorAll('[data-lo-dot]'));
+      if (!viewport || !track || !items.length) return;
+
+      let index = 0;
+      let timer = null;
+
+      const visibleCount = () => (window.matchMedia('(max-width: 800px)').matches ? 2 : 3);
+      const maxIndex = () => Math.max(0, items.length - visibleCount());
+      const slideWidth = () => viewport.clientWidth / visibleCount();
+
+      const layout = () => {
+        const width = slideWidth();
+        items.forEach((el) => {
+          el.style.flex = `0 0 ${width}px`;
+          el.style.maxWidth = `${width}px`;
+        });
+      };
+
+      const goTo = (next) => {
+        layout();
+        index = Math.max(0, Math.min(next, maxIndex()));
+        track.style.transform = `translateX(-${index * slideWidth()}px)`;
+        items.forEach((el, i) => el.classList.toggle('is-active', i === index));
+        dots.forEach((dot, i) => {
+          const on = i === index;
+          dot.classList.toggle('is-active', on);
+          dot.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+      };
+
+      const next = () => goTo(index >= maxIndex() ? 0 : index + 1);
+      const prev = () => goTo(index <= 0 ? maxIndex() : index - 1);
+
+      const start = () => {
+        stop();
+        timer = window.setInterval(next, 4200);
+      };
+      const stop = () => {
+        if (timer) window.clearInterval(timer);
+        timer = null;
+      };
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          goTo(Number(dot.dataset.loDot || 0));
+          start();
+        });
+      });
+
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+      window.addEventListener('resize', () => goTo(index));
+
+      goTo(0);
+      start();
+    })();
+
+    (() => {
+      const wrap = document.querySelector('[data-lo-video]');
+      if (!wrap) return;
+      const video = wrap.querySelector('video');
+      const playBtn = wrap.querySelector('[data-lo-play]');
+      if (!video || !playBtn) return;
+
+      const sync = () => {
+        wrap.classList.toggle('is-playing', !video.paused && !video.ended);
+      };
+
+      playBtn.addEventListener('click', () => {
+        video.play().catch(() => {});
+      });
+
+      video.addEventListener('play', sync);
+      video.addEventListener('playing', sync);
+      video.addEventListener('pause', sync);
+      video.addEventListener('ended', sync);
+      sync();
+    })();
+    </script>
+</body>
+</html>
