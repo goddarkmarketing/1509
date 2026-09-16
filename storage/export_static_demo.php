@@ -22,6 +22,7 @@ $pages = [
     'privacy.php' => 'privacy.html',
     'terms.php' => 'terms.html',
     'lms-overview.php' => 'lms-overview.html',
+    'exams.php' => 'exams.html',
 ];
 
 $courseSlugs = [
@@ -66,6 +67,7 @@ function rewriteHtml(string $html, string $siteBase): string
         'http://localhost/LMS/public/privacy.php' => 'privacy.html',
         'http://localhost/LMS/public/terms.php' => 'terms.html',
         'http://localhost/LMS/public/lms-overview.php' => 'lms-overview.html',
+        'http://localhost/LMS/public/exams.php' => 'exams.html',
         'http://localhost/LMS/public/cart.php' => 'courses.html',
         'http://localhost/LMS/public/checkout.php' => 'courses.html',
         'http://localhost/LMS/public/my-courses.php' => 'login.html',
@@ -84,8 +86,18 @@ function rewriteHtml(string $html, string $siteBase): string
         $html
     );
 
+    // exam pack detail links
+    $html = preg_replace_callback(
+        '#http://localhost/LMS/public/exam\.php\?slug=([a-z0-9\-]+)#i',
+        static fn(array $m): string => 'exam-' . $m[1] . '.html',
+        $html
+    );
+
+    // login-gated exam actions -> login page in demo
+    $html = preg_replace('#http://localhost/LMS/public/exam_(take|submit)\.php[^"\']*#i', 'login.html', $html);
+
     // cart/book/add actions -> noop for demo
-    $html = preg_replace('#http://localhost/LMS/public/(cart_add|cart_remove|cart_buy|book|apply_coupon)\.php[^"\']*#i', '#', $html);
+    $html = preg_replace('#http://localhost/LMS/public/(cart_add|cart_remove|cart_buy|book|apply_coupon|exam_cart_add)\.php[^"\']*#i', '#', $html);
 
     // leftover localhost
     $html = str_replace('http://localhost/LMS/public/', '', $html);
@@ -102,6 +114,7 @@ function rewriteHtml(string $html, string $siteBase): string
   <strong>เดโมหน้าตาเท่านั้น</strong> — ยังไม่ได้เชื่อมระบบจริง (สมัคร/ล็อกอิน/ชำระเงินใช้ดูเลย์เอาต์ได้)
   <a href="index.html">หน้าแรก</a>
   <a href="courses.html">คอร์ส</a>
+  <a href="exams.html">จำลองสนามสอบ</a>
   <a href="faq.html">FAQ</a>
   <a href="contact.html">ติดต่อ</a>
 </div>
@@ -160,6 +173,16 @@ if (is_dir($docs)) {
 
 $siteBase = '/1509/';
 
+// Discover exam pack slugs from the catalog page so new packs are picked up automatically.
+$examSlugs = [];
+try {
+    if (preg_match_all('#/public/exam\.php\?slug=([a-z0-9\-]+)#i', fetchUrl($base . '/public/exams.php'), $m)) {
+        $examSlugs = array_values(array_unique($m[1]));
+    }
+} catch (Throwable $e) {
+    echo "- skip exam slug discovery: {$e->getMessage()}\n";
+}
+
 foreach ($pages as $php => $htmlName) {
     $url = $base . '/public/' . $php;
     echo "- {$php} -> {$htmlName}\n";
@@ -171,6 +194,18 @@ foreach ($courseSlugs as $slug) {
     $url = $base . '/public/course.php?slug=' . rawurlencode($slug);
     $htmlName = 'course-' . $slug . '.html';
     echo "- course {$slug} -> {$htmlName}\n";
+    try {
+        $html = rewriteHtml(fetchUrl($url), $siteBase);
+        file_put_contents($docs . '/' . $htmlName, $html);
+    } catch (Throwable $e) {
+        echo "  skip: {$e->getMessage()}\n";
+    }
+}
+
+foreach ($examSlugs as $slug) {
+    $url = $base . '/public/exam.php?slug=' . rawurlencode($slug);
+    $htmlName = 'exam-' . $slug . '.html';
+    echo "- exam {$slug} -> {$htmlName}\n";
     try {
         $html = rewriteHtml(fetchUrl($url), $siteBase);
         file_put_contents($docs . '/' . $htmlName, $html);
