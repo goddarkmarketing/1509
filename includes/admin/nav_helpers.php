@@ -11,6 +11,7 @@ function adminNavIcon(string $name): string
         'students' => 'users',
         'payments' => 'credit-card',
         'quizzes' => 'clipboard-check',
+        'exams' => 'timer',
         'games' => 'gamepad-2',
         'announcements' => 'megaphone',
         'content' => 'file-text',

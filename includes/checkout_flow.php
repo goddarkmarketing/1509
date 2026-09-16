@@ -63,21 +63,29 @@ function requireCartForCheckout(): void
     if (cartCount() > 0) {
         return;
     }
-    flash('payment_error', 'กรุณาเลือกคอร์สและใส่ตะกร้าก่อนชำระเงิน');
+    flash('payment_error', 'กรุณาเลือกคอร์สหรือชุดข้อสอบใส่ตะกร้าก่อนชำระเงิน');
     redirect('/public/courses.php');
 }
 
 function appendCartIdsToNote(string $note): string
 {
     $ids = getCartCourseIds();
-    if (!$ids) {
-        return $note;
+    if ($ids) {
+        $meta = 'cart_ids:' . implode(',', $ids);
+        if ($note === '' || !str_contains($note, 'cart_ids:')) {
+            $note = $note !== '' ? $note . "\n" . $meta : $meta;
+        }
     }
-    $meta = 'cart_ids:' . implode(',', $ids);
-    if ($note !== '' && str_contains($note, 'cart_ids:')) {
-        return $note;
+
+    $examIds = getCartExamPackIds();
+    if ($examIds) {
+        $meta = 'exam_pack_ids:' . implode(',', $examIds);
+        if ($note === '' || !str_contains($note, 'exam_pack_ids:')) {
+            $note = $note !== '' ? $note . "\n" . $meta : $meta;
+        }
     }
-    return $note !== '' ? $note . "\n" . $meta : $meta;
+
+    return $note;
 }
 
 function parseCartIdsFromNote(?string $note): array
@@ -97,18 +105,39 @@ function savePaymentItems(int $paymentId, array $cartItems): void
         require_once __DIR__ . '/booking.php';
         $sessionMap = getCartSessionMap();
 
-        $stmt = db()->prepare('INSERT INTO payment_items (payment_id, course_id, session_id, amount) VALUES (?, ?, ?, ?)');
         foreach ($cartItems as $item) {
+            $amount = (float) ($item['price'] ?? 0);
+            $type = $item['item_type'] ?? 'course';
+
+            if ($type === 'exam_pack') {
+                $examPackId = (int) ($item['id'] ?? 0);
+                if ($examPackId <= 0) {
+                    continue;
+                }
+                try {
+                    $stmt = db()->prepare('INSERT INTO payment_items (payment_id, course_id, exam_pack_id, amount) VALUES (?, NULL, ?, ?)');
+                    $stmt->execute([$paymentId, $examPackId, $amount]);
+                } catch (Throwable $e) {
+                    // older schema without exam_pack_id — keep note meta only
+                }
+                continue;
+            }
+
             $courseId = (int) ($item['id'] ?? 0);
             if ($courseId <= 0) {
                 continue;
             }
             $sessionId = $sessionMap[$courseId] ?? null;
             try {
-                $stmt->execute([$paymentId, $courseId, $sessionId ?: null, (float) ($item['price'] ?? 0)]);
+                $stmt = db()->prepare('INSERT INTO payment_items (payment_id, course_id, session_id, amount) VALUES (?, ?, ?, ?)');
+                $stmt->execute([$paymentId, $courseId, $sessionId ?: null, $amount]);
             } catch (Throwable $e) {
-                $fallback = db()->prepare('INSERT INTO payment_items (payment_id, course_id, amount) VALUES (?, ?, ?)');
-                $fallback->execute([$paymentId, $courseId, (float) ($item['price'] ?? 0)]);
+                try {
+                    $fallback = db()->prepare('INSERT INTO payment_items (payment_id, course_id, amount) VALUES (?, ?, ?)');
+                    $fallback->execute([$paymentId, $courseId, $amount]);
+                } catch (Throwable $e2) {
+                    // ignore
+                }
             }
         }
     } catch (Throwable $e) {
@@ -202,26 +231,64 @@ function insertBankTransferPayment(
 
 function getPaymentCourseIds(int $paymentId): array
 {
-    $stmt = db()->prepare('SELECT course_id FROM payment_items WHERE payment_id = ? ORDER BY id ASC');
-    $stmt->execute([$paymentId]);
-    $ids = array_map('intval', $stmt->fetchAll(PDO::FETCH_COLUMN));
-    return array_values(array_filter($ids));
+    try {
+        $stmt = db()->prepare('SELECT course_id FROM payment_items WHERE payment_id = ? AND course_id IS NOT NULL ORDER BY id ASC');
+        $stmt->execute([$paymentId]);
+        $ids = array_map('intval', $stmt->fetchAll(PDO::FETCH_COLUMN));
+        return array_values(array_filter($ids));
+    } catch (Throwable $e) {
+        try {
+            $stmt = db()->prepare('SELECT course_id FROM payment_items WHERE payment_id = ? ORDER BY id ASC');
+            $stmt->execute([$paymentId]);
+            return array_values(array_filter(array_map('intval', $stmt->fetchAll(PDO::FETCH_COLUMN))));
+        } catch (Throwable $e2) {
+            return [];
+        }
+    }
 }
 
 function getPaymentItemsWithTitles(int $paymentId): array
 {
+    $items = [];
     try {
         $stmt = db()->prepare('
-            SELECT pi.course_id, pi.amount, c.title
+            SELECT pi.course_id, pi.exam_pack_id, pi.amount, c.title
             FROM payment_items pi
-            JOIN courses c ON c.id = pi.course_id
+            LEFT JOIN courses c ON c.id = pi.course_id
             WHERE pi.payment_id = ?
             ORDER BY pi.id ASC
         ');
         $stmt->execute([$paymentId]);
-        return $stmt->fetchAll();
+        $rows = $stmt->fetchAll();
+        require_once __DIR__ . '/exam.php';
+        foreach ($rows as $row) {
+            $title = trim((string) ($row['title'] ?? ''));
+            if ($title === '' && !empty($row['exam_pack_id'])) {
+                $pack = getExamPackById((int) $row['exam_pack_id']);
+                $title = $pack ? ('[ข้อสอบ] ' . $pack['title']) : 'ชุดข้อสอบ';
+            }
+            $items[] = [
+                'course_id' => $row['course_id'] ?? null,
+                'exam_pack_id' => $row['exam_pack_id'] ?? null,
+                'amount' => $row['amount'] ?? 0,
+                'title' => $title !== '' ? $title : '-',
+            ];
+        }
+        return $items;
     } catch (Throwable $e) {
-        return [];
+        try {
+            $stmt = db()->prepare('
+                SELECT pi.course_id, pi.amount, c.title
+                FROM payment_items pi
+                JOIN courses c ON c.id = pi.course_id
+                WHERE pi.payment_id = ?
+                ORDER BY pi.id ASC
+            ');
+            $stmt->execute([$paymentId]);
+            return $stmt->fetchAll();
+        } catch (Throwable $e2) {
+            return [];
+        }
     }
 }
 
@@ -348,7 +415,27 @@ function resolveCheckoutStudentId(string $name, ?string $email, string $phone): 
 
 function getCourseIdsFromCartItems(array $items): array
 {
-    return filterValidCourseIds(array_values(array_filter(array_map(static fn ($item) => (int) ($item['id'] ?? 0), $items))));
+    $ids = [];
+    foreach ($items as $item) {
+        if (($item['item_type'] ?? 'course') !== 'course') {
+            continue;
+        }
+        $ids[] = (int) ($item['id'] ?? 0);
+    }
+    return filterValidCourseIds($ids);
+}
+
+function getExamPackIdsFromCartItems(array $items): array
+{
+    require_once __DIR__ . '/exam.php';
+    $ids = [];
+    foreach ($items as $item) {
+        if (($item['item_type'] ?? '') !== 'exam_pack') {
+            continue;
+        }
+        $ids[] = (int) ($item['id'] ?? 0);
+    }
+    return filterValidExamPackIds($ids);
 }
 
 function filterValidCourseIds(array $courseIds): array
@@ -594,6 +681,7 @@ function enrollFromPayment(array $payment): void
     require_once __DIR__ . '/mailer.php';
     require_once __DIR__ . '/line_notify.php';
     require_once __DIR__ . '/booking.php';
+    require_once __DIR__ . '/exam.php';
 
     $paymentId = (int) ($payment['id'] ?? 0);
     $courseIds = $paymentId > 0 ? getPaymentCourseIds($paymentId) : [];
@@ -603,11 +691,15 @@ function enrollFromPayment(array $payment): void
     if (!$courseIds && !empty($payment['course_id'])) {
         $courseIds = [(int) $payment['course_id']];
     }
-    if (!$courseIds) {
-        return;
-    }
     $courseIds = filterValidCourseIds($courseIds);
-    if (!$courseIds) {
+
+    $examPackIds = $paymentId > 0 ? getPaymentExamPackIds($paymentId) : [];
+    if (!$examPackIds) {
+        $examPackIds = parseExamPackIdsFromNote($payment['note'] ?? '');
+    }
+    $examPackIds = filterValidExamPackIds($examPackIds);
+
+    if (!$courseIds && !$examPackIds) {
         return;
     }
 
@@ -616,13 +708,25 @@ function enrollFromPayment(array $payment): void
         $payment['student_email'] ?? null,
         (string) ($payment['student_phone'] ?? '')
     );
-    enrollStudentInCourses($studentId, $courseIds, 'active');
+
+    if ($courseIds) {
+        enrollStudentInCourses($studentId, $courseIds, 'active');
+    }
+    if ($examPackIds) {
+        grantExamPurchases($studentId, $examPackIds, 'active', $paymentId > 0 ? $paymentId : null);
+    }
 
     $titles = [];
     foreach ($courseIds as $cid) {
         $c = getCourseById((int) $cid);
         if ($c) {
             $titles[] = $c['title'];
+        }
+    }
+    foreach ($examPackIds as $eid) {
+        $pack = getExamPackById((int) $eid);
+        if ($pack) {
+            $titles[] = 'ชุดข้อสอบ: ' . $pack['title'];
         }
     }
     $email = $payment['student_email'] ?? null;

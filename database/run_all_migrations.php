@@ -21,6 +21,7 @@ $files = [
     __DIR__ . '/run_migration_phase9.php',
     __DIR__ . '/run_migration_phase10.php',
     __DIR__ . '/run_migration_phase11.php',
+    __DIR__ . '/run_migration_phase12.php',
 ];
 
 foreach ($files as $file) {

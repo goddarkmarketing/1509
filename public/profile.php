@@ -10,6 +10,7 @@ require_once dirname(__DIR__) . '/includes/quiz.php';
 require_once dirname(__DIR__) . '/includes/game.php';
 require_once dirname(__DIR__) . '/includes/booking.php';
 require_once dirname(__DIR__) . '/includes/line_messaging.php';
+require_once dirname(__DIR__) . '/includes/exam.php';
 
 requireStudentLogin('/public/profile.php');
 
@@ -86,6 +87,7 @@ try {
     foreach ($studentBookings as $bookingRow) {
         $bookingsByCourse[(int) ($bookingRow['course_id'] ?? 0)] = $bookingRow;
     }
+    $examPurchases = getStudentExamPurchases($studentId);
 } catch (Throwable $e) {
     $logDir = dirname(__DIR__) . '/storage/logs';
     if (!is_dir($logDir)) {
@@ -101,6 +103,7 @@ try {
     $pendingCourseCount = 0;
     $studentBookings = [];
     $bookingsByCourse = [];
+    $examPurchases = [];
     if ($error === '') {
         $error = 'โหลดข้อมูลบางส่วนไม่สำเร็จ — หากยังมีปัญหา กรุณาติดต่อทีมงาน';
     }
@@ -147,6 +150,52 @@ require_once dirname(__DIR__) . '/includes/header.php';
             <?php if ($tab === 'courses'): ?>
             <div class="account-panel">
                 <?php require dirname(__DIR__) . '/includes/views/account_tab_courses.php'; ?>
+            </div>
+
+            <?php elseif ($tab === 'exams'): ?>
+            <div class="account-panel">
+                <div class="account-panel-head">
+                    <div>
+                        <h1>ชุดข้อสอบของฉัน</h1>
+                        <p class="account-panel-desc">ชุดที่ซื้อแล้วสำหรับเข้าจำลองสนามสอบ</p>
+                    </div>
+                    <a href="<?= APP_URL ?>/public/exams.php" class="btn btn-outline btn-sm">ซื้อชุดเพิ่ม</a>
+                </div>
+                <div class="account-panel-card">
+                    <?php if (empty($examPurchases)): ?>
+                    <p class="account-empty-text">ยังไม่มีชุดข้อสอบ — <a href="<?= APP_URL ?>/public/exams.php">เลือกชุดจำลองสนามสอบ</a></p>
+                    <?php else: ?>
+                    <ul class="account-cert-list">
+                        <?php foreach ($examPurchases as $exam): ?>
+                        <?php
+                            $isActiveExam = ($exam['purchase_status'] ?? '') === 'active';
+                            $bestExam = $isActiveExam ? getBestExamAttempt($studentId, (int) $exam['id']) : null;
+                        ?>
+                        <li class="account-cert-item<?= $isActiveExam ? '' : ' account-cert-item--pending' ?>">
+                            <div>
+                                <strong><?= e($exam['title']) ?></strong>
+                                <small>
+                                    <?= e($exam['subject'] ?? '') ?>
+                                    · <?= (int) ($exam['question_count'] ?? 0) ?> ข้อ
+                                    · <?= (int) ($exam['time_limit_minutes'] ?? 0) ?> นาที
+                                    <?php if ($bestExam): ?>
+                                    · คะแนนสูงสุด <?= (int) $bestExam['score'] ?>%
+                                    <?php endif; ?>
+                                </small>
+                                <?php if (!$isActiveExam): ?>
+                                <span class="account-booking-pending-note">รอทีมงานยืนยันการชำระเงิน</span>
+                                <?php endif; ?>
+                            </div>
+                            <?php if ($isActiveExam): ?>
+                            <a href="<?= APP_URL ?>/public/exam_take.php?slug=<?= urlencode((string) $exam['slug']) ?>" class="btn btn-primary btn-sm">เข้าสอบ</a>
+                            <?php else: ?>
+                            <span class="my-courses-badge my-courses-badge--pending">รออนุมัติ</span>
+                            <?php endif; ?>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php endif; ?>
+                </div>
             </div>
 
             <?php elseif ($tab === 'bookings'): ?>

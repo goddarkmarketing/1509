@@ -21,7 +21,12 @@ $isHome = str_ends_with(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
     <title><?= e($pageTitle) ?> | <?= e(getSetting('site_title')) ?></title>
   <meta name="description" content="<?= e(getSetting('site_tagline')) ?>">
     <?php require __DIR__ . '/views/fonts_head.php'; ?>
-    <link rel="stylesheet" href="<?= asset('css/style.css') ?>?v=159">
+    <link rel="stylesheet" href="<?= asset('css/style.css') ?>?v=161">
+    <?php if (!empty($pageStylesheets) && is_array($pageStylesheets)): ?>
+        <?php foreach ($pageStylesheets as $sheet): ?>
+        <link rel="stylesheet" href="<?= asset($sheet) ?>?v=4">
+        <?php endforeach; ?>
+    <?php endif; ?>
 </head>
 <body class="<?= $isHome ? 'page-home' : '' ?>">
 <header class="site-header leona-header" id="top">
@@ -40,6 +45,7 @@ $isHome = str_ends_with(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
                 <a href="<?= APP_URL ?>/public/index.php">หน้าแรก</a>
                 <a href="<?= APP_URL ?>/public/index.php#about">เกี่ยวกับเรา</a>
                 <a href="<?= APP_URL ?>/public/courses.php">คอร์สเรียน</a>
+                <a href="<?= APP_URL ?>/public/exams.php">จำลองสนามสอบ</a>
                 <a href="<?= APP_URL ?>/public/index.php#subjects">วิชาที่เปิดสอน</a>
                 <a href="<?= APP_URL ?>/public/index.php#reviews">รีวิว</a>
                 <a href="<?= APP_URL ?>/public/announcements.php">ข่าวสาร</a>
@@ -75,16 +81,16 @@ $isHome = str_ends_with(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
     </div>
     <div class="cart-drawer-body">
         <?php if (!$cartItems): ?>
-            <p class="cart-empty">ยังไม่มีคอร์สในตะกร้า</p>
+            <p class="cart-empty">ยังไม่มีรายการในตะกร้า</p>
         <?php else: ?>
             <ul class="cart-list">
                 <?php foreach ($cartItems as $item): ?>
                     <li class="cart-item">
                         <div class="cart-item-main">
                             <div class="cart-item-title"><?= e($item['title'] ?? '') ?></div>
-                            <div class="cart-item-price"><?= e(formatPrice((float) ($item['price'] ?? 0))) ?></div>
+                            <div class="cart-item-price"><?= e(cartItemTypeLabel($item)) ?> · <?= e(formatPrice((float) ($item['price'] ?? 0))) ?></div>
                         </div>
-                        <a class="cart-remove" href="<?= APP_URL ?>/public/cart_remove.php?course_id=<?= (int) ($item['id'] ?? 0) ?>&return=<?= urlencode(currentReturnPath()) ?>" title="นำออกจากตะกร้า">ลบ</a>
+                        <a class="cart-remove" href="<?= e(cartItemRemoveUrl($item, currentReturnPath())) ?>" title="นำออกจากตะกร้า">ลบ</a>
                     </li>
                 <?php endforeach; ?>
             </ul>

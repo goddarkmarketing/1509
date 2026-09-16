@@ -36,7 +36,7 @@ $appliedCoupon = getAppliedCoupon();
             </span>
             <div>
                 <h1>ตะกร้าของฉัน</h1>
-                <p class="cart-page-header-sub">ตรวจสอบคอร์สและยอดชำระก่อนดำเนินการต่อ</p>
+                <p class="cart-page-header-sub">ตรวจสอบคอร์ส / ชุดข้อสอบ และยอดชำระก่อนดำเนินการต่อ</p>
             </div>
         </header>
 
@@ -44,20 +44,24 @@ $appliedCoupon = getAppliedCoupon();
             <?php if ($items): ?>
             <div class="cart-page-card">
                 <section class="cart-page-block cart-page-block--items" aria-labelledby="cart-items-heading">
-                    <h2 class="cart-page-block-title" id="cart-items-heading">รายการคอร์ส <span class="cart-page-count"><?= count($items) ?> รายการ</span></h2>
+                    <h2 class="cart-page-block-title" id="cart-items-heading">รายการในตะกร้า <span class="cart-page-count"><?= count($items) ?> รายการ</span></h2>
                     <ul class="cart-page-list">
                         <?php foreach ($items as $item): ?>
-                        <?php $sess = $cartSessionDetails[(int) ($item['id'] ?? 0)] ?? null; ?>
+                        <?php
+                            $isExam = ($item['item_type'] ?? 'course') === 'exam_pack';
+                            $sess = !$isExam ? ($cartSessionDetails[(int) ($item['id'] ?? 0)] ?? null) : null;
+                        ?>
                         <li class="cart-page-item">
-                            <img src="<?= e(courseCoverUrl($item)) ?>" alt="" class="checkout-order-thumb" width="72" height="72" loading="lazy">
+                            <img src="<?= e(cartItemThumbUrl($item)) ?>" alt="" class="checkout-order-thumb" width="72" height="72" loading="lazy">
                             <div class="cart-page-item-body">
-                                <h3 class="cart-page-item-title"><a href="<?= APP_URL ?>/public/course.php?slug=<?= urlencode($item['slug']) ?>"><?= e($item['title']) ?></a></h3>
+                                <h3 class="cart-page-item-title"><a href="<?= e(cartItemDetailUrl($item)) ?>"><?= e($item['title']) ?></a></h3>
+                                <p class="cart-page-item-session"><?= e(cartItemTypeLabel($item)) ?></p>
                                 <?php if ($sess): ?>
-                                <p class="cart-page-item-session">📅 รอบเรียน: <?= e(formatSessionRange($sess)) ?></p>
+                                <p class="cart-page-item-session">รอบเรียน: <?= e(formatSessionRange($sess)) ?></p>
                                 <?php endif; ?>
                                 <p class="cart-page-item-price"><?= e(formatPrice((float) ($item['price'] ?? 0))) ?></p>
                             </div>
-                            <a class="cart-page-remove" href="<?= APP_URL ?>/public/cart_remove.php?course_id=<?= (int) $item['id'] ?>&return=<?= urlencode('/public/cart.php') ?>">ลบ</a>
+                            <a class="cart-page-remove" href="<?= e(cartItemRemoveUrl($item, '/public/cart.php')) ?>">ลบ</a>
                         </li>
                         <?php endforeach; ?>
                     </ul>
@@ -100,7 +104,7 @@ $appliedCoupon = getAppliedCoupon();
                         </div>
                     </dl>
                     <div class="cart-page-actions">
-                        <a href="<?= APP_URL ?>/public/courses.php" class="btn btn-outline">เลือกคอร์สเพิ่ม</a>
+                        <a href="<?= APP_URL ?>/public/exams.php" class="btn btn-outline">ชุดข้อสอบ</a>
                         <a href="<?= APP_URL ?>/public/checkout.php" class="btn btn-primary">ไปชำระเงิน</a>
                     </div>
                 </section>
@@ -108,8 +112,11 @@ $appliedCoupon = getAppliedCoupon();
             <?php else: ?>
             <div class="cart-page-card cart-page-card--empty">
                 <div class="cart-page-empty">
-                    <p>ยังไม่มีคอร์สในตะกร้า</p>
-                    <a href="<?= APP_URL ?>/public/courses.php" class="btn btn-primary">เลือกคอร์สเรียน</a>
+                    <p>ยังไม่มีรายการในตะกร้า</p>
+                    <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+                        <a href="<?= APP_URL ?>/public/courses.php" class="btn btn-primary">เลือกคอร์ส</a>
+                        <a href="<?= APP_URL ?>/public/exams.php" class="btn btn-outline">ชุดข้อสอบ</a>
+                    </div>
                 </div>
             </div>
             <?php endif; ?>

@@ -5,6 +5,14 @@ require_once dirname(__DIR__) . '/includes/functions.php';
 require_once dirname(__DIR__) . '/includes/cart.php';
 
 $courseId = (int) ($_REQUEST['course_id'] ?? 0);
+$examPackId = (int) ($_REQUEST['exam_pack_id'] ?? 0);
+
+if ($examPackId > 0) {
+    removeFromCartExamPack($examPackId);
+    flash('cart_success', 'นำชุดข้อสอบออกจากตะกร้าแล้ว');
+    redirectBack('/public/exams.php');
+}
+
 if ($courseId <= 0) {
     clearCart();
     redirect('/public/cart.php');
@@ -14,4 +22,3 @@ removeFromCartCourse($courseId);
 flash('cart_success', 'นำคอร์สออกจากตะกร้าแล้ว');
 
 redirectBack('/public/courses.php');
-

@@ -17,6 +17,7 @@ return [
             ['page' => 'sessions', 'href' => '/admin/sessions.php', 'label' => 'ตารางคลาส Live', 'icon' => 'courses'],
             ['page' => 'lessons', 'href' => '/admin/lessons.php', 'label' => 'บทเรียน', 'icon' => 'lessons'],
             ['page' => 'quizzes', 'href' => '/admin/quizzes.php', 'label' => 'แบบทดสอบ', 'icon' => 'quizzes'],
+            ['page' => 'exams', 'href' => '/admin/exams.php', 'label' => 'จำลองสนามสอบ', 'icon' => 'exams'],
             ['page' => 'games', 'href' => '/admin/games.php', 'label' => 'เกมฝึกฝน', 'icon' => 'games'],
             ['page' => 'announcements', 'href' => '/admin/announcements.php', 'label' => 'ประชาสัมพันธ์', 'icon' => 'announcements'],
             ['page' => 'content', 'href' => '/admin/content.php', 'label' => 'เนื้อหาเว็บ', 'icon' => 'content'],

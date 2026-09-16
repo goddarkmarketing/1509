@@ -89,14 +89,15 @@ function createPendingOmisePayment(array $customer, array $cartItems, float $amo
     $name = trim($customer['name'] ?? '');
     $phone = trim($customer['phone'] ?? '');
     $email = trim($customer['email'] ?? '') ?: null;
-    $courseId = count($cartItems) === 1 ? (int) ($cartItems[0]['id'] ?? 0) : null;
+    $courseOnly = array_values(array_filter($cartItems, static fn($i) => ($i['item_type'] ?? 'course') === 'course'));
+    $courseId = count($courseOnly) === 1 ? (int) ($courseOnly[0]['id'] ?? 0) : null;
 
-    $note = 'cart_ids:' . implode(',', array_map(static fn ($i) => (int) ($i['id'] ?? 0), $cartItems));
+    $note = appendCartIdsToNote('');
     if ($couponCode) {
-        $note .= "\ncoupon:" . $couponCode;
+        $note .= ($note !== '' ? "\n" : '') . 'coupon:' . $couponCode;
     }
     $note = appendSessionMapToNote($note, getCartSessionMap());
-    $note .= "\npayment_method:omise";
+    $note .= ($note !== '' ? "\n" : '') . 'payment_method:omise';
 
     $stmt = db()->prepare('
         INSERT INTO payments (course_id, student_name, student_email, student_phone, amount, note, coupon_code, status, payment_method)
@@ -107,12 +108,19 @@ function createPendingOmisePayment(array $customer, array $cartItems, float $amo
     savePaymentItems($paymentId, $cartItems);
 
     $courseIds = getCourseIdsFromCartItems($cartItems);
-    if ($courseIds) {
+    $examPackIds = getExamPackIdsFromCartItems($cartItems);
+    if ($courseIds || $examPackIds) {
         $studentId = resolveCheckoutStudentId($name, $email, $phone);
-        enrollStudentInCourses($studentId, $courseIds, 'pending');
-        $sessionMap = getCartSessionMap();
-        if ($sessionMap) {
-            createBookingsForPayment($paymentId, $studentId, $sessionMap, 'pending');
+        if ($courseIds) {
+            enrollStudentInCourses($studentId, $courseIds, 'pending');
+            $sessionMap = getCartSessionMap();
+            if ($sessionMap) {
+                createBookingsForPayment($paymentId, $studentId, $sessionMap, 'pending');
+            }
+        }
+        if ($examPackIds) {
+            require_once __DIR__ . '/exam.php';
+            grantExamPurchases($studentId, $examPackIds, 'pending', $paymentId);
         }
     }
 
