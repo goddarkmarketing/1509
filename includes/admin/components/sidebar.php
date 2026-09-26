@@ -9,6 +9,7 @@ $navGroups = require __DIR__ . '/../nav_config.php';
 ?>
 <aside class="admin-sidebar" id="adminSidebar">
     <a href="<?= APP_URL ?>/admin/dashboard.php" class="admin-brand">
+        <img class="admin-brand-logo" src="<?= e(brandLogoAsset()) ?>" alt="" width="40" height="40" decoding="async">
         <span class="admin-brand-text">
             <strong>THE LEONA</strong>
             <small>Admin Panel</small>

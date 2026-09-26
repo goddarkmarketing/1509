@@ -80,7 +80,14 @@ a:hover { color: var(--red-dark); }
   color: inherit;
 }
 .brand:hover { color: inherit; }
-.brand-logo { width: 52px; height: auto; }
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 10px;
+  display: block;
+}
 .brand-text {
   display: flex;
   flex-direction: row;
@@ -8163,6 +8170,13 @@ body.has-course-mobile-bar {
 }
 
 .leona-header .header-search { display: none; }
+.leona-header .brand { gap: .65rem; }
+.leona-header .brand-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(30, 63, 58, .18);
+}
 .leona-header .brand-text strong,
 .leona-header .brand-text span {
   font-family: var(--font-heading);
@@ -8172,6 +8186,11 @@ body.has-course-mobile-bar {
 }
 .leona-header .brand-text strong { color: var(--red); }
 .leona-header .brand-text span { color: var(--gold); }
+@media (max-width: 640px) {
+  .leona-header .brand-logo { width: 40px; height: 40px; border-radius: 10px; }
+  .leona-header .brand-text strong,
+  .leona-header .brand-text span { font-size: 1.15rem; }
+}
 .leona-header .site-nav-links a {
   color: var(--red);
   font-weight: 500;

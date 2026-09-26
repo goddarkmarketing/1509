@@ -178,7 +178,7 @@ function imageAsset(string $relativePath, string $fallbackPath = ''): string
 
 function brandLogoAsset(): string
 {
-    return imageAsset('images/logo.png', 'images/logo.svg');
+    return imageAsset('images/leona/logo.png', 'images/logo.png');
 }
 
 function headingFontAsset(): string

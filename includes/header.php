@@ -20,8 +20,11 @@ $isHome = str_ends_with(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($pageTitle) ?> | <?= e(getSetting('site_title')) ?></title>
   <meta name="description" content="<?= e(getSetting('site_tagline')) ?>">
+    <link rel="icon" href="<?= asset('images/favicon.png') ?>" type="image/png" sizes="32x32">
+    <link rel="icon" href="<?= asset('images/leona/logo.png') ?>" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="<?= asset('images/leona/logo.png') ?>">
     <?php require __DIR__ . '/views/fonts_head.php'; ?>
-    <link rel="stylesheet" href="<?= asset('css/style.css') ?>?v=161">
+    <link rel="stylesheet" href="<?= asset('css/style.css') ?>?v=162">
     <?php if (!empty($pageStylesheets) && is_array($pageStylesheets)): ?>
         <?php foreach ($pageStylesheets as $sheet): ?>
         <link rel="stylesheet" href="<?= asset($sheet) ?>?v=4">
@@ -32,6 +35,7 @@ $isHome = str_ends_with(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
 <header class="site-header leona-header" id="top">
     <div class="container header-inner">
         <a href="<?= APP_URL ?>/public/index.php" class="brand">
+            <img class="brand-logo" src="<?= e(brandLogoAsset()) ?>" alt="THE LEONA TUTORS" width="48" height="48" decoding="async">
             <span class="brand-text">
                 <strong>THE LEONA</strong>
                 <span>TUTORS</span>
