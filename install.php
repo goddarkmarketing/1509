@@ -57,31 +57,45 @@ function pdoConnect(string $host, string $name, string $user, string $pass): PDO
 /** Split SQL file into executable statements (skips CREATE DATABASE / USE). */
 function loadSchemaStatements(string $sql): array
 {
-    // /s so multi-line CREATE DATABASE ... ; is removed (Plesk user cannot create DBs)
-    $sql = preg_replace('/^\s*CREATE\s+DATABASE\b.*?;/ims', '', $sql) ?? $sql;
-    $sql = preg_replace('/^\s*USE\s+\w+\s*;/im', '', $sql) ?? $sql;
-    $sql = preg_replace('/^\s*SET\s+NAMES\b.*?;/im', '', $sql) ?? $sql;
-    $sql = preg_replace('/^\s*SET\s+CHARACTER\s+SET\b.*?;/im', '', $sql) ?? $sql;
+    // Strip full-line SQL comments first (must be before statement split/filters).
+    // Previously, chunks starting with "-- Courses" were skipped entirely, so only
+    // ~3 CREATE TABLE statements ran and site_settings/students never appeared.
+    $sql = preg_replace('/^\s*--.*$/m', '', $sql) ?? $sql;
 
-    $parts = preg_split('/;\s*[\r\n]+/', $sql) ?: [];
+    // Remove multi-line CREATE DATABASE (Plesk users usually cannot create DBs)
+    $sql = preg_replace('/\bCREATE\s+DATABASE\b[^;]*;/is', '', $sql) ?? $sql;
+    $sql = preg_replace('/\bUSE\s+\w+\s*;/i', '', $sql) ?? $sql;
+    $sql = preg_replace('/\bSET\s+NAMES\b[^;]*;/i', '', $sql) ?? $sql;
+    $sql = preg_replace('/\bSET\s+CHARACTER\s+SET\b[^;]*;/i', '', $sql) ?? $sql;
+
+    $parts = preg_split('/;\s*/', $sql) ?: [];
     $out = [];
     foreach ($parts as $part) {
         $stmt = trim($part);
-        if ($stmt === '' || str_starts_with($stmt, '--')) {
-            continue;
-        }
-        $stmt = preg_replace('/^--.*$/m', '', $stmt) ?? $stmt;
-        $stmt = trim($stmt);
         if ($stmt === '') {
             continue;
         }
-        // Never run CREATE DATABASE / USE against the connected Plesk DB
         if (preg_match('/^(CREATE\s+DATABASE|USE)\b/i', $stmt)) {
             continue;
         }
         $out[] = $stmt;
     }
     return $out;
+}
+
+/** @return list<string> */
+function requiredSchemaTables(): array
+{
+    return [
+        'admin_users',
+        'site_settings',
+        'courses',
+        'lessons',
+        'students',
+        'enrollments',
+        'payments',
+        'payment_items',
+    ];
 }
 
 /** Drop every table so a failed previous install cannot leave broken FK parents. */
@@ -260,7 +274,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['run'] ?? '') === '1') {
             }
         }
         $pdo->exec('SET FOREIGN_KEY_CHECKS=1');
-        $logs[] = "schema: รัน {$ok} คำสั่ง (ข้าม seed เก่า {$skip})";
+        $logs[] = "schema: รัน {$ok} คำสั่ง จากทั้งหมด " . count($statements) . " (ข้าม seed เก่า {$skip})";
+
+        if (count($statements) < 8) {
+            throw new RuntimeException('อ่าน schema.sql ไม่ครบ (ได้แค่ ' . count($statements) . ' คำสั่ง) — ลอง Pull โค้ดใหม่แล้วติดตั้งอีกครั้ง');
+        }
+
+        $missing = [];
+        foreach (requiredSchemaTables() as $table) {
+            if (!tableExists($pdo, $table)) {
+                $missing[] = $table;
+            }
+        }
+        if ($missing) {
+            throw new RuntimeException('สร้างตารางไม่ครบ ขาด: ' . implode(', ', $missing));
+        }
+        $logs[] = 'ตรวจตารางหลักครบแล้ว';
 
         // Bootstrap app config so migration scripts can use db()
         require_once $root . '/includes/database.php';
