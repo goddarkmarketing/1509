@@ -57,26 +57,49 @@ function pdoConnect(string $host, string $name, string $user, string $pass): PDO
 /** Split SQL file into executable statements (skips CREATE DATABASE / USE). */
 function loadSchemaStatements(string $sql): array
 {
-    $sql = preg_replace('/^\s*CREATE\s+DATABASE\b.*?;/im', '', $sql) ?? $sql;
+    // /s so multi-line CREATE DATABASE ... ; is removed (Plesk user cannot create DBs)
+    $sql = preg_replace('/^\s*CREATE\s+DATABASE\b.*?;/ims', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*USE\s+\w+\s*;/im', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*SET\s+NAMES\b.*?;/im', '', $sql) ?? $sql;
     $sql = preg_replace('/^\s*SET\s+CHARACTER\s+SET\b.*?;/im', '', $sql) ?? $sql;
 
-    $parts = preg_split('/;\s*\n/', $sql) ?: [];
+    $parts = preg_split('/;\s*[\r\n]+/', $sql) ?: [];
     $out = [];
     foreach ($parts as $part) {
         $stmt = trim($part);
         if ($stmt === '' || str_starts_with($stmt, '--')) {
             continue;
         }
-        // drop full-line comment blocks at top
         $stmt = preg_replace('/^--.*$/m', '', $stmt) ?? $stmt;
         $stmt = trim($stmt);
-        if ($stmt !== '') {
-            $out[] = $stmt;
+        if ($stmt === '') {
+            continue;
         }
+        // Never run CREATE DATABASE / USE against the connected Plesk DB
+        if (preg_match('/^(CREATE\s+DATABASE|USE)\b/i', $stmt)) {
+            continue;
+        }
+        $out[] = $stmt;
     }
     return $out;
+}
+
+/** Drop every table so a failed previous install cannot leave broken FK parents. */
+function wipeAllTables(PDO $pdo): int
+{
+    $pdo->exec('SET FOREIGN_KEY_CHECKS=0');
+    $tables = $pdo->query('SHOW FULL TABLES WHERE Table_type = \'BASE TABLE\'')->fetchAll(PDO::FETCH_NUM);
+    $count = 0;
+    foreach ($tables as $row) {
+        $name = (string) ($row[0] ?? '');
+        if ($name === '') {
+            continue;
+        }
+        $pdo->exec('DROP TABLE IF EXISTS `' . str_replace('`', '``', $name) . '`');
+        $count++;
+    }
+    $pdo->exec('SET FOREIGN_KEY_CHECKS=1');
+    return $count;
 }
 
 function tableExists(PDO $pdo, string $table): bool
@@ -173,18 +196,14 @@ $form = [
     'DB_NAME' => trim((string) ($_POST['DB_NAME'] ?? '')),
     'DB_USER' => trim((string) ($_POST['DB_USER'] ?? '')),
     'DB_PASS' => (string) ($_POST['DB_PASS'] ?? ''),
-    'seed_exams' => !empty($_POST['seed_exams']),
+    'seed_exams' => !isset($_POST['run']) || !empty($_POST['seed_exams']),
     'seed_courses' => !isset($_POST['run']) || !empty($_POST['seed_courses']),
-    'confirm' => !empty($_POST['confirm']),
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['run'] ?? '') === '1') {
     try {
         if (alreadyInstalled($lockFile)) {
             throw new RuntimeException('ติดตั้งไปแล้ว (พบ storage/install.lock) — ลบไฟล์นั้นถ้าต้องการติดตั้งใหม่');
-        }
-        if (!$form['confirm']) {
-            throw new RuntimeException('กรุณาติ๊กยืนยันก่อนติดตั้ง');
         }
         if ($form['DB_NAME'] === '' || $form['DB_USER'] === '') {
             throw new RuntimeException('กรอกชื่อฐานข้อมูลและชื่อผู้ใช้ให้ครบ');
@@ -206,39 +225,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['run'] ?? '') === '1') {
             $logs[] = 'คำเตือน: ' . $n;
         }
 
-        $fresh = !tableExists($pdo, 'admin_users');
-        if ($fresh) {
-            $logs[] = 'ติดตั้ง schema ใหม่...';
-            $statements = loadSchemaStatements((string) file_get_contents($schemaFile));
-            $ok = 0;
-            $skip = 0;
-            foreach ($statements as $sql) {
-                // Skip legacy HSK course/lesson seed — replaced by Leona packs below
-                if (preg_match('/^INSERT\s+INTO\s+courses\b/i', $sql) || preg_match('/^INSERT\s+INTO\s+lessons\b/i', $sql)) {
-                    $skip++;
-                    continue;
-                }
-                if (preg_match('/^INSERT\s+INTO\s+site_settings\b/i', $sql)) {
-                    // brand defaults applied after migrations
-                    $skip++;
-                    continue;
-                }
-                try {
-                    $pdo->exec($sql);
-                    $ok++;
-                } catch (Throwable $e) {
-                    // allow re-run-ish inserts
-                    if (str_contains($e->getMessage(), 'Duplicate')) {
-                        $skip++;
-                        continue;
-                    }
-                    throw new RuntimeException('SQL ล้มเหลว: ' . $e->getMessage() . "\n---\n" . substr($sql, 0, 200));
-                }
+        // Previous failed attempts leave half-created tables → errno 150 on payment_items.
+        $dropped = wipeAllTables($pdo);
+        $logs[] = $dropped > 0
+            ? "ล้างตารางเก่า {$dropped} ตาราง แล้วติดตั้งใหม่"
+            : 'ฐานว่าง — เริ่มสร้างตาราง';
+
+        $logs[] = 'ติดตั้ง schema...';
+        $pdo->exec('SET FOREIGN_KEY_CHECKS=0');
+        $statements = loadSchemaStatements((string) file_get_contents($schemaFile));
+        $ok = 0;
+        $skip = 0;
+        foreach ($statements as $sql) {
+            // Skip legacy HSK course/lesson seed — replaced by Leona packs below
+            if (preg_match('/^INSERT\s+INTO\s+courses\b/i', $sql) || preg_match('/^INSERT\s+INTO\s+lessons\b/i', $sql)) {
+                $skip++;
+                continue;
             }
-            $logs[] = "schema: รัน {$ok} คำสั่ง (ข้าม seed เก่า {$skip})";
-        } else {
-            $logs[] = 'พบตารางอยู่แล้ว — ข้าม schema หลัก ไปรัน migration';
+            if (preg_match('/^INSERT\s+INTO\s+site_settings\b/i', $sql)) {
+                // brand defaults applied after migrations
+                $skip++;
+                continue;
+            }
+            try {
+                $pdo->exec($sql);
+                $ok++;
+            } catch (Throwable $e) {
+                if (str_contains($e->getMessage(), 'Duplicate')) {
+                    $skip++;
+                    continue;
+                }
+                $pdo->exec('SET FOREIGN_KEY_CHECKS=1');
+                throw new RuntimeException('SQL ล้มเหลว: ' . $e->getMessage() . "\n---\n" . substr($sql, 0, 240));
+            }
         }
+        $pdo->exec('SET FOREIGN_KEY_CHECKS=1');
+        $logs[] = "schema: รัน {$ok} คำสั่ง (ข้าม seed เก่า {$skip})";
 
         // Bootstrap app config so migration scripts can use db()
         require_once $root . '/includes/database.php';
@@ -426,10 +448,14 @@ header('Content-Type: text/html; charset=UTF-8');
                 <input id="DB_PASS" name="DB_PASS" type="password" value="<?= h($form['DB_PASS']) ?>">
 
                 <label class="check"><input type="checkbox" name="seed_courses" value="1" <?= $form['seed_courses'] ? 'checked' : '' ?>> ใส่คอร์สตัวอย่าง Leona 6 คอร์ส</label>
-                <label class="check"><input type="checkbox" name="seed_exams" value="1" <?= $form['seed_exams'] || !isset($_POST['run']) ? 'checked' : '' ?>> ใส่ชุดจำลองสนามสอบตัวอย่าง</label>
-                <label class="check"><input type="checkbox" name="confirm" value="1" required> ยืนยันติดตั้งลงฐานข้อมูลนี้</label>
+                <label class="check"><input type="checkbox" name="seed_exams" value="1" <?= $form['seed_exams'] ? 'checked' : '' ?>> ใส่ชุดจำลองสนามสอบตัวอย่าง</label>
 
-                <button type="submit">เริ่มติดตั้ง</button>
+                <div class="warn" style="margin-top:.75rem">
+                    กดปุ่มด้านล่าง = ยืนยันติดตั้งทันที<br>
+                    ระบบจะ<strong>ล้างตารางในฐาน <code><?= h($form['DB_NAME'] !== '' ? $form['DB_NAME'] : 'theleo_cms') ?></code></strong> แล้วสร้างใหม่ (ข้อมูลเก่าในฐานนี้จะหาย)
+                </div>
+
+                <button type="submit">ยืนยันและติดตั้งเลย</button>
             </form>
 
             <?php if ($logs): ?>
