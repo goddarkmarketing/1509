@@ -81,9 +81,13 @@ function loadSchemaStatements(string $sql): array
 
 function tableExists(PDO $pdo, string $table): bool
 {
-    $stmt = $pdo->prepare('SHOW TABLES LIKE ?');
-    $stmt->execute([$table]);
-    return (bool) $stmt->fetchColumn();
+    // MariaDB/MySQL often reject placeholders in SHOW TABLES LIKE ?
+    $table = preg_replace('/[^a-zA-Z0-9_]/', '', $table) ?? '';
+    if ($table === '') {
+        return false;
+    }
+    $stmt = $pdo->query("SHOW TABLES LIKE " . $pdo->quote($table));
+    return (bool) ($stmt && $stmt->fetchColumn());
 }
 
 function ensureUploadsWritable(string $root): array
