@@ -36,6 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $filterCourse = (int) $_POST['filter_course_id'];
     }
 
+    if (!empty($_FILES['video_file']['name'])) {
+        $uploadedVideo = storeLessonVideoUpload($_FILES['video_file']);
+        if ($uploadedVideo === false) {
+            redirect('/admin/lessons.php?action=' . ($editId ? 'edit&id=' . $editId : 'add') . ($filterCourse ? '&course_id=' . $filterCourse : ''));
+        }
+        if (is_string($uploadedVideo)) {
+            $videoUrl = $uploadedVideo;
+        }
+    }
+
     if (!empty($_FILES['document_file']['name'])) {
         $uploaded = storeLessonDocumentUpload($_FILES['document_file']);
         if ($uploaded === false) {
@@ -145,8 +155,10 @@ $lessons = $stmt->fetchAll();
                 <textarea name="description" class="form-control"><?= e($editLesson['description'] ?? '') ?></textarea>
             </div>
             <div class="form-group">
-                <label>ลิงก์วิดีโอ (YouTube / URL)</label>
-                <input type="url" name="video_url" class="form-control" value="<?= e($editLesson['video_url'] ?? '') ?>" placeholder="https://...">
+                <label>วิดีโอบทเรียน</label>
+                <input type="file" name="video_file" class="form-control" accept="video/mp4,video/webm,video/ogg,.mp4,.webm,.ogg">
+                <input type="text" name="video_url" class="form-control form-control-follow" value="<?= e($editLesson['video_url'] ?? '') ?>" placeholder="หรือวางลิงก์ YouTube / URL">
+                <small>อัปโหลดไฟล์ MP4, WEBM หรือ OGG ได้โดยตรง (สูงสุด 80MB) หรือใส่ลิงก์ YouTube ไฟล์ที่อัปโหลดและคลิป YouTube จะเล่นเป็นวิดีโอในหน้าบทเรียน ไม่แสดงเป็นแค่ลิงก์</small>
             </div>
             <div class="form-group">
                 <label>เอกสารประกอบ</label>

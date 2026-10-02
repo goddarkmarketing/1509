@@ -44,7 +44,7 @@ $results = [
     ['icon' => 'medal', 'value' => 'ติวเข้ม', 'label' => 'สอบเข้า ม.1 / ม.4 และ A-Level'],
     ['icon' => 'users', 'value' => 'สด + ออนไลน์', 'label' => 'เลือกได้ตามไลฟ์สไตล์'],
     ['icon' => 'building-2', 'value' => '1 ปี', 'label' => 'อายุการเข้าถึงคอร์สหลังสมัคร'],
-    ['icon' => 'badge-check', 'value' => 'FIRST25', 'label' => 'เรียนครั้งแรกลด 25%'],
+    ['icon' => 'badge-check', 'value' => '5% · 10%', 'label' => 'ครั้งแรก 5% · ลูกค้าเก่า 10% (ใช้ได้ 1 ครั้ง)'],
 ];
 
 $tutors = [
@@ -86,7 +86,7 @@ $tutors = [
 <section class="leona-hero" id="about" aria-label="แบนเนอร์หลัก">
     <div class="leona-hero-media" aria-hidden="true">
         <img
-            src="<?= e(asset('images/leona/hero.jpg')) ?>"
+            src="<?= e(leonaMediaUrl(getSetting('home_hero_image', ''), 'images/leona/hero.jpg')) ?>"
             alt=""
             width="1600"
             height="900"
@@ -151,7 +151,7 @@ $tutors = [
         </div>
         <figure class="leona-results-media leona-reveal">
             <img
-                src="<?= e(asset('images/leona/results-students.jpg')) ?>"
+                src="<?= e(leonaMediaUrl(getSetting('home_results_image', ''), 'images/leona/results-students.jpg')) ?>"
                 alt="นักเรียนกวดวิชาเดอะลีโอน่า"
                 width="900"
                 height="675"
@@ -299,20 +299,20 @@ $tutors = [
 <section class="leona-promo" aria-label="โปรโมชั่น">
     <div class="container leona-promo-inner leona-reveal">
         <div class="leona-promo-offer" aria-hidden="true">
-            <span class="leona-promo-percent">25%</span>
-            <span class="leona-promo-percent-label">ส่วนลดครั้งแรก</span>
+            <span class="leona-promo-percent">5%</span>
+            <span class="leona-promo-percent-label">เรียนครั้งแรก</span>
         </div>
         <div class="leona-promo-copy">
             <p class="leona-promo-kicker">ข้อเสนอพิเศษ</p>
-            <h2>สมัครคอร์สครั้งแรก รับส่วนลดทันที</h2>
+            <h2>เรียนครั้งแรกลด 5% · ลูกค้าเก่าลด 10%</h2>
             <div class="leona-promo-codes">
                 <span class="leona-promo-code">
-                    <small>สมาชิกใหม่</small>
-                    <strong>FIRST25</strong>
+                    <small>เรียนครั้งแรก ลด 5%</small>
+                    <strong>FIRST5</strong>
                 </span>
                 <span class="leona-promo-code">
-                    <small>นักเรียนเก่า ลด 10%</small>
-                    <strong>ALUMNI10</strong>
+                    <small>ลูกค้าเก่า ลด 10% ใช้ได้ 1 ครั้ง</small>
+                    <strong>RETURN10</strong>
                 </span>
             </div>
         </div>

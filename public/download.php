@@ -27,8 +27,9 @@ if ($lessonId > 0) {
         http_response_code(403);
         exit('Forbidden');
     }
-    $docPath = $lesson['document_url'] ?? '';
-    if ($docPath === '' || !str_contains($docPath, $file)) {
+    $docPath = (string) ($lesson['document_url'] ?? '');
+    $videoPath = (string) ($lesson['video_url'] ?? '');
+    if (!str_contains($docPath, $file) && !str_contains($videoPath, $file)) {
         http_response_code(403);
         exit('Forbidden');
     }
@@ -49,11 +50,40 @@ $types = [
     'png' => 'image/png',
     'webp' => 'image/webp',
     'gif' => 'image/gif',
+    'mp4' => 'video/mp4',
+    'webm' => 'video/webm',
+    'ogg' => 'video/ogg',
 ];
 $mime = $types[$ext] ?? 'application/octet-stream';
+$size = filesize($path);
+$isVideo = in_array($ext, ['mp4', 'webm', 'ogg'], true);
 
 header('Content-Type: ' . $mime);
 header('Content-Disposition: inline; filename="' . $file . '"');
-header('Content-Length: ' . (string) filesize($path));
+header('Accept-Ranges: bytes');
+
+if ($isVideo && isset($_SERVER['HTTP_RANGE']) && preg_match('/bytes=(\d+)-(\d*)/', (string) $_SERVER['HTTP_RANGE'], $range)) {
+    $start = (int) $range[1];
+    $end = $range[2] !== '' ? (int) $range[2] : $size - 1;
+    if ($start > $end || $end >= $size) {
+        http_response_code(416);
+        header('Content-Range: bytes */' . $size);
+        exit;
+    }
+    http_response_code(206);
+    header('Content-Range: bytes ' . $start . '-' . $end . '/' . $size);
+    header('Content-Length: ' . (string) ($end - $start + 1));
+    $handle = fopen($path, 'rb');
+    if ($handle === false) {
+        http_response_code(500);
+        exit;
+    }
+    fseek($handle, $start);
+    echo fread($handle, $end - $start + 1);
+    fclose($handle);
+    exit;
+}
+
+header('Content-Length: ' . (string) $size);
 readfile($path);
 exit;

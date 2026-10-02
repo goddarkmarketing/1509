@@ -3,6 +3,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/cart.php';
 require_once __DIR__ . '/student_auth.php';
+require_once __DIR__ . '/site_content.php';
+ensureLeonaClientUpdates();
 $settings = getSettings();
 $pageTitle = $pageTitle ?? getSetting('site_title', 'กวดวิชาเดอะลีโอน่า');
 $cartCount = cartCount();

@@ -228,6 +228,10 @@ require_once dirname(__DIR__) . '/includes/header.php';
 
                 <?php if ($videoUrl): ?>
 
+                    <?php
+                    $uploadedVideo = str_starts_with($videoUrl, 'uploads/courses/')
+                        && preg_match('/\.(mp4|webm|ogg)$/i', $videoUrl);
+                    ?>
                     <?php if ($videoEmbed): ?>
 
                         <div class="lesson-video-wrap">
@@ -244,6 +248,14 @@ require_once dirname(__DIR__) . '/includes/header.php';
 
                             </iframe>
 
+                        </div>
+
+                    <?php elseif ($uploadedVideo): ?>
+
+                        <div class="lesson-video-wrap">
+                            <video controls playsinline preload="metadata" style="width:100%;height:100%;background:#000">
+                                <source src="<?= e(APP_URL . '/public/download.php?lesson_id=' . $lessonId . '&file=' . urlencode(basename($videoUrl))) ?>">
+                            </video>
                         </div>
 
                     <?php else: ?>

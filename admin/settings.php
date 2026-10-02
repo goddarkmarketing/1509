@@ -7,7 +7,8 @@ requireAdmin();
 $keys = [
     'site_title', 'site_tagline', 'hero_title', 'hero_subtitle',
     'bank_account_name', 'bank_name', 'bank_account_number', 'payment_note',
-    'facebook_url', 'line_id', 'phone', 'youtube_url', 'tiktok_url',
+    'facebook_url', 'line_id', 'phone', 'contact_email', 'youtube_url', 'tiktok_url',
+    'home_hero_image', 'home_results_image',
     'email_enabled', 'email_transport', 'email_from', 'email_from_name', 'email_admin', 'site_url',
     'smtp_host', 'smtp_port', 'smtp_user', 'smtp_pass', 'smtp_encryption',
     'line_notify_enabled', 'line_notify_token',
@@ -29,6 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             INSERT INTO site_settings (setting_key, setting_value) VALUES (?, ?)
             ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)
         ');
+        require_once dirname(__DIR__) . '/includes/media_upload.php';
+        if (!empty($_FILES['home_hero_file']['name'])) {
+            $heroUpload = storeCourseCoverUpload($_FILES['home_hero_file']);
+            if (is_string($heroUpload)) {
+                $_POST['home_hero_image'] = $heroUpload;
+            }
+        }
+        if (!empty($_FILES['home_results_file']['name'])) {
+            $resultsUpload = storeCourseCoverUpload($_FILES['home_results_file']);
+            if (is_string($resultsUpload)) {
+                $_POST['home_results_image'] = $resultsUpload;
+            }
+        }
         foreach ($keys as $key) {
             if (in_array($key, ['email_enabled', 'line_notify_enabled', 'promptpay_enabled', 'certificate_require_quiz', 'omise_enabled'], true)) {
                 $value = isset($_POST[$key]) ? '1' : '0';
@@ -71,7 +85,7 @@ $promptPayReady = isPromptPayEnabled() && $promptPayTarget !== '';
         <a href="<?= APP_URL ?>/admin/content.php" class="btn btn-outline btn-sm">จัดการเนื้อหาเว็บ</a>
     </div>
     <div class="admin-card-body">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <?= csrfField() ?>
             <h3>ข้อมูลเว็บไซต์</h3>
             <div class="form-row">
@@ -91,6 +105,20 @@ $promptPayReady = isPromptPayEnabled() && $promptPayTarget !== '';
             <div class="form-group">
                 <label>คำอธิบาย Hero</label>
                 <textarea name="hero_subtitle" class="form-control"><?= e($settings['hero_subtitle'] ?? '') ?></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>รูปแบนเนอร์หน้าแรก</label>
+                    <input type="file" name="home_hero_file" class="form-control" accept="image/jpeg,image/png,image/webp,image/gif">
+                    <input type="text" name="home_hero_image" class="form-control form-control-follow" value="<?= e($settings['home_hero_image'] ?? '') ?>" placeholder="เว้นว่างเพื่อใช้รูปเริ่มต้น">
+                    <small>เปลี่ยนรูปหน้าแรกได้เองเมื่อมีรูปของสถาบันแล้ว (สูงสุด 3MB)</small>
+                </div>
+                <div class="form-group">
+                    <label>รูปนักเรียนในส่วนผลการเรียน</label>
+                    <input type="file" name="home_results_file" class="form-control" accept="image/jpeg,image/png,image/webp,image/gif">
+                    <input type="text" name="home_results_image" class="form-control form-control-follow" value="<?= e($settings['home_results_image'] ?? '') ?>" placeholder="เว้นว่างเพื่อใช้รูปเริ่มต้น">
+                    <small>เปลี่ยนรูปนักเรียนได้เองจากหน้านี้</small>
+                </div>
             </div>
 
             <h3>ชำระเงิน</h3>
@@ -120,8 +148,13 @@ $promptPayReady = isPromptPayEnabled() && $promptPayTarget !== '';
             </div>
             <div class="form-row">
                 <div class="form-group">
+                    <label>อีเมลติดต่อ</label>
+                    <input type="email" name="contact_email" class="form-control" value="<?= e($settings['contact_email'] ?? 'ballcub555@gmail.com') ?>">
+                </div>
+                <div class="form-group">
                     <label>Line ID</label>
-                    <input type="text" name="line_id" class="form-control" value="<?= e($settings['line_id'] ?? '') ?>">
+                    <input type="text" name="line_id" class="form-control" value="<?= e($settings['line_id'] ?? '') ?>" placeholder="@lineid">
+                    <small>คิวอาร์โค้ด LINE แสดงที่หน้าติดต่อเราแล้ว</small>
                 </div>
                 <div class="form-group">
                     <label>เบอร์โทร</label>

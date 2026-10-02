@@ -89,6 +89,13 @@ function createPendingOmisePayment(array $customer, array $cartItems, float $amo
     $name = trim($customer['name'] ?? '');
     $phone = trim($customer['phone'] ?? '');
     $email = trim($customer['email'] ?? '') ?: null;
+    if ($couponCode) {
+        require_once __DIR__ . '/coupon.php';
+        $blocked = couponRestrictionMessage((string) $couponCode, (string) $email, $phone);
+        if ($blocked) {
+            throw new RuntimeException($blocked);
+        }
+    }
     $courseOnly = array_values(array_filter($cartItems, static fn($i) => ($i['item_type'] ?? 'course') === 'course'));
     $courseId = count($courseOnly) === 1 ? (int) ($courseOnly[0]['id'] ?? 0) : null;
 

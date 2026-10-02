@@ -33,11 +33,72 @@ function validateCoupon(string $code): ?array
     return $coupon;
 }
 
+function couponRestrictionMessage(string $code, string $email = '', string $phone = ''): ?string
+{
+    $code = strtoupper(trim($code));
+    if ($code === '') {
+        return null;
+    }
+    $email = strtolower(trim($email));
+    $phone = preg_replace('/\s+/', '', $phone) ?? '';
+    if ($email === '' && $phone === '') {
+        return null;
+    }
+
+    $verified = 0;
+    $usedReturn = 0;
+    try {
+        if ($email !== '') {
+            $stmt = db()->prepare('SELECT COUNT(*) FROM payments WHERE LOWER(student_email) = ? AND status = "verified"');
+            $stmt->execute([$email]);
+            $verified += (int) $stmt->fetchColumn();
+            $stmt = db()->prepare('SELECT COUNT(*) FROM payments WHERE LOWER(student_email) = ? AND UPPER(coupon_code) = "RETURN10" AND status <> "rejected"');
+            $stmt->execute([$email]);
+            $usedReturn += (int) $stmt->fetchColumn();
+        }
+        if ($phone !== '') {
+            $stmt = db()->prepare('SELECT COUNT(*) FROM payments WHERE REPLACE(student_phone, " ", "") = ? AND status = "verified"');
+            $stmt->execute([$phone]);
+            $verified += (int) $stmt->fetchColumn();
+            $stmt = db()->prepare('SELECT COUNT(*) FROM payments WHERE REPLACE(student_phone, " ", "") = ? AND UPPER(coupon_code) = "RETURN10" AND status <> "rejected"');
+            $stmt->execute([$phone]);
+            $usedReturn += (int) $stmt->fetchColumn();
+        }
+    } catch (Throwable $e) {
+        return null;
+    }
+
+    if ($code === 'FIRST5' && $verified > 0) {
+        return 'รหัส FIRST5 ใช้ได้เฉพาะการเรียนครั้งแรก';
+    }
+    if ($code === 'RETURN10' && $verified <= 0) {
+        return 'รหัส RETURN10 ใช้ได้เฉพาะลูกค้าเก่าที่เคยชำระเงินแล้ว';
+    }
+    if ($code === 'RETURN10' && $usedReturn > 0) {
+        return 'รหัส RETURN10 ใช้ได้ 1 ครั้งต่อลูกค้า';
+    }
+    return null;
+}
+
 function applyCouponCode(string $code): array
 {
     $coupon = validateCoupon($code);
     if (!$coupon) {
         return ['ok' => false, 'message' => 'รหัสส่วนลดไม่ถูกต้องหรือหมดอายุ'];
+    }
+    if (!function_exists('currentStudent')) {
+        require_once __DIR__ . '/student_auth.php';
+    }
+    $student = currentStudent();
+    if ($student) {
+        $blocked = couponRestrictionMessage(
+            (string) $coupon['code'],
+            (string) ($student['email'] ?? ''),
+            (string) ($student['phone'] ?? '')
+        );
+        if ($blocked) {
+            return ['ok' => false, 'message' => $blocked];
+        }
     }
     $subtotal = cartSubtotal();
     $min = (float) ($coupon['min_amount'] ?? 0);

@@ -152,7 +152,7 @@ $courses = getCourses(null, false);
                 <label>รูปปกคอร์ส</label>
                 <input type="file" name="cover_image" class="form-control" accept="image/jpeg,image/png,image/webp,image/gif">
                 <input type="text" name="image_url" class="form-control form-control-follow" value="<?= e($editCourse['image_url'] ?? '') ?>" placeholder="หรือใส่ URL / path เช่น images/courses/photo.jpg">
-                <small>อัปโหลดไฟล์ (สูงสุด 3MB) หรือใส่ลิงก์รูป</small>
+                <small>เปลี่ยนรูปปกได้เองจากหน้านี้ ไม่ต้องแจ้งผู้พัฒนา — อัปโหลด JPG, PNG, WEBP หรือ GIF (สูงสุด 3MB) หรือใส่ลิงก์รูป</small>
                 <?php if (!empty($editCourse)): ?>
                     <img src="<?= e(courseCoverUrl($editCourse)) ?>" alt="" class="form-preview-img">
                 <?php endif; ?>

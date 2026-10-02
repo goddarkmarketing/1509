@@ -98,7 +98,7 @@ function defaultHomepageContent(): array
                 ['quote' => 'ติว A-Level เข้มข้น โฟกัสข้อสอบจริง ลูกมั่นใจขึ้นเยอะก่อนวันสอบ', 'name' => 'คุณพ่อโอ', 'course' => 'A-Level', 'initial' => 'อ', 'hue' => 15],
                 ['quote' => 'ติดต่อสอบถามง่าย ตอบไว จัดคอร์สให้เหมาะกับระดับของลูกได้ดี', 'name' => 'คุณแม่เจ', 'course' => 'หน้าที่พลเมือง', 'initial' => 'จ', 'hue' => 260],
                 ['quote' => 'เคยเรียนที่อื่นแล้วตามไม่ทัน ที่นี่สอนเป็นขั้นตอน ไม่รีบ ลูกสนุกและได้เกรดดีขึ้น', 'name' => 'คุณแม่ฟ้า', 'course' => 'ภูมิศาสตร์', 'initial' => 'ฟ', 'hue' => 190],
-                ['quote' => 'ราคาคุ้ม เนื้อหาแน่น ใช้โค้ด FIRST25 ได้ส่วนลดจริง แนะนำเพื่อนผู้ปกครองแล้ว', 'name' => 'คุณพ่อต้', 'course' => 'เศรษฐศาสตร์', 'initial' => 'ต', 'hue' => 45],
+                ['quote' => 'ราคาคุ้ม เนื้อหาแน่น ใช้โค้ดส่วนลดได้จริง แนะนำเพื่อนผู้ปกครองแล้ว', 'name' => 'คุณพ่อต้', 'course' => 'เศรษฐศาสตร์', 'initial' => 'ต', 'hue' => 45],
                 ['quote' => 'ลูกเข้าถึงคอร์สได้ทั้งปี ทบทวนก่อนสอบสะดวก ไม่ต้องกังวลเรื่องเวลาเรียน', 'name' => 'คุณแม่ปิ่น', 'course' => 'กฎหมาย', 'initial' => 'ป', 'hue' => 330],
             ],
         ],
@@ -169,13 +169,71 @@ function getContactContent(): array
     return array_replace_recursive(defaultContactContent(), $stored);
 }
 
+function leonaMediaUrl(string $stored, string $fallbackAsset): string
+{
+    $stored = trim($stored);
+    if ($stored === '') {
+        return asset($fallbackAsset);
+    }
+    if (preg_match('#^https?://#i', $stored)) {
+        return $stored;
+    }
+    if (str_starts_with($stored, 'uploads/')) {
+        return APP_URL . '/' . ltrim($stored, '/');
+    }
+    return asset($stored);
+}
+
 function publicContactEmail(): string
 {
     $email = trim(getSetting('contact_email', ''));
-    if ($email !== '') {
+    if ($email !== '' && !str_ends_with(strtolower($email), '@wenxin.local')) {
         return $email;
     }
-    return trim(getSetting('email_admin', ''));
+    $admin = trim(getSetting('email_admin', ''));
+    if ($admin !== '' && !str_ends_with(strtolower($admin), '@wenxin.local')) {
+        return $admin;
+    }
+    return 'ballcub555@gmail.com';
+}
+
+/** Apply client updates once: contact email and promo coupon codes. */
+function ensureLeonaClientUpdates(): void
+{
+    static $done = false;
+    if ($done) {
+        return;
+    }
+    $done = true;
+    try {
+        if (getSetting('leona_client_patch', '') === '2026-10-02') {
+            return;
+        }
+        $email = trim(getSetting('contact_email', ''));
+        $admin = trim(getSetting('email_admin', ''));
+        if ($email === '' || str_ends_with(strtolower($email), '@wenxin.local')) {
+            saveSetting('contact_email', 'ballcub555@gmail.com');
+        }
+        if ($admin === '' || str_ends_with(strtolower($admin), '@wenxin.local')) {
+            saveSetting('email_admin', 'ballcub555@gmail.com');
+        }
+        $from = trim(getSetting('email_from', ''));
+        if ($from === '' || str_ends_with(strtolower($from), '@wenxin.local')) {
+            saveSetting('email_from', 'ballcub555@gmail.com');
+        }
+
+        $upsert = db()->prepare('
+            INSERT INTO coupons (code, discount_type, discount_value, min_amount, max_uses, used_count, is_active)
+            VALUES (?, "percent", ?, 0, 0, 0, 1)
+            ON DUPLICATE KEY UPDATE discount_type = "percent", discount_value = VALUES(discount_value), is_active = 1
+        ');
+        $upsert->execute(['FIRST5', 5]);
+        $upsert->execute(['RETURN10', 10]);
+        db()->prepare('UPDATE coupons SET is_active = 0 WHERE code = ?')->execute(['FIRST25']);
+        saveSetting('leona_client_patch', '2026-10-02');
+    } catch (Throwable $e) {
+        // Database may not be ready yet.
+    }
 }
 
 function defaultFooterContent(): array

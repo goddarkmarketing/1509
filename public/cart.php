@@ -75,7 +75,7 @@ $appliedCoupon = getAppliedCoupon();
                         <?= csrfField() ?>
                         <label class="visually-hidden" for="coupon_code">รหัสส่วนลด</label>
                         <div class="cart-coupon-row">
-                            <input type="text" id="coupon_code" name="coupon_code" class="form-control" placeholder="เช่น FIRST25" value="<?= e($appliedCoupon['code'] ?? '') ?>">
+                            <input type="text" id="coupon_code" name="coupon_code" class="form-control" placeholder="เช่น FIRST5 หรือ RETURN10" value="<?= e($appliedCoupon['code'] ?? '') ?>">
                             <?php if ($appliedCoupon): ?>
                             <button type="submit" name="remove_coupon" value="1" class="btn btn-outline btn-sm">ลบรหัส</button>
                             <?php else: ?>

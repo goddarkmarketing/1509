@@ -293,6 +293,7 @@ if ($editQuestionId && $manageQuiz) {
         <h2>แบบทดสอบ (Quiz)</h2>
         <a href="<?= APP_URL ?>/admin/quizzes.php?action=add" class="btn btn-primary btn-sm">เพิ่มแบบทดสอบ</a>
     </div>
+    <p class="form-hint" style="margin:0 1.25rem 1rem">นักเรียนต้องสมัครและได้รับสิทธิ์คอร์สนั้นแล้วเท่านั้น จึงจะทำแบบทดสอบของคอร์สได้ บทเรียนที่ติ๊ก「ดูตัวอย่างฟรี」ยังเปิดให้ดูก่อนซื้อได้</p>
     <div class="admin-card-toolbar">
         <form method="get" class="admin-inline-form">
             <select name="course_id" class="form-control">

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 const MAX_COURSE_IMAGE_BYTES = 3 * 1024 * 1024;
 const MAX_LESSON_DOC_BYTES = 10 * 1024 * 1024;
+const MAX_LESSON_VIDEO_BYTES = 80 * 1024 * 1024;
 const MAX_QUIZ_AUDIO_BYTES = 15 * 1024 * 1024;
 
 function ensureUploadDir(string $path): void
@@ -147,6 +148,38 @@ function storeLessonDocumentUpload(array $file): string|false|null
     $dest = UPLOAD_COURSES_PATH . '/' . $filename;
     if (!move_uploaded_file($file['tmp_name'], $dest)) {
         flash('admin_error', 'บันทึกเอกสารไม่สำเร็จ');
+        return false;
+    }
+    return 'uploads/courses/' . $filename;
+}
+
+function storeLessonVideoUpload(array $file): string|false|null
+{
+    if (($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+    if (($file['error'] ?? UPLOAD_ERR_OK) !== UPLOAD_ERR_OK) {
+        $code = (int) ($file['error'] ?? 0);
+        $hint = $code === UPLOAD_ERR_INI_SIZE || $code === UPLOAD_ERR_FORM_SIZE
+            ? 'ไฟล์ใหญ่เกินค่าที่เซิร์ฟเวอร์รับได้'
+            : 'อัปโหลดวิดีโอไม่สำเร็จ';
+        flash('admin_error', $hint);
+        return false;
+    }
+    if (($file['size'] ?? 0) > MAX_LESSON_VIDEO_BYTES) {
+        flash('admin_error', 'วิดีโอใหญ่เกิน 80MB');
+        return false;
+    }
+    $ext = strtolower(pathinfo((string) ($file['name'] ?? ''), PATHINFO_EXTENSION));
+    if (!in_array($ext, ['mp4', 'webm', 'ogg'], true)) {
+        flash('admin_error', 'วิดีโอรองรับ MP4, WEBM, OGG');
+        return false;
+    }
+    ensureUploadDir(UPLOAD_COURSES_PATH);
+    $filename = 'video_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+    $dest = UPLOAD_COURSES_PATH . '/' . $filename;
+    if (!move_uploaded_file($file['tmp_name'], $dest)) {
+        flash('admin_error', 'บันทึกวิดีโอไม่สำเร็จ');
         return false;
     }
     return 'uploads/courses/' . $filename;

@@ -9429,3 +9429,34 @@ body.has-course-mobile-bar {
   .exams-grid { grid-template-columns: 1fr; }
   .exam-hall-nav-grid { grid-template-columns: repeat(8, 1fr); }
 }
+
+.contact-line-qr {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: .85rem;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+}
+.contact-line-qr img {
+  width: 148px;
+  height: 148px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #fff;
+  flex-shrink: 0;
+}
+.contact-line-qr h3 { margin: 0 0 .35rem; font-size: 1.15rem; }
+.contact-line-qr p { margin: 0 0 .75rem; color: var(--gray-600); }
+.contact-line-qr-label {
+  margin: 0 0 .2rem;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: #06c755;
+}
+@media (max-width: 640px) {
+  .contact-line-qr { flex-direction: column; text-align: center; }
+}

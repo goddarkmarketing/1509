@@ -145,6 +145,17 @@ if ($tiktok !== '') {
 
         <?php if ($contactChannels): ?>
         <div class="contact-page-channels-panel">
+            <div class="contact-line-qr">
+                <img src="<?= e(asset('images/leona/line-qr.png')) ?>" alt="คิวอาร์โค้ด LINE กวดวิชาเดอะลีโอน่า" width="220" height="220">
+                <div>
+                    <p class="contact-line-qr-label">LINE</p>
+                    <h3>เพิ่มเพื่อนผ่านคิวอาร์โค้ด</h3>
+                    <p>สแกนด้วยแอป LINE เพื่อสอบถามคอร์ส การสมัครเรียน และการชำระเงิน</p>
+                    <?php if ($lineId !== '' && $lineUrl !== ''): ?>
+                    <a class="btn btn-primary btn-sm" href="<?= e($lineUrl) ?>" target="_blank" rel="noopener">เปิด LINE</a>
+                    <?php endif; ?>
+                </div>
+            </div>
             <?php foreach ($contactChannels as $channel): ?>
             <?php include dirname(__DIR__) . '/includes/views/contact_channel_card.php'; ?>
             <?php endforeach; ?>

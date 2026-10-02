@@ -45,6 +45,11 @@ $note = appendSessionMapToNote($note, getCartSessionMap());
 $appliedCoupon = getAppliedCoupon();
 $couponCode = $appliedCoupon['code'] ?? null;
 if ($couponCode) {
+    $blocked = couponRestrictionMessage((string) $couponCode, $email, $phone);
+    if ($blocked) {
+        flash('payment_error', $blocked);
+        redirect('/public/checkout.php');
+    }
     $note = ($note !== '' ? $note . "\n" : '') . 'coupon:' . $couponCode;
 }
 
