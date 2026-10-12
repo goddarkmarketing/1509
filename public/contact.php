@@ -15,7 +15,7 @@ $email = publicContactEmail();
 $facebook = trim(getSetting('facebook_url', ''));
 $youtube = trim(getSetting('youtube_url', ''));
 $tiktok = trim(getSetting('tiktok_url', ''));
-$tagline = getSetting('site_tagline', 'สถาบันสอนภาษาจีนออนไลน์ คุณภาพ เรียนง่าย ได้ผลจริง');
+$tagline = getSetting('site_tagline', 'ติวสังคมศึกษาเข้าใจง่าย เห็นผลจริง');
 $checkoutUrl = $checkoutNavUrl ?? APP_URL . '/public/cart.php';
 
 $contactChannels = [];
@@ -79,7 +79,7 @@ if ($youtube !== '') {
         'label' => 'YouTube',
         'title' => 'ชมคลิปสอน',
         'value' => 'YouTube Channel',
-        'hint' => 'ตัวอย่างบทเรียนและเทคนิคภาษาจีน',
+        'hint' => 'ตัวอย่างบทเรียนและเทคนิคทำข้อสอบ',
         'href' => $youtube,
         'external' => true,
         'cta' => 'ดูช่อง YouTube',
@@ -92,7 +92,7 @@ if ($tiktok !== '') {
         'label' => 'TikTok',
         'title' => 'คลิปสั้นน่ารู้',
         'value' => 'TikTok',
-        'hint' => 'เรียนรู้ภาษาจีนแบบสนุกในคลิปสั้น',
+        'hint' => 'คลิปสั้นทบทวนสังคมศึกษา',
         'href' => $tiktok,
         'external' => true,
         'cta' => 'ดู TikTok',

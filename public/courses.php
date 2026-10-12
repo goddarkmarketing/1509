@@ -18,7 +18,7 @@ try {
 <section class="page-header">
     <div class="container">
         <h1>คอร์สเรียนทั้งหมด</h1>
-        <p>เลือกคอร์สภาษาจีนที่เหมาะกับคุณ</p>
+        <p>เลือกคอร์สสังคมศึกษาที่เหมาะกับคุณ</p>
     </div>
 </section>
 
@@ -37,7 +37,7 @@ try {
                                 name="q"
                                 class="form-control"
                                 type="search"
-                                placeholder="พิมพ์ชื่อคอร์ส เช่น HSK 3 / พินอิน"
+                                placeholder="พิมพ์ชื่อคอร์ส เช่น สอบเข้า ม.1 / A-Level"
                                 value="<?= e($searchQuery) ?>"
                                 autocomplete="off"
                             >
@@ -68,7 +68,7 @@ try {
                             <select id="courseCategorySelect" class="form-control">
                                 <option value="all">ทั้งหมด</option>
                                 <option value="foundation">พื้นฐาน</option>
-                                <option value="hsk">HSK</option>
+                                <option value="hsk">สังคมศึกษา</option>
                                 <option value="exam_prep">ติวสอบ</option>
                             </select>
                         </div>

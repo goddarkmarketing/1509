@@ -65,7 +65,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                             <span class="auth-register-perk-icon" aria-hidden="true">
                                 <?= lucide_icon('circle-check', ['size' => 16, 'stroke' => '2.5']) ?>
                             </span>
-                            <span>เข้าเรียนคอร์ส HSK ได้ทันทีหลังเปิดสิทธิ์</span>
+                            <span>เข้าเรียนคอร์สได้ทันทีหลังเปิดสิทธิ์</span>
                         </li>
                         <li>
                             <span class="auth-register-perk-icon" aria-hidden="true">

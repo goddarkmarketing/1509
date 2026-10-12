@@ -26,7 +26,7 @@ function saveJsonSetting(string $key, array $value): void
 function defaultFaqItems(): array
 {
     $main = [
-        ['q' => 'ไม่เคยเรียนภาษาจีนมาก่อน ควรเริ่มคอร์สไหน?', 'a' => 'แนะนำเริ่มจากคอร์สพินอิน HSK 1 เพื่อปูพื้นฐานเสียงและคำศัพท์ จากนั้นค่อยต่อ HSK 2–3 ตามเป้าหมาย หรือทดลองเรียนบทฟรีก่อนตัดสินใจซื้อคอร์ส', 'scope' => 'main'],
+        ['q' => 'ยังไม่มั่นใจพื้นฐานสังคมศึกษา ควรเริ่มคอร์สไหน?', 'a' => 'แนะนำเริ่มจากคอร์สปรับพื้นฐานตามระดับชั้น หรือคอร์สติวสอบเข้า ม.1 ม.4 และ A-Level ตามเป้าหมาย หรือทดลองเรียนบทฟรีก่อนตัดสินใจซื้อคอร์ส', 'scope' => 'main'],
         ['q' => 'สมัครสมาชิกต้องใช้อะไรบ้าง?', 'a' => 'ใช้เบอร์โทรศัพท์มือถือ ชื่อ-นามสกุล และตั้งรหัสผ่าน สมัครได้ที่หน้า「สมัครสมาชิก」ใช้เวลาไม่กี่นาที ไม่ต้องแนบเอกสาร', 'scope' => 'main'],
         ['q' => 'ชำระเงินแล้วกี่วันถึงจะเปิดสิทธิ์เรียน?', 'a' => 'การโอนเงินและแจ้งสลิป ทีมงานจะตรวจสอบและเปิดสิทธิ์ภายใน 24 ชั่วโมงทำการ หากชำระผ่านช่องทางออนไลน์ (Omise) ระบบเปิดสิทธิ์อัตโนมัติทันทีเมื่อชำระสำเร็จ', 'scope' => 'main'],
         ['q' => 'ชำระเงินด้วยวิธีใดบ้าง?', 'a' => 'รองรับโอนเงินผ่านธนาคาร สแกน PromptPay แนบสลิป และชำระออนไลน์ด้วยบัตร/PromptPay ผ่าน Omise (เปิดสิทธิ์ทันที)', 'scope' => 'main'],
@@ -42,7 +42,7 @@ function defaultFaqItems(): array
         ['q' => 'ติดต่อทีมงานได้ช่องทางไหนบ้าง?', 'a' => 'ติดต่อได้ผ่าน Line, Facebook, โทรศัพท์ หรืออีเมลตามข้อมูลในหน้า「ติดต่อเรา」ท้ายเว็บไซต์ ทีมงานตอบกลับในวันและเวลาทำการ', 'scope' => 'main'],
     ];
     $extra = [
-        ['q' => 'HSK คืออะไร ทำไมควรเรียนให้ครบระดับ?', 'a' => 'HSK (汉语水平考试) คือการสอบวัดระดับภาษาจีนที่ได้รับการยอมรับทั่วโลก การเรียนตามลำดับ HSK 1–5 ช่วยปูพื้นฐานไปสู่การใช้งานจริงและเตรียมสอบได้อย่างเป็นระบบ', 'scope' => 'homepage_extra'],
+        ['q' => 'ติวสอบเข้ากับติว A-Level ต่างกันอย่างไร?', 'a' => 'คอร์สสอบเข้า ม.1 และ ม.4 เน้นเนื้อหาและแนวข้อสอบของระดับนั้น ส่วน A-Level โฟกัสข้อสอบสังคมศึกษาในระดับอุดมศึกษา เลือกคอร์สตามเป้าหมายการสอบของนักเรียน', 'scope' => 'homepage_extra'],
         ['q' => 'มีเอกสารประกอบการเรียนไหม?', 'a' => 'มีครับ หลายบทเรียนมีไฟล์เอกสารแนบให้ดาวน์โหล์ได้ในหน้าบทเรียน สามารถเก็บไว้ทบทวนหรือพิมพ์ออกมาเรียนได้ตามสะดวก', 'scope' => 'homepage_extra'],
         ['q' => 'ดูความคืบหน้าการเรียนได้ที่ไหน?', 'a' => 'หลังเข้าสู่ระบบไปที่หน้า「คอร์สของฉัน」หรือ「เริ่มเรียน」ระบบแสดงเปอร์เซ็นต์ความคืบหน้าแต่ละคอร์ส และบทที่เรียนแล้ว/ยังไม่เรียน', 'scope' => 'homepage_extra'],
         ['q' => 'แจ้งชำระเงินแล้วแต่ยังเข้าเรียนไม่ได้ทำอย่างไร?', 'a' => 'ตรวจสอบว่าสลิปถูกต้องและยอดเงินตรงกับคอร์สที่สั่งซื้อ จากนั้นติดต่อทีมงานผ่าน Line พร้อมเบอร์โทรที่สมัครและหลักฐานการโอน ทีมงานจะตรวจสอบและเปิดสิทธิ์ให้โดยเร็ว', 'scope' => 'homepage_extra'],
@@ -206,9 +206,7 @@ function ensureLeonaClientUpdates(): void
     }
     $done = true;
     try {
-        if (getSetting('leona_client_patch', '') === '2026-10-02') {
-            return;
-        }
+        if (getSetting('leona_client_patch', '') !== '2026-10-02' && getSetting('leona_client_patch', '') !== '2026-10-12-social') {
         $email = trim(getSetting('contact_email', ''));
         $admin = trim(getSetting('email_admin', ''));
         if ($email === '' || str_ends_with(strtolower($email), '@wenxin.local')) {
@@ -231,6 +229,20 @@ function ensureLeonaClientUpdates(): void
         $upsert->execute(['RETURN10', 10]);
         db()->prepare('UPDATE coupons SET is_active = 0 WHERE code = ?')->execute(['FIRST25']);
         saveSetting('leona_client_patch', '2026-10-02');
+        }
+        if (getSetting('leona_subject_patch', '') !== 'social') {
+            $rows = db()->query('SELECT setting_key, setting_value FROM site_settings')->fetchAll();
+            $update = db()->prepare('UPDATE site_settings SET setting_value = ? WHERE setting_key = ?');
+            foreach ($rows as $row) {
+                $value = (string) ($row['setting_value'] ?? '');
+                if (!str_contains($value, 'ภาษาจีน')) {
+                    continue;
+                }
+                $update->execute([str_replace('ภาษาจีน', 'สังคมศึกษา', $value), $row['setting_key']]);
+            }
+            saveSetting('leona_subject_patch', 'social');
+            resetSettingsCache();
+        }
     } catch (Throwable $e) {
         // Database may not be ready yet.
     }
