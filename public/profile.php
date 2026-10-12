@@ -203,7 +203,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                 <div class="account-panel-head">
                     <div>
                         <h1>การจองคลาส Live</h1>
-                        <p class="account-panel-desc">รอบเรียนที่จองไว้ สถานะการชำระเงิน และลิงก์เข้า Zoom</p>
+                        <p class="account-panel-desc">รอบเรียนที่จองไว้ สถานะการชำระเงิน และลิงก์เข้า Google Meet หรือ Zoom</p>
                     </div>
                 </div>
                 <div class="account-panel-card">
@@ -226,7 +226,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                                 <?php endif; ?>
                             </div>
                             <?php if ($zoom && $bookingStatus === 'confirmed'): ?>
-                            <a href="<?= e($zoom) ?>" target="_blank" rel="noopener" class="btn btn-primary btn-sm">เข้า Zoom</a>
+                            <a href="<?= e($zoom) ?>" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><?= e(liveMeetingJoinLabel($zoom)) ?></a>
                             <?php elseif ($isPendingBooking): ?>
                             <span class="my-courses-badge my-courses-badge--pending">รออนุมัติ</span>
                             <?php endif; ?>

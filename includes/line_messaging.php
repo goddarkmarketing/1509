@@ -375,7 +375,7 @@ function linePushBookingConfirmed(int $studentId, array $booking): void
         . 'คอร์ส: ' . ($booking['course_title'] ?? '') . "\n"
         . 'วันเวลา: ' . $when;
     if ($zoom) {
-        $msg .= "\nลิงก์ Zoom: " . $zoom;
+        $msg .= "\n" . liveMeetingLinkLabel($zoom) . ': ' . $zoom;
     }
     $msg .= "\n\nดูรายละเอียด: " . lineOaStudentAccountUrl();
 

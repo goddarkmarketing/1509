@@ -344,7 +344,7 @@ $promptPayReady = isPromptPayEnabled() && $promptPayTarget !== '';
                     </span>
                     <div>
                         <h3 class="admin-settings-integration-title">LINE Official Account</h3>
-                        <p class="admin-settings-integration-desc">แจ้งเตือนนักเรียนเมื่อจองคลาส · ส่งลิงก์ Zoom · เตือนก่อนเริ่มเรียน</p>
+                        <p class="admin-settings-integration-desc">แจ้งเตือนนักเรียนเมื่อจองคลาส · ส่งลิงก์ Google Meet · เตือนก่อนเริ่มเรียน</p>
                     </div>
                     <?php if (isLineOaEnabled()): ?>
                     <span class="admin-settings-integration-badge admin-settings-integration-badge--on">เปิดใช้งาน</span>

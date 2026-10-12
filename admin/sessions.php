@@ -207,8 +207,9 @@ try {
                 </div>
             </div>
             <div class="form-group">
-                <label>ลิงก์ Zoom (เฉพาะรอบนี้ — ว่างใช้ลิงก์คอร์ส)</label>
-                <input type="url" name="zoom_url" class="form-control" value="<?= e($editSession['zoom_url'] ?? '') ?>" placeholder="https://zoom.us/j/...">
+                <label>ลิงก์เรียนสดของรอบนี้ (Google Meet หรือ Zoom)</label>
+                <input type="url" name="zoom_url" class="form-control" value="<?= e($editSession['zoom_url'] ?? '') ?>" placeholder="https://meet.google.com/xxx-xxxx-xxx">
+                <small>ถ้าว่าง ระบบใช้ลิงก์ที่ตั้งไว้ในคอร์ส</small>
             </div>
             <div class="form-group">
                 <label>รูปประกอบรอบเรียน</label>
@@ -254,7 +255,7 @@ try {
                     <th>รูป</th>
                     <th>รอบ / เวลา</th>
                     <th>ที่นั่ง</th>
-                    <th>Zoom</th>
+                    <th>ห้องเรียนสด</th>
                     <th>สถานะ</th>
                     <th>หน้าเว็บ</th>
                     <th class="actions">จัดการ</th>

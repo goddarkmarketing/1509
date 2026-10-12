@@ -190,7 +190,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                         </li>
                         <li>
                             <?= lucide_icon('video', ['size' => 16, 'stroke' => '1.75']) ?>
-                            เรียนสดผ่าน Zoom
+                            เรียนสดผ่าน Google Meet หรือ Zoom
                         </li>
                     </ul>
                     <div class="book-course-price">

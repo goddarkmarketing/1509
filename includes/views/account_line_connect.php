@@ -14,7 +14,7 @@ $studentPhone = normalizePhoneDigits((string) ($student['phone'] ?? ''));
         <?= brand_icon('line', ['size' => 22, 'class' => 'account-line-icon']) ?>
         <div>
             <strong>รับการแจ้งเตือนผ่าน LINE</strong>
-            <p>ยืนยันการจองคลาส ลิงก์ Zoom และแจ้งเตือนก่อนเริ่มเรียน</p>
+            <p>ยืนยันการจองคลาส ลิงก์ Google Meet และแจ้งเตือนก่อนเริ่มเรียน</p>
         </div>
     </div>
 
@@ -23,7 +23,7 @@ $studentPhone = normalizePhoneDigits((string) ($student['phone'] ?? ''));
     <?php elseif ($lineLinked): ?>
     <div class="account-line-status account-line-status--ok">
         <?= lucide_icon('circle-check', ['size' => 18]) ?>
-        <span>เชื่อม LINE สำเร็จแล้ว ระบบจะแจ้งการจองคลาสและลิงก์ Zoom ให้ทางนี้</span>
+        <span>เชื่อม LINE สำเร็จแล้ว ระบบจะแจ้งการจองคลาสและลิงก์ Google Meet ให้ทางนี้</span>
     </div>
     <?php else: ?>
     <p class="account-line-intro">เชื่อมบัญชีเพื่อรับแจ้งเตือนอัตโนมัติ — ใช้เวลาไม่เกิน 1 นาที</p>

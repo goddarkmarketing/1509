@@ -79,7 +79,7 @@ $bookings = getAdminBookings($filter !== '' ? $filter : null);
                     <th>นักเรียน</th>
                     <th>คอร์ส / รอบ</th>
                     <th>วันเวลา</th>
-                    <th>Zoom</th>
+                    <th>ห้องเรียนสด</th>
                     <th>ชำระเงิน</th>
                     <th>สถานะ</th>
                     <th class="actions">จัดการ</th>
@@ -103,7 +103,7 @@ $bookings = getAdminBookings($filter !== '' ? $filter : null);
                     <td><?= e(formatSessionRange($b)) ?></td>
                     <td>
                         <?php if ($zoomUrl): ?>
-                        <a href="<?= e($zoomUrl) ?>" target="_blank" rel="noopener" class="btn btn-outline btn-sm">เปิด Zoom</a>
+                        <a href="<?= e($zoomUrl) ?>" target="_blank" rel="noopener" class="btn btn-outline btn-sm"><?= e(liveMeetingJoinLabel($zoomUrl)) ?></a>
                         <?php else: ?>—<?php endif; ?>
                     </td>
                     <td>

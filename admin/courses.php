@@ -171,8 +171,9 @@ $courses = getCourses(null, false);
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>ลิงก์ Zoom คอร์ส (ใช้ร่วมทุกรอบถ้าไม่กำหนดแยก)</label>
-                    <input type="url" name="zoom_url" class="form-control" value="<?= e($editCourse['zoom_url'] ?? '') ?>" placeholder="https://zoom.us/j/...">
+                    <label>ลิงก์เรียนสด (Google Meet หรือ Zoom)</label>
+                    <input type="url" name="zoom_url" class="form-control" value="<?= e($editCourse['zoom_url'] ?? '') ?>" placeholder="https://meet.google.com/xxx-xxxx-xxx">
+                    <small>วางลิงก์ Google Meet ของรอบสอน หรือลิงก์ Zoom ก็ได้ ถ้าว่างไว้ในแต่ละรอบ ระบบจะใช้ลิงก์นี้ร่วมกัน</small>
                 </div>
             </div>
             <div class="form-group">

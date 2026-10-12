@@ -153,7 +153,10 @@ function notifyBookingConfirmedEmail(string $studentEmail, string $studentName, 
         . '<li><strong>คอร์ส:</strong> ' . e($courseTitle) . '</li>'
         . '<li><strong>วันเวลา:</strong> ' . e($sessionWhen) . '</li>';
     if ($zoomUrl) {
-        $body .= '<li><strong>Zoom:</strong> <a href="' . e($zoomUrl) . '">' . e($zoomUrl) . '</a></li>';
+        if (!function_exists('liveMeetingLinkLabel')) {
+            require_once __DIR__ . '/booking.php';
+        }
+        $body .= '<li><strong>' . e(liveMeetingLinkLabel($zoomUrl)) . ':</strong> <a href="' . e($zoomUrl) . '">' . e($zoomUrl) . '</a></li>';
     }
     $body .= '</ul>'
         . '<p><a href="' . e(siteBaseUrl() . '/public/profile.php?tab=bookings') . '" style="display:inline-block;background:#c41e24;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px">ดูการจองของฉัน</a></p>';

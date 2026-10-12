@@ -89,7 +89,7 @@ if (!function_exists('isLiveCourse')) {
                 ?>
                 · <?= e(bookingStatusLabel($bookingStatus)) ?>
                 <?php endif; ?>
-                · <a href="<?= APP_URL ?>/public/profile.php?tab=bookings" class="my-courses-quiz-link">ดูการจอง / Zoom</a>
+                · <a href="<?= APP_URL ?>/public/profile.php?tab=bookings" class="my-courses-quiz-link">ดูการจอง / เข้าเรียนสด</a>
                 <?php else: ?>
                 · <a href="<?= APP_URL ?>/public/book.php?course=<?= e(urlencode($course['slug'])) ?>" class="my-courses-quiz-link">จองรอบเรียน</a>
                 <?php endif; ?>

@@ -25,6 +25,42 @@ function getCourseZoomUrl(array $course): ?string
     return $url !== '' ? $url : null;
 }
 
+/** meet | zoom | link | '' */
+function liveMeetingKind(?string $url): string
+{
+    $url = strtolower(trim((string) $url));
+    if ($url === '') {
+        return '';
+    }
+    if (str_contains($url, 'meet.google.com')) {
+        return 'meet';
+    }
+    if (str_contains($url, 'zoom.us') || str_contains($url, 'zoom.com')) {
+        return 'zoom';
+    }
+    return 'link';
+}
+
+function liveMeetingJoinLabel(?string $url): string
+{
+    return match (liveMeetingKind($url)) {
+        'meet' => 'เข้า Google Meet',
+        'zoom' => 'เข้า Zoom',
+        'link' => 'เข้าห้องเรียนสด',
+        default => 'เข้าเรียนสด',
+    };
+}
+
+function liveMeetingLinkLabel(?string $url): string
+{
+    return match (liveMeetingKind($url)) {
+        'meet' => 'Google Meet',
+        'zoom' => 'Zoom',
+        'link' => 'ลิงก์เรียนสด',
+        default => 'ห้องเรียนสด',
+    };
+}
+
 function courseLiveStartUrl(array $course, ?array $booking = null): string
 {
     if ($booking && ($booking['status'] ?? '') === 'confirmed') {
@@ -44,8 +80,9 @@ function courseLiveStartUrl(array $course, ?array $booking = null): string
 function courseLiveStartLabel(array $course, ?array $booking = null): string
 {
     if ($booking && ($booking['status'] ?? '') === 'confirmed') {
-        if (getSessionZoomUrl($booking, $course)) {
-            return 'เข้า Zoom';
+        $meetingUrl = getSessionZoomUrl($booking, $course);
+        if ($meetingUrl) {
+            return liveMeetingJoinLabel($meetingUrl);
         }
 
         return 'ดูการจอง';
