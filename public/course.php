@@ -55,6 +55,9 @@ $hasCourseAccess = $studentId > 0 && studentHasCourseAccess($studentId, (int) $c
 $liveBooking = ($hasCourseAccess && isLiveCourse($course))
     ? getStudentBookingForCourse($studentId, (int) $course['id'])
     : null;
+$scheduleSessions = isLiveCourse($course)
+    ? getCourseScheduleSessions((int) $course['id'])
+    : [];
 $courseGames = [];
 if ($hasCourseAccess) {
     $courseGames = getGamesByCourse((int) $course['id']);
@@ -84,16 +87,33 @@ require_once dirname(__DIR__) . '/includes/header.php';
         <?php if (!empty($course['subtitle'])): ?>
             <p class="course-hero-sub"><?= e($course['subtitle']) ?></p>
         <?php endif; ?>
-        <?php if ($hasLessons || isLiveCourse($course)): ?>
+        <?php if ($hasCourseAccess || $hasLessons || isLiveCourse($course)): ?>
         <div class="course-hero-actions">
-            <?php if ($hasLessons): ?>
-            <a href="<?= e($startUrl) ?>" class="btn btn-gold">เริ่มเรียนบทแรก</a>
-            <?php endif; ?>
-            <?php if (isLiveCourse($course)): ?>
-            <a href="<?= APP_URL ?>/public/book.php?course=<?= e(urlencode($course['slug'])) ?>" class="btn btn-outline">จองคลาส Live</a>
-            <?php endif; ?>
-            <?php if ($hasLessons && $lessonStats['preview'] > 0): ?>
-                <span class="course-hero-note">มี <?= (int) $lessonStats['preview'] ?> บททดลองเรียนฟรี</span>
+            <?php if ($hasCourseAccess): ?>
+                <?php if ($hasLessons): ?>
+                <a href="#curriculum" class="btn btn-gold">ดูบทเรียนในคอร์ส</a>
+                <a href="<?= e($startUrl) ?>" class="btn btn-outline">เริ่มเรียนบทแรก</a>
+                <?php endif; ?>
+                <?php if (isLiveCourse($course)): ?>
+                <a href="#schedule" class="btn <?= $hasLessons ? 'btn-outline' : 'btn-gold' ?>">ดูตารางเรียน</a>
+                <?php
+                    $liveStartUrl = courseLiveStartUrl($course, $liveBooking);
+                    $liveStartLabel = courseLiveStartLabel($course, $liveBooking);
+                    $liveStartNewTab = courseLiveStartOpensInNewTab($course, $liveBooking);
+                ?>
+                <a href="<?= e($liveStartUrl) ?>" class="btn btn-outline"<?= $liveStartNewTab ? ' target="_blank" rel="noopener"' : '' ?>><?= e($liveStartLabel) ?></a>
+                <?php endif; ?>
+                <span class="course-hero-note">คุณมีสิทธิ์เรียนคอร์สนี้แล้ว</span>
+            <?php else: ?>
+                <?php if ($hasLessons): ?>
+                <a href="<?= e($startUrl) ?>" class="btn btn-gold">เริ่มเรียนบทแรก</a>
+                <?php endif; ?>
+                <?php if (isLiveCourse($course)): ?>
+                <a href="<?= APP_URL ?>/public/book.php?course=<?= e(urlencode($course['slug'])) ?>" class="btn btn-outline">จองคลาส Live</a>
+                <?php endif; ?>
+                <?php if ($hasLessons && $lessonStats['preview'] > 0): ?>
+                    <span class="course-hero-note">มี <?= (int) $lessonStats['preview'] ?> บททดลองเรียนฟรี</span>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
         <?php endif; ?>
@@ -145,8 +165,64 @@ require_once dirname(__DIR__) . '/includes/header.php';
                 </div>
             </section>
 
-            <section class="course-block">
+            <?php if (isLiveCourse($course)): ?>
+            <section class="course-block" id="schedule">
+                <h2 class="course-block-title">ตารางเรียน / กำหนดการ</h2>
+                <?php if ($scheduleSessions): ?>
+                    <ul class="course-schedule-list">
+                        <?php foreach ($scheduleSessions as $session): ?>
+                            <?php
+                            $past = sessionIsPast($session);
+                            $sessionStatus = (string) ($session['status'] ?? 'scheduled');
+                            $meetingUrl = $hasCourseAccess ? getSessionZoomUrl($session, $course) : null;
+                            ?>
+                            <li class="course-schedule-item<?= $past ? ' course-schedule-item--past' : '' ?>">
+                                <div class="course-schedule-when">
+                                    <strong><?= e(formatSessionDateLabel($session)) ?></strong>
+                                    <span><?= e(formatSessionTimeLabel($session)) ?></span>
+                                </div>
+                                <div class="course-schedule-body">
+                                    <div class="course-schedule-title">
+                                        <?= e(trim((string) ($session['title'] ?? '')) !== '' ? (string) $session['title'] : 'รอบเรียนสด') ?>
+                                        <?php if ($sessionStatus === 'completed' || $past): ?>
+                                            <span class="badge course-schedule-badge">ผ่านมาแล้ว</span>
+                                        <?php else: ?>
+                                            <span class="badge badge-live course-schedule-badge">กำลังจะถึง</span>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="course-schedule-meta">
+                                        <?php if ($hasCourseAccess && $meetingUrl && !$past): ?>
+                                            <a href="<?= e($meetingUrl) ?>" class="btn btn-gold btn-sm" target="_blank" rel="noopener"><?= e(liveMeetingJoinLabel($meetingUrl)) ?></a>
+                                        <?php elseif (!$hasCourseAccess): ?>
+                                            <span class="course-schedule-lock">จอง/ซื้อคอร์สเพื่อเข้าเรียนรอบนี้</span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php if ($hasCourseAccess && !$liveBooking): ?>
+                        <p class="course-schedule-cta">
+                            <a href="<?= APP_URL ?>/public/book.php?course=<?= e(urlencode($course['slug'])) ?>" class="btn btn-outline btn-sm">จองรอบเรียน</a>
+                        </p>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <div class="lesson-empty">
+                        ยังไม่มีตารางรอบเรียนในระบบ
+                        <?php if ($hasCourseAccess): ?>
+                            — <a href="<?= APP_URL ?>/public/book.php?course=<?= e(urlencode($course['slug'])) ?>">จองรอบเมื่อมีที่ว่าง</a>
+                            หรือติดต่อแอดมินให้เพิ่มกำหนดการ
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </section>
+            <?php endif; ?>
+
+            <section class="course-block" id="curriculum">
                 <h2 class="course-block-title">หลักสูตร / บทเรียนในคอร์ส</h2>
+                <?php if ($hasCourseAccess && $lessons): ?>
+                    <p class="course-curriculum-intro">เลือกบทเรียนด้านล่างเพื่อเริ่มเรียนได้ทันที</p>
+                <?php endif; ?>
                 <?php if ($lessons): ?>
                     <ul class="lesson-list lesson-list-enhanced">
                         <?php foreach ($lessons as $i => $lesson): ?>
@@ -168,7 +244,9 @@ require_once dirname(__DIR__) . '/includes/header.php';
                                         <?php else: ?>
                                         <span class="lesson-list-title lesson-list-title--locked"><?= e($lesson['title']) ?></span>
                                         <?php endif; ?>
-                                        <?php if ($isPreview): ?>
+                                        <?php if ($canAccess && $hasCourseAccess): ?>
+                                            <a href="<?= APP_URL ?>/public/lesson.php?lesson_id=<?= (int) ($lesson['id'] ?? 0) ?>" class="btn btn-outline btn-sm lesson-open-btn">เข้าเรียน</a>
+                                        <?php elseif ($isPreview): ?>
                                             <span class="badge badge-gold lesson-preview-badge">ทดลองเรียนฟรี</span>
                                         <?php elseif (!$canAccess): ?>
                                             <span class="badge lesson-lock-badge" title="ต้องซื้อคอร์สก่อนเรียน">
@@ -199,24 +277,26 @@ require_once dirname(__DIR__) . '/includes/header.php';
                         <?php endforeach; ?>
                     </ul>
                 <?php else: ?>
-                    <div class="lesson-empty">บทเรียนจะเพิ่มเติมเร็วๆ นี้ สามารถเพิ่มวิดีโอและเอกสารได้จากหลังบ้าน</div>
+                    <div class="lesson-empty">
+                        <?php if ($hasCourseAccess && isLiveCourse($course)): ?>
+                            คอร์สนี้เน้นเรียนสดตามตารางด้านบน ยังไม่มีบทเรียนวิดีโอเพิ่มเติม
+                        <?php else: ?>
+                            บทเรียนจะเพิ่มเติมเร็วๆ นี้ สามารถเพิ่มวิดีโอและเอกสารได้จากหลังบ้าน
+                        <?php endif; ?>
+                    </div>
                 <?php endif; ?>
             </section>
 
-            <?php if ($student && studentHasCourseAccess((int) $student['id'], (int) $course['id'])): ?>
+            <?php if ($hasCourseAccess): ?>
                 <?php if ($courseGames): ?>
                 <section class="course-block">
                     <h2 class="course-block-title">เกมฝึกฝนในคอร์ส</h2>
                     <?php $games = $courseGames; $variant = 'course'; require dirname(__DIR__) . '/includes/views/course_games_block.php'; ?>
                 </section>
-                <?php else: ?>
-                <section class="course-block">
-                    <h2 class="course-block-title">เกมฝึกฝนในคอร์ส</h2>
-                    <div class="lesson-empty">ยังไม่มีเกมฝึกฝนในคอร์สนี้ในขณะนี้</div>
-                </section>
                 <?php endif; ?>
             <?php endif; ?>
 
+            <?php if (!$hasCourseAccess): ?>
             <section class="course-block course-payment-info">
                 <h2 class="course-block-title">วิธีเรียนและชำระเงิน</h2>
                 <ol class="course-steps-list">
@@ -227,6 +307,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                 </ol>
                 <a href="<?= APP_URL ?>/public/cart.php" class="btn btn-outline btn-sm">ดูตะกร้า / ชำระเงิน</a>
             </section>
+            <?php endif; ?>
 
             <section class="course-block">
                 <h2 class="course-block-title">คำถามที่พบบ่อย</h2>
@@ -283,19 +364,29 @@ require_once dirname(__DIR__) . '/includes/header.php';
             require dirname(__DIR__) . '/includes/views/instructor_chip.php';
             ?>
 
+            <?php if (!$hasCourseAccess): ?>
             <div class="course-sidebar-price"><?= e(formatPrice((float) ($course['price'] ?? 0))) ?></div>
+            <?php else: ?>
+            <div class="course-sidebar-enrolled">เปิดสิทธิ์เรียนแล้ว</div>
+            <?php endif; ?>
 
             <div class="course-sidebar-actions">
-                <?php if ($hasCourseAccess && isLiveCourse($course)): ?>
+                <?php if ($hasCourseAccess): ?>
+                    <?php if ($hasLessons): ?>
+                    <a href="#curriculum" class="btn btn-gold btn-block btn-sm">เลือกบทเรียน</a>
+                    <a href="<?= e($startUrl) ?>" class="btn btn-outline btn-block btn-sm">เริ่มเรียนบทแรก</a>
+                    <?php endif; ?>
+                    <?php if (isLiveCourse($course)): ?>
+                    <a href="#schedule" class="btn <?= $hasLessons ? 'btn-outline' : 'btn-gold' ?> btn-block btn-sm">ดูตารางเรียน</a>
                     <?php
                         $liveStartUrl = courseLiveStartUrl($course, $liveBooking);
                         $liveStartLabel = courseLiveStartLabel($course, $liveBooking);
                         $liveStartNewTab = courseLiveStartOpensInNewTab($course, $liveBooking);
                     ?>
-                    <a href="<?= e($liveStartUrl) ?>" class="btn btn-gold btn-block btn-sm"<?= $liveStartNewTab ? ' target="_blank" rel="noopener"' : '' ?>><?= e($liveStartLabel) ?></a>
+                    <a href="<?= e($liveStartUrl) ?>" class="btn btn-outline btn-block btn-sm"<?= $liveStartNewTab ? ' target="_blank" rel="noopener"' : '' ?>><?= e($liveStartLabel) ?></a>
                     <a href="<?= APP_URL ?>/public/profile.php?tab=bookings" class="btn btn-outline btn-block btn-sm">ดูการจองของฉัน</a>
-                <?php elseif ($hasCourseAccess && $hasLessons): ?>
-                    <a href="<?= e($startUrl) ?>" class="btn btn-gold btn-block btn-sm">เริ่มเรียนบทแรก</a>
+                    <?php endif; ?>
+                    <a href="<?= APP_URL ?>/public/profile.php?tab=courses" class="btn btn-outline btn-block btn-sm">คอร์สของฉัน</a>
                 <?php else: ?>
                     <?php if ($hasLessons): ?>
                     <a href="<?= e($startUrl) ?>" class="btn btn-gold btn-block btn-sm">เริ่มเรียนบทแรก</a>
@@ -310,7 +401,9 @@ require_once dirname(__DIR__) . '/includes/header.php';
                 <?php endif; ?>
             </div>
 
+            <?php if (!$hasCourseAccess): ?>
             <p class="course-sidebar-note"><?= e(getSetting('payment_note')) ?></p>
+            <?php endif; ?>
         </aside>
     </div>
 </section>
@@ -332,11 +425,24 @@ require_once dirname(__DIR__) . '/includes/header.php';
 <?php endif; ?>
 
 <div class="course-mobile-bar" aria-hidden="false">
+    <?php if ($hasCourseAccess): ?>
+    <div class="course-mobile-bar-price">เปิดสิทธิ์แล้ว</div>
+    <div class="course-mobile-bar-actions">
+        <?php if ($hasLessons): ?>
+        <a href="#curriculum" class="btn btn-primary btn-sm">บทเรียน</a>
+        <?php elseif (isLiveCourse($courseDetail)): ?>
+        <a href="#schedule" class="btn btn-primary btn-sm">ตารางเรียน</a>
+        <?php else: ?>
+        <a href="<?= APP_URL ?>/public/profile.php?tab=courses" class="btn btn-primary btn-sm">คอร์สของฉัน</a>
+        <?php endif; ?>
+    </div>
+    <?php else: ?>
     <div class="course-mobile-bar-price"><?= e(formatPrice((float) ($courseDetail['price'] ?? 0))) ?></div>
     <div class="course-mobile-bar-actions">
         <a href="<?= e(courseEnrollUrl($courseDetail)) ?>" class="btn btn-outline btn-sm js-cart-add" aria-label="เพิ่มลงตะกร้า">ตะกร้า</a>
         <a href="<?= e(courseBuyUrl($courseDetail)) ?>" class="btn btn-primary btn-sm">ซื้อคอร์ส</a>
     </div>
+    <?php endif; ?>
 </div>
 
 <script>document.body.classList.add('has-course-mobile-bar');</script>

@@ -238,6 +238,41 @@ function getAvailableSessions(int $courseId, int $limit = 30): array
     }
 }
 
+/** Timetable for enrolled students / course page — upcoming + recent past. */
+function getCourseScheduleSessions(int $courseId, int $limit = 40): array
+{
+    if ($courseId <= 0) {
+        return [];
+    }
+    try {
+        $stmt = db()->prepare('
+            SELECT cs.*, c.title AS course_title, c.zoom_url AS course_zoom_url, c.course_type
+            FROM course_sessions cs
+            JOIN courses c ON c.id = cs.course_id
+            WHERE cs.course_id = ?
+              AND cs.status IN ("scheduled", "completed")
+            ORDER BY cs.starts_at ASC
+            LIMIT ?
+        ');
+        $stmt->bindValue(1, $courseId, PDO::PARAM_INT);
+        $stmt->bindValue(2, $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    } catch (Throwable $e) {
+        return [];
+    }
+}
+
+function sessionIsPast(array $session): bool
+{
+    $starts = strtotime((string) ($session['starts_at'] ?? ''));
+    if (!$starts) {
+        return false;
+    }
+    $ends = strtotime((string) ($session['ends_at'] ?? ''));
+    return ($ends ?: $starts) < time();
+}
+
 function sessionHasCapacity(int $sessionId): bool
 {
     try {

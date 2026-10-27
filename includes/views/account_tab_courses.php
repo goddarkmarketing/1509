@@ -38,16 +38,21 @@ if (!function_exists('isLiveCourse')) {
         $lessonId = getFirstLessonIdForCourse($cid);
         $courseBooking = $bookingsByCourse[$cid] ?? null;
         $isLiveCourseItem = isLiveCourse($course);
-        if ($isLiveCourseItem && !$isPending) {
-            $startUrl = courseLiveStartUrl($course, $courseBooking);
-            $startLabel = courseLiveStartLabel($course, $courseBooking);
-            $startNewTab = courseLiveStartOpensInNewTab($course, $courseBooking);
-        } else {
-            $startUrl = $lessonId
-                ? APP_URL . '/public/lesson.php?lesson_id=' . $lessonId
-                : APP_URL . '/public/course.php?slug=' . urlencode($course['slug']);
-            $startLabel = $prog['percent'] >= 100 ? 'ทบทวน' : 'เริ่มเรียน';
-            $startNewTab = false;
+        $hasLessonProgress = (int) ($prog['total'] ?? 0) > 0 || $lessonId;
+        $coursePageAnchor = ($isLiveCourseItem && !$lessonId) ? '#schedule' : '#curriculum';
+        $courseUrl = APP_URL . '/public/course.php?slug=' . urlencode((string) $course['slug']) . $coursePageAnchor;
+        $enterUrl = $courseUrl;
+        $enterLabel = 'เข้าคอร์ส';
+        $secondaryUrl = null;
+        $secondaryLabel = '';
+        $secondaryNewTab = false;
+        if (!$isPending && $isLiveCourseItem) {
+            $secondaryUrl = courseLiveStartUrl($course, $courseBooking);
+            $secondaryLabel = courseLiveStartLabel($course, $courseBooking);
+            $secondaryNewTab = courseLiveStartOpensInNewTab($course, $courseBooking);
+        } elseif (!$isPending && $lessonId) {
+            $secondaryUrl = APP_URL . '/public/lesson.php?lesson_id=' . $lessonId;
+            $secondaryLabel = $prog['percent'] >= 100 ? 'ทบทวนบทแรก' : 'เริ่มเรียนบทแรก';
         }
         $quizzes = $isPending ? [] : getQuizzesByCourse($cid);
         $games = $isPending ? [] : getGamesByCourse($cid);
@@ -64,13 +69,15 @@ if (!function_exists('isLiveCourse')) {
     ?>
     <li class="my-courses-item<?= $isPending ? ' my-courses-item--pending' : '' ?>">
         <div class="my-courses-item-cover">
-            <img src="<?= e(courseCoverUrl($course)) ?>" alt="<?= e($course['title']) ?>" loading="lazy">
+            <a href="<?= e($courseUrl) ?>">
+                <img src="<?= e(courseCoverUrl($course)) ?>" alt="<?= e($course['title']) ?>" loading="lazy">
+            </a>
         </div>
         <div class="my-courses-item-body">
             <div class="my-courses-item-head">
-                <h2><?= e($course['title']) ?></h2>
+                <h2><a href="<?= e($courseUrl) ?>" class="my-courses-title-link"><?= e($course['title']) ?></a></h2>
             </div>
-            <?php if (!empty($course['subtitle']) && !$isLiveCourseItem && !$isPending): ?>
+            <?php if (!empty($course['subtitle']) && !$isPending): ?>
             <p class="my-courses-item-sub"><?= e($course['subtitle']) ?></p>
             <?php endif; ?>
             <?php if ($isPending): ?>
@@ -78,7 +85,8 @@ if (!function_exists('isLiveCourse')) {
                 <?= lucide_icon('clock', ['size' => 14]) ?>
                 <span>รอตรวจสอบการชำระเงิน<?php if ($isLiveCourseItem && $courseBooking): ?> · <?= e(formatSessionRange($courseBooking)) ?><?php endif; ?></span>
             </p>
-            <?php elseif ($isLiveCourseItem): ?>
+            <?php else: ?>
+            <?php if ($isLiveCourseItem): ?>
             <p class="my-courses-item-meta">
                 <span class="my-courses-meta-live">Live</span>
                 <?php if ($courseBooking): ?>
@@ -89,12 +97,14 @@ if (!function_exists('isLiveCourse')) {
                 ?>
                 · <?= e(bookingStatusLabel($bookingStatus)) ?>
                 <?php endif; ?>
-                · <a href="<?= APP_URL ?>/public/profile.php?tab=bookings" class="my-courses-quiz-link">ดูการจอง / เข้าเรียนสด</a>
+                · <a href="<?= APP_URL ?>/public/profile.php?tab=bookings" class="my-courses-quiz-link">ดูการจอง</a>
                 <?php else: ?>
                 · <a href="<?= APP_URL ?>/public/book.php?course=<?= e(urlencode($course['slug'])) ?>" class="my-courses-quiz-link">จองรอบเรียน</a>
                 <?php endif; ?>
+                · <a href="<?= e($courseUrl) ?>" class="my-courses-quiz-link">ตาราง / เนื้อหา</a>
             </p>
-            <?php else: ?>
+            <?php endif; ?>
+            <?php if ($hasLessonProgress): ?>
             <div class="course-progress-bar-wrap course-progress-bar-wrap--compact">
                 <div class="course-progress-label">
                     <span>ความคืบหน้า</span>
@@ -121,16 +131,20 @@ if (!function_exists('isLiveCourse')) {
                 <?php endforeach; ?>
             </div>
             <?php endif; ?>
+            <?php elseif (!$isLiveCourseItem): ?>
+            <p class="my-courses-item-meta">ยังไม่มีบทเรียนเผยแพร่ — เปิดหน้าคอร์สเพื่อดูรายละเอียด</p>
+            <?php endif; ?>
             <?php endif; ?>
         </div>
         <div class="my-courses-item-actions">
             <?php if ($isPending): ?>
             <span class="my-courses-badge my-courses-badge--pending">รอตรวจสอบ</span>
-            <?php elseif (!$isLiveCourseItem): ?>
+            <?php else: ?>
             <span class="my-courses-badge my-courses-badge--active">เปิดสิทธิ์แล้ว</span>
+            <a href="<?= e($enterUrl) ?>" class="btn btn-primary btn-sm"><?= e($enterLabel) ?></a>
+            <?php if ($secondaryUrl): ?>
+            <a href="<?= e($secondaryUrl) ?>" class="btn btn-outline btn-sm"<?= $secondaryNewTab ? ' target="_blank" rel="noopener"' : '' ?>><?= e($secondaryLabel) ?></a>
             <?php endif; ?>
-            <?php if (!$isPending): ?>
-            <a href="<?= e($startUrl) ?>" class="btn btn-primary btn-sm"<?= !empty($startNewTab) ? ' target="_blank" rel="noopener"' : '' ?>><?= e($startLabel) ?></a>
             <?php if ($cert): ?>
             <a href="<?= APP_URL ?>/public/certificate.php?code=<?= urlencode($cert['certificate_code']) ?>" class="btn btn-outline btn-sm" target="_blank">ใบประกาศ</a>
             <?php elseif ($prog['percent'] >= 100 && (!certificateRequiresQuiz() || studentPassedAllCourseQuizzes($studentId, $cid))): ?>

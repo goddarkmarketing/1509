@@ -623,7 +623,9 @@ function getEnrolledCoursesByStudentId(int $studentId): array
     }
     try {
         $stmt = db()->prepare('
-            SELECT c.id, c.slug, c.title, c.subtitle, c.category, c.level, c.price, c.course_type, e.status, e.enrolled_at
+            SELECT c.id, c.slug, c.title, c.subtitle, c.category, c.level, c.price, c.image_url,
+                   c.course_type, c.zoom_url, c.lesson_count, c.duration_hours,
+                   e.status, e.enrolled_at
             FROM enrollments e
             JOIN courses c ON c.id = e.course_id
             WHERE e.student_id = ? AND e.status IN ("pending", "active", "completed")
@@ -634,7 +636,8 @@ function getEnrolledCoursesByStudentId(int $studentId): array
     } catch (Throwable $e) {
         try {
             $stmt = db()->prepare('
-                SELECT c.id, c.slug, c.title, c.subtitle, c.category, c.level, c.price, e.status, e.enrolled_at
+                SELECT c.id, c.slug, c.title, c.subtitle, c.category, c.level, c.price, c.image_url,
+                       e.status, e.enrolled_at
                 FROM enrollments e
                 JOIN courses c ON c.id = e.course_id
                 WHERE e.student_id = ? AND e.status IN ("pending", "active", "completed")

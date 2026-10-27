@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 const MAX_COURSE_IMAGE_BYTES = 3 * 1024 * 1024;
 const MAX_LESSON_DOC_BYTES = 10 * 1024 * 1024;
-const MAX_LESSON_VIDEO_BYTES = 80 * 1024 * 1024;
+const MAX_LESSON_VIDEO_BYTES = 200 * 1024 * 1024;
 const MAX_QUIZ_AUDIO_BYTES = 15 * 1024 * 1024;
 
 function ensureUploadDir(string $path): void
@@ -11,6 +11,62 @@ function ensureUploadDir(string $path): void
     if (!is_dir($path)) {
         mkdir($path, 0755, true);
     }
+    if (str_ends_with(str_replace('\\', '/', $path), '/uploads/courses')) {
+        $deny = $path . '/.htaccess';
+        if (!is_file($deny)) {
+            @file_put_contents($deny, "Options -Indexes\nRequire all denied\n");
+        }
+    }
+}
+
+function phpIniSizeToBytes(string $value): int
+{
+    $value = trim($value);
+    if ($value === '') {
+        return 0;
+    }
+    $unit = strtolower(substr($value, -1));
+    $num = (float) $value;
+    return (int) match ($unit) {
+        'g' => $num * 1024 * 1024 * 1024,
+        'm' => $num * 1024 * 1024,
+        'k' => $num * 1024,
+        default => (float) $value,
+    };
+}
+
+function phpEffectiveUploadLimitBytes(): int
+{
+    $upload = phpIniSizeToBytes((string) ini_get('upload_max_filesize'));
+    $post = phpIniSizeToBytes((string) ini_get('post_max_size'));
+    $limits = array_filter([$upload, $post, MAX_LESSON_VIDEO_BYTES], static fn($v) => $v > 0);
+    return $limits ? (int) min($limits) : MAX_LESSON_VIDEO_BYTES;
+}
+
+function formatUploadBytesLabel(int $bytes): string
+{
+    if ($bytes >= 1024 * 1024 * 1024) {
+        return rtrim(rtrim(number_format($bytes / (1024 * 1024 * 1024), 1), '0'), '.') . 'GB';
+    }
+    if ($bytes >= 1024 * 1024) {
+        return (string) (int) round($bytes / (1024 * 1024)) . 'MB';
+    }
+    if ($bytes >= 1024) {
+        return (string) (int) round($bytes / 1024) . 'KB';
+    }
+    return $bytes . 'B';
+}
+
+function isExternalShareableVideoUrl(string $url): bool
+{
+    $url = strtolower(trim($url));
+    if ($url === '' || str_starts_with($url, 'uploads/courses/')) {
+        return false;
+    }
+    return str_contains($url, 'drive.google.com')
+        || str_contains($url, 'docs.google.com')
+        || str_contains($url, 'youtu.be')
+        || str_contains($url, 'youtube.com');
 }
 
 function storeCourseCoverUpload(array $file): string|false|null
@@ -160,14 +216,20 @@ function storeLessonVideoUpload(array $file): string|false|null
     }
     if (($file['error'] ?? UPLOAD_ERR_OK) !== UPLOAD_ERR_OK) {
         $code = (int) ($file['error'] ?? 0);
-        $hint = $code === UPLOAD_ERR_INI_SIZE || $code === UPLOAD_ERR_FORM_SIZE
-            ? 'ไฟล์ใหญ่เกินค่าที่เซิร์ฟเวอร์รับได้'
-            : 'อัปโหลดวิดีโอไม่สำเร็จ';
+        $limitLabel = formatUploadBytesLabel(phpEffectiveUploadLimitBytes());
+        $hint = match ($code) {
+            UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE => 'ไฟล์ใหญ่เกินขีดจำกัดเซิร์ฟเวอร์ (สูงสุดประมาณ ' . $limitLabel . ') — ลดขนาดไฟล์หรือเพิ่ม upload_max_filesize / post_max_size',
+            UPLOAD_ERR_PARTIAL => 'อัปโหลดวิดีโอไม่ครบ กรุณาลองใหม่',
+            UPLOAD_ERR_NO_TMP_DIR => 'เซิร์ฟเวอร์ไม่มีโฟลเดอร์ชั่วคราวสำหรับอัปโหลด',
+            UPLOAD_ERR_CANT_WRITE => 'เซิร์ฟเวอร์เขียนไฟล์วิดีโอไม่สำเร็จ',
+            default => 'อัปโหลดวิดีโอไม่สำเร็จ (รหัส ' . $code . ')',
+        };
         flash('admin_error', $hint);
         return false;
     }
-    if (($file['size'] ?? 0) > MAX_LESSON_VIDEO_BYTES) {
-        flash('admin_error', 'วิดีโอใหญ่เกิน 80MB');
+    $effectiveLimit = phpEffectiveUploadLimitBytes();
+    if (($file['size'] ?? 0) > $effectiveLimit) {
+        flash('admin_error', 'วิดีโอใหญ่เกิน ' . formatUploadBytesLabel($effectiveLimit));
         return false;
     }
     $ext = strtolower(pathinfo((string) ($file['name'] ?? ''), PATHINFO_EXTENSION));

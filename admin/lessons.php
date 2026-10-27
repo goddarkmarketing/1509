@@ -18,6 +18,13 @@ if (isset($_GET['course_id']) && $_GET['course_id'] !== '') {
 $filterCourse = (int) ($_SESSION['admin_lessons_filter_course'] ?? 0);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $contentLength = (int) ($_SERVER['CONTENT_LENGTH'] ?? 0);
+    if ($contentLength > 0 && empty($_POST) && empty($_FILES)) {
+        $limitLabel = formatUploadBytesLabel(phpEffectiveUploadLimitBytes());
+        flash('admin_error', 'ไฟล์ใหญ่เกินขีดจำกัดของเซิร์ฟเวอร์ (ประมาณ ' . $limitLabel . ') — ลดขนาดวิดีโอหรือเพิ่ม upload_max_filesize / post_max_size ใน PHP');
+        redirect('/admin/lessons.php?action=add' . ($filterCourse ? '&course_id=' . $filterCourse : ''));
+    }
+
     verifyCsrf();
     $postAction = $_POST['action'] ?? '';
     $courseId = (int) ($_POST['course_id'] ?? 0);
@@ -30,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $isPreview = isset($_POST['is_free_preview']) ? 1 : 0;
     $isPublished = isset($_POST['is_published']) ? 1 : 0;
     $editId = (int) ($_POST['id'] ?? 0);
+    $uploadedPrivateVideo = false;
 
     if (!empty($_POST['filter_course_id'])) {
         $_SESSION['admin_lessons_filter_course'] = (int) $_POST['filter_course_id'];
@@ -43,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         if (is_string($uploadedVideo)) {
             $videoUrl = $uploadedVideo;
+            $uploadedPrivateVideo = true;
         }
     }
 
@@ -64,7 +73,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ');
             $stmt->execute([$courseId, $title, $description, $videoUrl ?: null, $documentUrl ?: null, $duration, $sortOrder, $isPreview, $isPublished]);
             syncCourseLessonCount($courseId);
-            flash('admin_success', 'เพิ่มบทเรียนเรียบร้อย');
+            $msg = 'เพิ่มบทเรียนเรียบร้อย';
+            if ($uploadedPrivateVideo) {
+                $msg .= ' — วิดีโอเก็บในระบบแล้ว เล่นได้เฉพาะผู้มีสิทธิ์คอร์ส';
+            } elseif (isExternalShareableVideoUrl($videoUrl)) {
+                $msg .= ' — ลิงก์ YouTube/Drive แชร์ต่อได้ แนะนำอัปโหลดไฟล์ถ้าต้องการเก็บเฉพาะผู้เรียน';
+            }
+            flash('admin_success', $msg);
         } elseif ($postAction === 'update' && $editId) {
             $oldCourseStmt = db()->prepare('SELECT course_id FROM lessons WHERE id = ?');
             $oldCourseStmt->execute([$editId]);
@@ -78,7 +93,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($oldCourseId && $oldCourseId !== $courseId) {
                 syncCourseLessonCount($oldCourseId);
             }
-            flash('admin_success', 'อัปเดตบทเรียนเรียบร้อย');
+            $msg = 'อัปเดตบทเรียนเรียบร้อย';
+            if ($uploadedPrivateVideo) {
+                $msg .= ' — วิดีโอเก็บในระบบแล้ว เล่นได้เฉพาะผู้มีสิทธิ์คอร์ส';
+            } elseif (isExternalShareableVideoUrl($videoUrl)) {
+                $msg .= ' — ลิงก์ YouTube/Drive แชร์ต่อได้ แนะนำอัปโหลดไฟล์ถ้าต้องการเก็บเฉพาะผู้เรียน';
+            }
+            flash('admin_success', $msg);
         } elseif ($postAction === 'delete' && $editId) {
             $oldCourseStmt = db()->prepare('SELECT course_id FROM lessons WHERE id = ?');
             $oldCourseStmt->execute([$editId]);
@@ -133,8 +154,15 @@ $lessons = $stmt->fetchAll();
         <a href="<?= APP_URL ?>/admin/lessons.php<?= $filterCourse ? '?course_id=' . $filterCourse : '' ?>" class="btn btn-secondary btn-sm">กลับ</a>
     </div>
     <div class="admin-card-body">
+        <?php
+            $uploadLimitBytes = phpEffectiveUploadLimitBytes();
+            $uploadLimitLabel = formatUploadBytesLabel($uploadLimitBytes);
+            $existingVideo = trim((string) ($editLesson['video_url'] ?? ''));
+            $hasPrivateVideo = str_starts_with($existingVideo, 'uploads/courses/');
+        ?>
         <form method="post" enctype="multipart/form-data">
             <?= csrfField() ?>
+            <input type="hidden" name="MAX_FILE_SIZE" value="<?= (int) $uploadLimitBytes ?>">
             <?php if ($filterCourse): ?><input type="hidden" name="filter_course_id" value="<?= $filterCourse ?>"><?php endif; ?>
             <input type="hidden" name="action" value="<?= $editLesson ? 'update' : 'create' ?>">
             <?php if ($editLesson): ?><input type="hidden" name="id" value="<?= (int) $editLesson['id'] ?>"><?php endif; ?>
@@ -155,10 +183,18 @@ $lessons = $stmt->fetchAll();
                 <textarea name="description" class="form-control"><?= e($editLesson['description'] ?? '') ?></textarea>
             </div>
             <div class="form-group">
-                <label>วิดีโอบทเรียน</label>
+                <label>วิดีโอบทเรียน (อัปโหลดไฟล์ — แนะนำ)</label>
+                <?php if ($hasPrivateVideo): ?>
+                <p class="form-hint" style="margin-top:0">ไฟล์ในระบบอยู่แล้ว: <code><?= e(basename($existingVideo)) ?></code> — เล่นได้เฉพาะผู้มีสิทธิ์คอร์ส</p>
+                <?php endif; ?>
                 <input type="file" name="video_file" class="form-control" accept="video/mp4,video/webm,video/ogg,.mp4,.webm,.ogg">
-                <input type="text" name="video_url" class="form-control form-control-follow" value="<?= e($editLesson['video_url'] ?? '') ?>" placeholder="หรือวางลิงก์ YouTube / URL">
-                <small>อัปโหลดไฟล์ MP4, WEBM หรือ OGG ได้โดยตรง (สูงสุด 80MB) หรือใส่ลิงก์ YouTube ไฟล์ที่อัปโหลดและคลิป YouTube จะเล่นเป็นวิดีโอในหน้าบทเรียน ไม่แสดงเป็นแค่ลิงก์</small>
+                <small>
+                    อัปโหลด MP4 / WEBM / OGG โดยตรง (สูงสุดประมาณ <?= e($uploadLimitLabel) ?>)
+                    ไฟล์จะถูกเก็บในเซิร์ฟเวอร์และเปิดผ่านระบบสิทธิ์เท่านั้น ผู้เรียนแชร์ลิงก์ตรงต่อกันไม่ได้
+                </small>
+                <label style="margin-top:1rem;display:block">หรือลิงก์ภายนอก (YouTube / Drive — แชร์ต่อได้)</label>
+                <input type="text" name="video_url" class="form-control" value="<?= e($existingVideo) ?>" placeholder="วางเฉพาะเมื่อจำเป็น — ไม่แนะนำถ้าต้องการเก็บเฉพาะผู้เรียน">
+                <small style="color:#b45309">ลิงก์ YouTube/Google Drive ผู้เรียนสามารถคัดลอกและแชร์ต่อได้ หากต้องการความเป็นส่วนตัวให้ใช้อัปโหลดไฟล์ด้านบน</small>
             </div>
             <div class="form-group">
                 <label>เอกสารประกอบ</label>

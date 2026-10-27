@@ -1873,6 +1873,14 @@ a:hover { color: var(--red-dark); }
   text-overflow: ellipsis;
   min-width: 0;
 }
+.my-courses-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+.my-courses-title-link:hover {
+  color: var(--red-deep);
+  text-decoration: underline;
+}
 
 .my-courses-item-sub {
   margin: 0 0 .35rem;
@@ -4513,6 +4521,83 @@ textarea.form-control { min-height: 120px; resize: vertical; }
   font-size: 1.35rem;
   margin-bottom: 1rem;
   color: var(--red-deep);
+}
+.course-curriculum-intro {
+  margin: -.35rem 0 1rem;
+  color: var(--gray-600);
+  font-size: .95rem;
+}
+.course-schedule-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: .85rem;
+}
+.course-schedule-item {
+  display: grid;
+  grid-template-columns: minmax(120px, 160px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+}
+.course-schedule-item--past {
+  opacity: .72;
+}
+.course-schedule-when {
+  display: grid;
+  gap: .2rem;
+}
+.course-schedule-when strong {
+  font-size: .95rem;
+  color: var(--black);
+}
+.course-schedule-when span {
+  font-size: .85rem;
+  color: var(--gray-600);
+}
+.course-schedule-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 600;
+  color: var(--black);
+}
+.course-schedule-badge {
+  font-weight: 500;
+}
+.course-schedule-meta {
+  margin-top: .55rem;
+}
+.course-schedule-lock {
+  font-size: .85rem;
+  color: var(--gray-500);
+}
+.course-schedule-cta {
+  margin: 1rem 0 0;
+}
+.course-sidebar-enrolled {
+  margin: .75rem 0 1rem;
+  padding: .65rem .85rem;
+  border-radius: var(--radius-md);
+  background: #ecfdf3;
+  color: #15803d;
+  font-weight: 700;
+  text-align: center;
+}
+.lesson-open-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .course-schedule-item {
+    grid-template-columns: 1fr;
+    gap: .45rem;
+  }
 }
 .course-desc {
   color: var(--gray-600);
