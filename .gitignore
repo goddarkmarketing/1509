@@ -5,6 +5,7 @@ uploads/payments/*
 !uploads/payments/.htaccess
 uploads/courses/*
 !uploads/courses/.gitkeep
+!uploads/courses/.htaccess
 uploads/announcements/*
 !uploads/announcements/.gitkeep
 uploads/sessions/*
