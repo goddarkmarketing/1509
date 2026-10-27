@@ -199,7 +199,7 @@ $courses = getCourses(null, false);
     </div>
     <div class="admin-card-body is-flush">
         <div class="table-responsive">
-        <table class="data-table">
+        <table class="data-table" data-feedback-id="package-list">
             <thead>
                 <tr>
                     <th>#</th>

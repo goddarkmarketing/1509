@@ -84,7 +84,7 @@ try {
                     </div>
             </div>
         </form>
-        <div class="courses-grid">
+        <div class="courses-grid" data-feedback-id="package-list">
             <?php if ($courses): ?>
                 <?php foreach ($courses as $course): ?>
                     <?php include dirname(__DIR__) . '/includes/course_card.php'; ?>

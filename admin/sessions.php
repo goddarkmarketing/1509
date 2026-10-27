@@ -248,7 +248,7 @@ try {
     </div>
     <div class="admin-card-body is-flush">
         <div class="table-responsive">
-        <table class="admin-table">
+        <table class="admin-table" data-feedback-id="vehicle-list">
             <thead>
                 <tr>
                     <th>คอร์ส</th>

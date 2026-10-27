@@ -83,7 +83,7 @@ $tutors = [
 <div class="container" style="padding-top:1rem"><div class="alert alert-success"><?= e($cartSuccess) ?></div></div>
 <?php endif; ?>
 
-<section class="leona-hero" id="about" aria-label="แบนเนอร์หลัก">
+<section class="leona-hero" id="about" aria-label="แบนเนอร์หลัก" data-feedback-id="home-hero">
     <div class="leona-hero-media" aria-hidden="true">
         <img
             src="<?= e(leonaMediaUrl(getSetting('home_hero_image', ''), 'images/leona/hero.jpg')) ?>"
@@ -109,7 +109,7 @@ $tutors = [
     </div>
 </section>
 
-<section class="leona-section" id="subjects">
+<section class="leona-section" id="subjects" data-feedback-id="subjects-list">
     <div class="container">
         <header class="leona-section-head leona-reveal">
             <h2>วิชาที่เปิดสอน</h2>
@@ -162,7 +162,7 @@ $tutors = [
     </div>
 </section>
 
-<section class="leona-section" id="courses">
+<section class="leona-section" id="courses" data-feedback-id="package-list">
     <div class="container">
         <div class="leona-section-head-row">
             <header class="leona-section-head leona-section-head-left leona-reveal">

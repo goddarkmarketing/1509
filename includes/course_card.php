@@ -11,7 +11,7 @@ $buyUrl = courseBookOrBuyUrl($course);
 $buyLabel = courseBookOrBuyLabel($course);
 $isLive = isLiveCourse($course);
 ?>
-<article class="course-card" data-category="<?= e($course['category']) ?>" data-type="<?= e($course['course_type'] ?? 'recorded') ?>">
+<article class="course-card" data-feedback-id="package-card-<?= (int) ($course['id'] ?? 0) ?>" data-category="<?= e($course['category']) ?>" data-type="<?= e($course['course_type'] ?? 'recorded') ?>">
     <a href="<?= e($detailUrl) ?>" class="course-card-image-link">
         <div class="course-card-image">
             <img src="<?= e($coverUrl) ?>" alt="<?= e($course['title']) ?>" loading="lazy">
@@ -50,7 +50,7 @@ $isLive = isLiveCourse($course);
             </div>
         </div>
         <div class="course-card-footer">
-            <div class="course-price"><?= e(formatPrice((float) ($course['price'] ?? 0))) ?></div>
+            <div class="course-price" data-feedback-id="package-price-<?= (int) ($course['id'] ?? 0) ?>"><?= e(formatPrice((float) ($course['price'] ?? 0))) ?></div>
         </div>
         <div class="course-card-actions">
             <a href="<?= e($addToCartUrl) ?>" class="course-buy-icon-btn js-cart-add" aria-label="เพิ่มลงตะกร้า">

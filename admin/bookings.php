@@ -73,7 +73,7 @@ $bookings = getAdminBookings($filter !== '' ? $filter : null);
     </div>
     <div class="admin-card-body is-flush">
         <div class="table-responsive">
-        <table class="admin-table">
+        <table class="admin-table" data-feedback-id="booking-table">
             <thead>
                 <tr>
                     <th>นักเรียน</th>

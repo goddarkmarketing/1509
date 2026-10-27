@@ -215,7 +215,7 @@ $studentStatusBadge = static function (array $student) use ($statusLabels): arra
                 <?php endif; ?>
 
                 <h3 class="student-modal-section-title">เปิดสิทธิ์คอร์สใหม่</h3>
-                <form method="post" class="admin-inline-form student-enroll-form">
+                <form method="post" class="admin-inline-form student-enroll-form" data-feedback-id="customer-form-<?= (int) $s['id'] ?>">
                     <?= csrfField() ?>
                     <input type="hidden" name="action" value="enroll">
                     <input type="hidden" name="student_id" value="<?= (int) $s['id'] ?>">

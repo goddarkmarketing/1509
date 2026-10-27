@@ -34,7 +34,7 @@ $isHome = str_ends_with(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
     <?php endif; ?>
 </head>
 <body class="<?= $isHome ? 'page-home' : '' ?>">
-<header class="site-header leona-header" id="top">
+<header class="site-header leona-header" id="top" data-feedback-id="site-header">
     <div class="container header-inner">
         <a href="<?= APP_URL ?>/public/index.php" class="brand">
             <img class="brand-logo" src="<?= e(brandLogoAsset()) ?>" alt="THE LEONA TUTORS" width="48" height="48" decoding="async">

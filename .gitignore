@@ -17,6 +17,10 @@ assets/videos/*
 !assets/videos/lms-overview-web.mp4
 storage/cache/*
 !storage/cache/.gitkeep
+feedback/images/*
+!feedback/images/.gitkeep
+!feedback/images/.htaccess
+feedback/config.json
 node_modules/
 test-results/
 playwright-report/

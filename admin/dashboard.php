@@ -60,7 +60,7 @@ try {
 }
 ?>
 
-<div class="stats-grid">
+<div class="stats-grid" data-feedback-id="dashboard-summary">
     <div class="stat-card">
         <h3>นักเรียน</h3>
         <div class="stat-value"><?= $stats['students'] ?></div>
