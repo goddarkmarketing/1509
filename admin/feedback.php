@@ -121,7 +121,7 @@ $categories = feedbackCategories();
 $priorities = feedbackPriorities();
 $statuses = feedbackStatuses();
 $reviewUrl = feedbackReviewUrl();
-$adminPreviewUrl = APP_URL . '/public/index.php?feedback=1';
+$adminPreviewUrl = APP_URL . '/admin/dashboard.php?feedback=1';
 
 $pageTitle = 'Website Feedback';
 require_once dirname(__DIR__) . '/includes/admin_header.php';
@@ -156,12 +156,12 @@ $error = flash('admin_error');
         <h2>ลิงก์ตรวจงานสำหรับลูกค้า</h2>
     </div>
     <div class="admin-card-body">
-        <p style="margin-top:0">ส่งลิงก์นี้ให้ลูกค้าเท่านั้น — โหมดแจ้งแก้ไขจะไม่โชว์บน Production สำหรับผู้ใช้ทั่วไป</p>
+        <p style="margin-top:0">ระบบนี้ใช้ตรวจ<strong>หลังบ้าน (Admin)</strong> เท่านั้น — ส่งลิงก์ให้ลูกค้า/ทีมตรวจงาน แล้วเข้าสู่ระบบแอดมินเพื่อแจ้งแก้ไข ไม่แสดงบนเว็บหน้าบ้าน</p>
         <div class="form-group">
-            <label>ลิงก์ Preview</label>
+            <label>ลิงก์ Preview (หลังบ้าน)</label>
             <input type="text" class="form-control" readonly value="<?= e($reviewUrl) ?>" onclick="this.select()">
         </div>
-        <p class="form-hint">แอดมินทดสอบเอง: <a href="<?= e($adminPreviewUrl) ?>" target="_blank" rel="noopener"><?= e($adminPreviewUrl) ?></a></p>
+        <p class="form-hint">แอดมินเปิดโหมดเอง: <a href="<?= e($adminPreviewUrl) ?>"><?= e($adminPreviewUrl) ?></a></p>
         <p class="form-hint">ไฟล์สำหรับ Cursor: <code>feedback/feedback.json</code>, <code>feedback/FEEDBACK.md</code>, <code>feedback/images/</code></p>
         <form method="post" class="admin-form-actions" style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:end">
             <?= csrfField() ?>

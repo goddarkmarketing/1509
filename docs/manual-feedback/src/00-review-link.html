@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>คู่มือ Feedback 00</title>
+  <link rel="stylesheet" href="manual.css">
+</head>
+<body>
+  <div class="stage" id="capture">
+    <div class="review-page">
+      <div class="review-card">
+        <div class="note-tag">ใช้ตรวจหลังบ้าน (Admin) เท่านั้น — ไม่โชว์บนเว็บหน้าบ้าน</div>
+        <h1>เข้าสู่โหมดตรวจหลังบ้าน</h1>
+        <p class="desc">กรอกรหัสผ่านที่ได้รับจากทีมงาน แล้วเข้าสู่ระบบแอดมินเพื่อแจ้งแก้ไขหน้าหลังบ้าน</p>
+        <div class="field" id="passField">
+          <label>รหัสผ่านตรวจงาน</label>
+          <input type="password" value="••••••••" readonly>
+        </div>
+        <button class="btn btn-primary" id="enterBtn" style="width:100%;margin-top:4px">เข้าสู่โหมดตรวจหลังบ้าน</button>
+        <button class="btn" style="width:100%;margin-top:8px">เข้าสู่ระบบแอดมินเพื่อเริ่มตรวจ</button>
+      </div>
+    </div>
+
+    <div class="pin" style="left: 780px; top: 300px;">
+      <div class="pin-num">1</div>
+      <div class="pin-label">กรอกรหัสที่ได้รับจากทีมงาน</div>
+    </div>
+    <div class="pin" style="left: 780px; top: 430px;">
+      <div class="pin-num">2</div>
+      <div class="pin-label">กดเข้าสู่โหมดตรวจหลังบ้าน</div>
+    </div>
+  </div>
+  <script>
+    function mark(sel, pad = 4) {
+      const el = document.querySelector(sel);
+      const stage = document.getElementById('capture');
+      if (!el || !stage) return;
+      const r = el.getBoundingClientRect();
+      const s = stage.getBoundingClientRect();
+      const box = document.createElement('div');
+      box.className = 'box';
+      box.style.left = (r.left - s.left - pad) + 'px';
+      box.style.top = (r.top - s.top - pad) + 'px';
+      box.style.width = (r.width + pad * 2) + 'px';
+      box.style.height = (r.height + pad * 2) + 'px';
+      stage.appendChild(box);
+    }
+    window.addEventListener('load', () => {
+      mark('#passField', 4);
+      mark('#enterBtn', 5);
+    });
+  </script>
+</body>
+</html>

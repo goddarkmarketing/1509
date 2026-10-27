@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>คู่มือ Feedback 03</title>
+  <link rel="stylesheet" href="manual.css">
+</head>
+<body>
+  <div class="stage" id="capture">
+    <div class="admin">
+      <aside class="sidebar">
+        <div class="logo">THE LEONA<small>Admin Panel</small></div>
+        <div class="side-item">แดชบอร์ด</div>
+        <div class="side-item">คอร์ส</div>
+        <div class="side-item">นักเรียน</div>
+        <div class="side-item active">Website Feedback</div>
+        <div class="side-item">ตั้งค่า</div>
+      </aside>
+      <main class="main">
+        <h1>Website Feedback</h1>
+        <div class="panel">
+          <h2>ลิงก์ตรวจงานสำหรับลูกค้า</h2>
+          <input id="previewUrl" class="url-box" readonly value="https://theleonatutors.com/public/review.php?review=abc123">
+          <div class="export-row">
+            <button class="btn">Export JSON</button>
+            <button class="btn">Export Markdown</button>
+            <button class="btn">Download All Screenshots</button>
+            <button class="btn btn-primary" id="exportPkg">Export Feedback Package</button>
+          </div>
+        </div>
+        <div class="panel" style="padding:0;overflow:hidden">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>หมายเลข</th>
+                <th>ภาพ</th>
+                <th>หน้า</th>
+                <th>รายละเอียด</th>
+                <th>ประเภท</th>
+                <th>ความสำคัญ</th>
+                <th>สถานะ</th>
+                <th>วันที่</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>FB-001</strong></td>
+                <td><div class="thumb" id="thumb1"></div></td>
+                <td>หน้าแรก<br><small style="color:#6b7280">/public/index.php</small></td>
+                <td>อยากให้ชื่อคอร์สตัวหนาขึ้น</td>
+                <td>Layout</td>
+                <td>ปานกลาง</td>
+                <td><select class="status" id="status1"><option selected>รอดำเนินการ</option><option>กำลังแก้</option></select></td>
+                <td>27/10/2026</td>
+              </tr>
+              <tr>
+                <td><strong>FB-002</strong></td>
+                <td><div class="thumb" style="background:linear-gradient(135deg,#bfdbfe,#c7d2fe)"></div></td>
+                <td>คอร์สเรียน<br><small style="color:#6b7280">/public/courses.php</small></td>
+                <td>สีปุ่มไม่ตรงแบรนด์</td>
+                <td>สี</td>
+                <td>สูง</td>
+                <td><select class="status"><option>รอดำเนินการ</option><option selected>กำลังแก้</option></select></td>
+                <td>27/10/2026</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <div class="pin" style="left: 700px; top: 72px;">
+      <div class="pin-num">8</div>
+      <div class="pin-label">คัดลอกลิงก์ส่งให้ลูกค้า</div>
+    </div>
+
+    <div class="pin" style="left: 700px; top: 188px;">
+      <div class="pin-num">9</div>
+      <div class="pin-label">ส่งออกแพ็กเกจให้ Cursor</div>
+    </div>
+
+    <div class="pin" style="left: 250px; top: 470px;">
+      <div class="pin-num">11</div>
+      <div class="pin-label">ดูภาพที่ลูกค้าแคป</div>
+    </div>
+
+    <div class="pin" style="left: 900px; top: 470px;">
+      <div class="pin-num">10</div>
+      <div class="pin-label">เปลี่ยนสถานะรายการ</div>
+    </div>
+  </div>
+  <script>
+    function mark(sel, pad = 4) {
+      const el = document.querySelector(sel);
+      const stage = document.getElementById('capture');
+      if (!el || !stage) return;
+      const r = el.getBoundingClientRect();
+      const s = stage.getBoundingClientRect();
+      const box = document.createElement('div');
+      box.className = 'box';
+      box.style.left = (r.left - s.left - pad) + 'px';
+      box.style.top = (r.top - s.top - pad) + 'px';
+      box.style.width = (r.width + pad * 2) + 'px';
+      box.style.height = (r.height + pad * 2) + 'px';
+      stage.appendChild(box);
+    }
+    window.addEventListener('load', () => {
+      mark('#previewUrl', 3);
+      mark('#exportPkg', 5);
+      mark('#thumb1', 4);
+      mark('#status1', 4);
+    });
+  </script>
+</body>
+</html>

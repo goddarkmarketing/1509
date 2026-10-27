@@ -247,12 +247,6 @@ if (!empty($toastMessage)):
 <?php endif; ?>
 
 <script src="<?= asset('js/main.js') ?>?v=149"></script>
-<?php
-if (!function_exists('feedbackRenderClientAssets')) {
-    require_once __DIR__ . '/feedback.php';
-}
-feedbackRenderClientAssets();
-?>
 
 </body>
 

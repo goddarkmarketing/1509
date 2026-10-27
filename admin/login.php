@@ -5,20 +5,28 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/auth.php';
 require_once dirname(__DIR__) . '/includes/rate_limit.php';
 
+require_once dirname(__DIR__) . '/includes/feedback.php';
+
+$redirectTarget = feedbackSafeAdminRedirect((string) ($_GET['redirect'] ?? $_POST['redirect'] ?? '/admin/dashboard.php'));
+
 if (isAdminLoggedIn()) {
-    redirect('/admin/dashboard.php');
+    redirect($redirectTarget);
 }
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verifyCsrf();
+    $redirectTarget = feedbackSafeAdminRedirect((string) ($_POST['redirect'] ?? '/admin/dashboard.php'));
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     if (isLoginRateLimited('admin', $username)) {
         $error = loginRateLimitMessage();
     } elseif ($username && $password && attemptLogin($username, $password)) {
         clearLoginAttempts('admin', $username);
-        redirect('/admin/dashboard.php');
+        if (str_contains($redirectTarget, 'feedback=1') || str_contains($redirectTarget, 'review=')) {
+            $_SESSION['feedback_admin_preview'] = true;
+        }
+        redirect($redirectTarget);
     } else {
         recordLoginFailure('admin', $username);
         $error = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
@@ -47,6 +55,7 @@ $pageTitle = 'เข้าสู่ระบบผู้ดูแล';
         <?php endif; ?>
         <form method="post" class="admin-auth-form">
             <?= csrfField() ?>
+            <input type="hidden" name="redirect" value="<?= e($redirectTarget) ?>">
             <div class="form-group">
                 <label for="admin-username">ชื่อผู้ใช้</label>
                 <input type="text" name="username" id="admin-username" class="form-control" required autofocus autocomplete="username">

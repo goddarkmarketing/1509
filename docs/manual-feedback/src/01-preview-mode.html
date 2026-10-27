@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>คู่มือ Feedback 01</title>
+  <link rel="stylesheet" href="manual.css">
+</head>
+<body>
+  <div class="stage" id="capture">
+    <div class="admin">
+      <aside class="sidebar" data-feedback-id="sidebar-navigation">
+        <div class="logo">THE LEONA<small>Admin Panel</small></div>
+        <div class="side-item">แดชบอร์ด</div>
+        <div class="side-item active">ตารางคลาส Live</div>
+        <div class="side-item">การจองคลาส</div>
+        <div class="side-item">นักเรียน</div>
+        <div class="side-item">Website Feedback</div>
+        <div class="side-item">ตั้งค่า</div>
+      </aside>
+      <main class="main" style="padding-top:0">
+        <div class="fb-banner" style="margin:0 -24px 16px;border-radius:0">
+          <div><strong>โหมดแจ้งแก้ไขหลังบ้าน</strong> — ชี้แล้วคลิกส่วนที่ต้องการแก้</div>
+          <button type="button">ปิดโหมด</button>
+        </div>
+        <h1>ตารางคลาส Live</h1>
+        <div class="panel" style="padding:0;overflow:hidden" data-feedback-id="vehicle-list">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>คอร์ส</th>
+                <th>รอบ / เวลา</th>
+                <th>ที่นั่ง</th>
+                <th>ห้องเรียนสด</th>
+                <th>สถานะ</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ติวสอบเข้า ม.4</td>
+                <td>เสาร์ 10:00 – 12:00</td>
+                <td>8 / 20</td>
+                <td>Google Meet</td>
+                <td><span style="color:#15803d;font-weight:600">เปิดจอง</span></td>
+                <td><button class="btn" style="padding:4px 8px;font-size:12px">แก้ไข</button></td>
+              </tr>
+              <tr id="highlightRow">
+                <td>A-Level สังคม</td>
+                <td>อาทิตย์ 13:00 – 15:00</td>
+                <td>12 / 20</td>
+                <td>Google Meet</td>
+                <td><span style="color:#15803d;font-weight:600">เปิดจอง</span></td>
+                <td><button class="btn" style="padding:4px 8px;font-size:12px">แก้ไข</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <button class="fab active">✎ แจ้งแก้ไข</button>
+
+    <div class="pin" style="right: 200px; bottom: 36px; left: auto;">
+      <div class="pin-num">1</div>
+      <div class="pin-label">กดเพื่อเปิดโหมดแจ้งแก้ไข</div>
+    </div>
+    <div class="pin" style="left: 250px; top: 58px;">
+      <div class="pin-num">2</div>
+      <div class="pin-label">แถบแจ้งว่าอยู่ในโหมดตรวจหลังบ้าน</div>
+    </div>
+    <div class="pin" style="left: 420px; top: 430px;">
+      <div class="pin-num">3</div>
+      <div class="pin-label">ชี้เมาส์แล้วส่วนจะมีกรอบไฮไลต์</div>
+    </div>
+  </div>
+  <script>
+    function mark(sel, pad = 4) {
+      const el = document.querySelector(sel);
+      const stage = document.getElementById('capture');
+      if (!el || !stage) return;
+      const r = el.getBoundingClientRect();
+      const s = stage.getBoundingClientRect();
+      const box = document.createElement('div');
+      box.className = 'box';
+      box.style.left = (r.left - s.left - pad) + 'px';
+      box.style.top = (r.top - s.top - pad) + 'px';
+      box.style.width = (r.width + pad * 2) + 'px';
+      box.style.height = (r.height + pad * 2) + 'px';
+      stage.appendChild(box);
+    }
+    window.addEventListener('load', () => {
+      mark('.fab', 6);
+      mark('.fb-banner', 0);
+      mark('#highlightRow', 2);
+    });
+  </script>
+</body>
+</html>

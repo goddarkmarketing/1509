@@ -138,11 +138,26 @@ function feedbackActivatePreviewFromRequest(): bool
     return true;
 }
 
+function feedbackIsAdminArea(): bool
+{
+    $script = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+    return str_contains($script, '/admin/');
+}
+
+/** Feedback tool is admin-backend only (never on public site). */
 function feedbackShouldInjectClientTool(): bool
 {
+    if (!feedbackIsAdminArea()) {
+        return false;
+    }
+
     feedbackEnsureStorage();
     $config = feedbackLoadConfig();
     if (empty($config['enabled'])) {
+        return false;
+    }
+
+    if (!isAdminLoggedIn()) {
         return false;
     }
 
@@ -150,14 +165,27 @@ function feedbackShouldInjectClientTool(): bool
         feedbackActivatePreviewFromRequest();
     }
 
-    if (isAdminLoggedIn() && (isset($_GET['feedback']) || !empty($_SESSION['feedback_admin_preview']))) {
-        if (isset($_GET['feedback'])) {
-            $_SESSION['feedback_admin_preview'] = ((string) $_GET['feedback'] !== '0');
-        }
-        return !empty($_SESSION['feedback_admin_preview']);
+    if (isset($_GET['feedback'])) {
+        $_SESSION['feedback_admin_preview'] = ((string) $_GET['feedback'] !== '0');
     }
 
-    return feedbackIsPreviewAuthorized();
+    if (!empty($_SESSION['feedback_admin_preview'])) {
+        return true;
+    }
+
+    // Review link unlock also enables admin feedback after login
+    return feedbackIsPreviewAuthorized() && !empty($_SESSION['feedback_preview_token']);
+}
+
+function feedbackAdminStartUrl(string $token = ''): string
+{
+    $config = feedbackLoadConfig();
+    $t = $token !== '' ? $token : (string) ($config['token'] ?? '');
+    $url = APP_URL . '/admin/dashboard.php?feedback=1';
+    if ($t !== '') {
+        $url .= '&review=' . rawurlencode($t);
+    }
+    return $url;
 }
 
 function feedbackClientBootstrap(): array
@@ -470,4 +498,16 @@ function feedbackReviewUrl(): string
     $config = feedbackLoadConfig();
     $token = (string) ($config['token'] ?? '');
     return APP_URL . '/public/review.php?review=' . rawurlencode($token);
+}
+
+function feedbackSafeAdminRedirect(string $target): string
+{
+    $target = trim($target);
+    if ($target === '' || !str_starts_with($target, '/admin/')) {
+        return '/admin/dashboard.php?feedback=1';
+    }
+    if (str_contains($target, '://') || str_contains($target, '..')) {
+        return '/admin/dashboard.php?feedback=1';
+    }
+    return $target;
 }

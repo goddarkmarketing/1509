@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>คู่มือ Feedback 02</title>
+  <link rel="stylesheet" href="manual.css">
+</head>
+<body>
+  <div class="stage" id="capture">
+    <div class="blur-bg" style="height:100%">
+      <div class="admin">
+        <aside class="sidebar">
+          <div class="logo">THE LEONA<small>Admin Panel</small></div>
+          <div class="side-item">แดชบอร์ด</div>
+          <div class="side-item">การจองคลาส</div>
+          <div class="side-item active">นักเรียน</div>
+          <div class="side-item">Website Feedback</div>
+        </aside>
+        <main class="main">
+          <h1>นักเรียน</h1>
+          <div class="panel" style="padding:0;overflow:hidden" data-feedback-id="booking-table">
+            <table class="data">
+              <thead>
+                <tr><th>ชื่อ</th><th>เบอร์โทร</th><th>คอร์ส</th><th>สถานะ</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>สมชาย ใจดี</td><td>081-234-5678</td><td>ติวสอบ ม.4</td><td>เปิดสิทธิ์แล้ว</td></tr>
+                <tr><td>สมหญิง รักเรียน</td><td>089-111-2222</td><td>A-Level</td><td>รอตรวจสอบ</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+      <button class="fab">✎ แจ้งแก้ไข</button>
+    </div>
+
+    <div class="modal-wrap">
+      <div class="modal" id="fbModal">
+        <div class="modal-head">
+          <span>แจ้งแก้ไขส่วนนี้</span>
+          <span style="color:#9ca3af;font-weight:500">✕</span>
+        </div>
+        <div class="modal-body">
+          <div class="meta">
+            booking-table · table<br>
+            [data-feedback-id="booking-table"]
+          </div>
+          <div class="field" id="commentField">
+            <label>รายละเอียดที่ต้องการแก้ไข</label>
+            <textarea>อยากให้คอลัมน์สถานะมีสีแยกชัดขึ้น และปุ่มเปิดสิทธิ์อยู่ชิดขวามากกว่านี้</textarea>
+          </div>
+          <div class="row2" id="typeRow">
+            <div class="field">
+              <label>ประเภท</label>
+              <select><option>ข้อความ</option><option selected>Layout</option><option>สี</option><option>ฟังก์ชัน</option></select>
+            </div>
+            <div class="field">
+              <label>ความสำคัญ</label>
+              <select><option>ต่ำ</option><option selected>ปานกลาง</option><option>สูง</option></select>
+            </div>
+          </div>
+          <div class="field">
+            <label>ชื่อลูกค้า</label>
+            <input value="คุณสมชาย">
+          </div>
+          <div class="actions">
+            <button class="btn">ยกเลิก</button>
+            <button class="btn btn-gold" id="saveBtn">บันทึก</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pin" style="left: 24px; top: 88px;">
+      <div class="pin-num">4</div>
+      <div class="pin-label">คลิกส่วนในหลังบ้านที่ต้องการแก้</div>
+    </div>
+    <div class="pin" style="left: 920px; top: 250px;">
+      <div class="pin-num">5</div>
+      <div class="pin-label">พิมพ์รายละเอียดที่ต้องการแก้ไข</div>
+    </div>
+    <div class="pin" style="left: 920px; top: 400px;">
+      <div class="pin-num">6</div>
+      <div class="pin-label">เลือกประเภทและความสำคัญ</div>
+    </div>
+    <div class="pin" style="left: 920px; top: 575px;">
+      <div class="pin-num">7</div>
+      <div class="pin-label">กดบันทึก</div>
+    </div>
+  </div>
+  <script>
+    function mark(sel, pad = 4) {
+      const el = document.querySelector(sel);
+      const stage = document.getElementById('capture');
+      if (!el || !stage) return;
+      const r = el.getBoundingClientRect();
+      const s = stage.getBoundingClientRect();
+      const box = document.createElement('div');
+      box.className = 'box';
+      box.style.left = (r.left - s.left - pad) + 'px';
+      box.style.top = (r.top - s.top - pad) + 'px';
+      box.style.width = (r.width + pad * 2) + 'px';
+      box.style.height = (r.height + pad * 2) + 'px';
+      stage.appendChild(box);
+    }
+    window.addEventListener('load', () => {
+      mark('#commentField');
+      mark('#typeRow');
+      mark('#saveBtn', 6);
+    });
+  </script>
+</body>
+</html>
