@@ -12,6 +12,8 @@ uploads/sessions/*
 !uploads/sessions/.gitkeep
 uploads/quizzes/*
 !uploads/quizzes/.gitkeep
+uploads/students/*
+!uploads/students/.gitkeep
 assets/videos/*
 !assets/videos/.gitkeep
 !assets/videos/lms-overview-web.mp4

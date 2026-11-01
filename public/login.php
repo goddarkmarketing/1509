@@ -45,7 +45,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                 <label>รหัสผ่าน</label>
                 <input type="password" name="password" class="form-control" required autocomplete="current-password">
                 <p style="text-align:right;margin-top:.35rem;font-size:.85rem">
-                    <a href="<?= APP_URL ?>/public/forgot-password.php">ลืมรหัสผ่าน?</a>
+                    <a href="<?= APP_URL ?>/public/forgot-password.php">ลืมรหัสผ่าน? กดที่นี่</a>
                 </p>
             </div>
             <button type="submit" class="btn btn-primary btn-block">เข้าสู่ระบบ</button>

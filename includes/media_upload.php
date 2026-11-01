@@ -209,6 +209,34 @@ function storeLessonDocumentUpload(array $file): string|false|null
     return 'uploads/courses/' . $filename;
 }
 
+function storeStudentAvatarUpload(array $file): string|false|null
+{
+    if (($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+    if (($file['error'] ?? UPLOAD_ERR_OK) !== UPLOAD_ERR_OK) {
+        flash('profile_error', 'อัปโหลดรูปโปรไฟล์ไม่สำเร็จ');
+        return false;
+    }
+    if (($file['size'] ?? 0) > MAX_COURSE_IMAGE_BYTES) {
+        flash('profile_error', 'รูปโปรไฟล์ใหญ่เกิน 3MB');
+        return false;
+    }
+    $ext = strtolower(pathinfo((string) ($file['name'] ?? ''), PATHINFO_EXTENSION));
+    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'], true)) {
+        flash('profile_error', 'รูปโปรไฟล์รองรับ JPG, PNG, WEBP, GIF');
+        return false;
+    }
+    ensureUploadDir(UPLOAD_STUDENTS_PATH);
+    $filename = 'avatar_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+    $dest = UPLOAD_STUDENTS_PATH . '/' . $filename;
+    if (!move_uploaded_file($file['tmp_name'], $dest)) {
+        flash('profile_error', 'บันทึกรูปโปรไฟล์ไม่สำเร็จ');
+        return false;
+    }
+    return 'uploads/students/' . $filename;
+}
+
 function storeLessonVideoUpload(array $file): string|false|null
 {
     if (($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {

@@ -30,8 +30,9 @@ function currentStudent(): ?array
         return $student;
     }
 
+    ensureStudentAvatarColumn();
     try {
-        $stmt = db()->prepare('SELECT id, full_name, email, phone, line_id, line_user_id, created_at FROM students WHERE id = ? LIMIT 1');
+        $stmt = db()->prepare('SELECT id, full_name, email, phone, line_id, line_user_id, avatar_url, created_at FROM students WHERE id = ? LIMIT 1');
         $stmt->execute([$_SESSION['student_id']]);
         $student = $stmt->fetch() ?: null;
         return $student;
@@ -42,12 +43,30 @@ function currentStudent(): ?array
             $row = $stmt->fetch() ?: null;
             if ($row) {
                 $row['line_user_id'] = null;
+                $row['avatar_url'] = null;
             }
             $student = $row;
             return $student;
         } catch (Throwable $e2) {
             return null;
         }
+    }
+}
+
+function ensureStudentAvatarColumn(): void
+{
+    static $done = false;
+    if ($done) {
+        return;
+    }
+    $done = true;
+    try {
+        $col = db()->query("SHOW COLUMNS FROM students LIKE 'avatar_url'")->fetch();
+        if (!$col) {
+            db()->exec('ALTER TABLE students ADD COLUMN avatar_url VARCHAR(500) DEFAULT NULL AFTER line_id');
+        }
+    } catch (Throwable $e) {
+        // older installs may lack ALTER rights; profile photo simply stays unavailable
     }
 }
 
@@ -225,9 +244,24 @@ function createPasswordResetToken(string $identifier): array
 
     require_once __DIR__ . '/mailer.php';
     $resetUrl = siteBaseUrl() . '/public/reset-password.php?token=' . urlencode($token);
-    sendPasswordResetEmail($student['email'], $student['full_name'], $resetUrl);
+    $sent = sendPasswordResetEmail((string) $student['email'], (string) $student['full_name'], $resetUrl);
 
-    return ['ok' => true, 'message' => 'หากมีบัญชีที่ตรงกับข้อมูลนี้ เราจะส่งลิงก์รีเซ็ตรหัสผ่านให้'];
+    if (!$sent) {
+        $line = trim(getSetting('line_id', ''));
+        $phone = trim(getSetting('phone', ''));
+        $hint = 'ระบบส่งอีเมลไม่สำเร็จในขณะนี้';
+        if ($line !== '' || $phone !== '') {
+            $hint .= ' กรุณาติดต่อทีมงานทาง LINE'
+                . ($line !== '' ? ' (' . $line . ')' : '')
+                . ($phone !== '' ? ' หรือโทร ' . $phone : '')
+                . ' เพื่อรีเซ็ตรหัสผ่าน';
+        } else {
+            $hint .= ' กรุณาติดต่อทีมงานเพื่อรีเซ็ตรหัสผ่าน';
+        }
+        return ['ok' => false, 'message' => $hint];
+    }
+
+    return ['ok' => true, 'message' => 'ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว กรุณาตรวจสอบกล่องจดหมาย (รวมถึง Junk/Spam)'];
 }
 
 function validatePasswordResetToken(string $token): ?array

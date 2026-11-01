@@ -21,13 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'ลืมรหัสผ่าน';
+$helpLine = trim(getSetting('line_id', ''));
+$helpPhone = trim(getSetting('phone', ''));
 require_once dirname(__DIR__) . '/includes/header.php';
 ?>
 
 <section class="auth-page">
     <div class="auth-card">
         <h1>ลืมรหัสผ่าน</h1>
-        <p style="text-align:center;color:var(--gray-600);margin-bottom:1.5rem;font-size:.9rem">กรอกเบอร์โทรหรืออีเมลที่ลงทะเบียนไว้</p>
+        <p style="text-align:center;color:var(--gray-600);margin-bottom:1.5rem;font-size:.9rem">กรอกเบอร์โทรหรืออีเมลที่ลงทะเบียนไว้ ระบบจะส่งลิงก์ตั้งรหัสใหม่ทางอีเมล</p>
         <?php if ($message): ?>
             <div class="alert alert-success"><?= e($message) ?></div>
         <?php endif; ?>
@@ -44,6 +46,12 @@ require_once dirname(__DIR__) . '/includes/header.php';
             <button type="submit" class="btn btn-primary btn-block">ส่งลิงก์รีเซ็ตรหัสผ่าน</button>
         </form>
         <?php endif; ?>
+        <div style="margin-top:1.25rem;padding:1rem;background:#f8fafc;border-radius:10px;font-size:.88rem;color:var(--gray-600);line-height:1.55">
+            <strong style="color:var(--gray-800)">ติดต่อทีมงานหากเข้าไม่ได้</strong><br>
+            บัญชีที่ยังไม่มีอีเมล หรืออีเมลไม่ถึงกล่องจดหมาย ให้ทักทีมงานเพื่อรีเซ็ตรหัสผ่านให้
+            <?php if ($helpLine !== ''): ?><br>LINE: <?= e($helpLine) ?><?php endif; ?>
+            <?php if ($helpPhone !== ''): ?><br>โทร: <?= e($helpPhone) ?><?php endif; ?>
+        </div>
         <p style="text-align:center;margin-top:1rem;font-size:.9rem">
             <a href="<?= APP_URL ?>/public/login.php">กลับหน้าเข้าสู่ระบบ</a>
         </p>

@@ -2241,6 +2241,40 @@ a:hover { color: var(--red-dark); }
   font-weight: 700;
   color: var(--white);
   background: linear-gradient(135deg, var(--red), var(--red-dark));
+  overflow: hidden;
+}
+.account-sidebar-avatar--photo {
+  padding: 0;
+  background: var(--gray-200);
+}
+.account-sidebar-avatar--photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.profile-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.profile-avatar-preview {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--gray-200);
+  flex-shrink: 0;
+}
+.profile-avatar-preview--initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
 }
 .account-sidebar-user-text {
   min-width: 0;

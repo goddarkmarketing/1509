@@ -25,6 +25,8 @@ define('UPLOAD_SESSIONS_PATH', BASE_PATH . '/uploads/sessions');
 define('UPLOAD_SESSIONS_URL', APP_URL . '/uploads/sessions');
 define('UPLOAD_QUIZZES_PATH', BASE_PATH . '/uploads/quizzes');
 define('UPLOAD_QUIZZES_URL', APP_URL . '/uploads/quizzes');
+define('UPLOAD_STUDENTS_PATH', BASE_PATH . '/uploads/students');
+define('UPLOAD_STUDENTS_URL', APP_URL . '/uploads/students');
 
 date_default_timezone_set('Asia/Bangkok');
 

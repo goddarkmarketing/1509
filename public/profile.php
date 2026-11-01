@@ -11,6 +11,7 @@ require_once dirname(__DIR__) . '/includes/game.php';
 require_once dirname(__DIR__) . '/includes/booking.php';
 require_once dirname(__DIR__) . '/includes/line_messaging.php';
 require_once dirname(__DIR__) . '/includes/exam.php';
+require_once dirname(__DIR__) . '/includes/media_upload.php';
 
 requireStudentLogin('/public/profile.php');
 
@@ -35,8 +36,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             trim($_POST['email'] ?? '') ?: null,
             trim($_POST['line_id'] ?? '') ?: null
         );
+        $avatarMsg = '';
+        if (!empty($_FILES['avatar_file']['name'])) {
+            $uploadedAvatar = storeStudentAvatarUpload($_FILES['avatar_file']);
+            if ($uploadedAvatar === false) {
+                redirect('/public/profile.php?tab=profile');
+            }
+            if (is_string($uploadedAvatar)) {
+                $avatarResult = updateStudentAvatar((int) $student['id'], $uploadedAvatar);
+                if (!$avatarResult['ok']) {
+                    flash('profile_error', $avatarResult['message']);
+                    redirect('/public/profile.php?tab=profile');
+                }
+                $avatarMsg = ' และอัปเดตรูปโปรไฟล์แล้ว';
+            }
+        }
         if ($result['ok']) {
-            flash('profile_success', $result['message']);
+            flash('profile_success', $result['message'] . $avatarMsg);
         } else {
             flash('profile_error', $result['message']);
         }
@@ -110,6 +126,9 @@ try {
 }
 
 $pageTitle = $accountTabs[$tab]['title'];
+$student = currentStudent() ?: $student;
+$studentInitial = studentAccountInitial($student['full_name'] ?? '');
+$avatarUrl = studentAvatarUrl($student);
 require_once dirname(__DIR__) . '/includes/header.php';
 ?>
 
@@ -117,7 +136,13 @@ require_once dirname(__DIR__) . '/includes/header.php';
     <div class="container account-layout">
         <aside class="account-sidebar" aria-label="เมนูบัญชีผู้เรียน">
             <div class="account-sidebar-user">
+                <?php if ($avatarUrl !== ''): ?>
+                <div class="account-sidebar-avatar account-sidebar-avatar--photo" aria-hidden="true">
+                    <img src="<?= e($avatarUrl) ?>" alt="">
+                </div>
+                <?php else: ?>
                 <div class="account-sidebar-avatar" aria-hidden="true"><?= e($studentInitial) ?></div>
+                <?php endif; ?>
                 <div class="account-sidebar-user-text">
                     <strong><?= e($student['full_name']) ?></strong>
                     <?php if (!empty($student['email'])): ?>
@@ -247,9 +272,23 @@ require_once dirname(__DIR__) . '/includes/header.php';
                     </div>
                 </div>
                 <div class="account-panel-card">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <?= csrfField() ?>
                         <input type="hidden" name="action" value="profile">
+                        <div class="form-group profile-avatar-field">
+                            <label>รูปโปรไฟล์</label>
+                            <div class="profile-avatar-row">
+                                <?php if ($avatarUrl !== ''): ?>
+                                <img class="profile-avatar-preview" src="<?= e($avatarUrl) ?>" alt="รูปโปรไฟล์ปัจจุบัน">
+                                <?php else: ?>
+                                <div class="profile-avatar-preview profile-avatar-preview--initial" aria-hidden="true"><?= e($studentInitial) ?></div>
+                                <?php endif; ?>
+                                <div>
+                                    <input type="file" name="avatar_file" class="form-control" accept="image/jpeg,image/png,image/webp,image/gif,.jpg,.jpeg,.png,.webp,.gif">
+                                    <small class="form-hint">JPG / PNG / WEBP สูงสุด 3MB</small>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label>ชื่อ-นามสกุล</label>
                             <input type="text" name="full_name" class="form-control" required value="<?= e($student['full_name'] ?? '') ?>">

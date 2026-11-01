@@ -48,3 +48,35 @@ function studentAccountInitial(string $fullName): string
     $initial = mb_strtoupper(mb_substr(trim($fullName), 0, 1, 'UTF-8'));
     return $initial !== '' ? $initial : '?';
 }
+
+/** Student learning home — always the enrolled-courses panel, not the marketing site. */
+function studentStartLearningUrl(): string
+{
+    return studentAccountUrl('courses');
+}
+
+function studentAvatarUrl(?array $student): string
+{
+    $path = trim((string) ($student['avatar_url'] ?? ''));
+    if ($path === '') {
+        return '';
+    }
+    if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+        return $path;
+    }
+    if (str_starts_with($path, 'uploads/students/')) {
+        return APP_URL . '/' . ltrim($path, '/');
+    }
+    return APP_URL . '/' . ltrim($path, '/');
+}
+
+function updateStudentAvatar(int $studentId, string $avatarRelPath): array
+{
+    ensureStudentAvatarColumn();
+    try {
+        db()->prepare('UPDATE students SET avatar_url = ? WHERE id = ?')->execute([$avatarRelPath, $studentId]);
+        return ['ok' => true, 'message' => 'อัปเดตรูปโปรไฟล์เรียบร้อย'];
+    } catch (Throwable $e) {
+        return ['ok' => false, 'message' => 'บันทึกรูปโปรไฟล์ไม่สำเร็จ'];
+    }
+}

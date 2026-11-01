@@ -3,6 +3,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/functions.php';
 require_once __DIR__ . '/cart.php';
 require_once __DIR__ . '/student_auth.php';
+require_once __DIR__ . '/student_account.php';
 require_once __DIR__ . '/site_content.php';
 ensureLeonaClientUpdates();
 $settings = getSettings();
@@ -26,7 +27,7 @@ $isHome = str_ends_with(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
     <link rel="icon" href="<?= asset('images/leona/logo.png') ?>" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="<?= asset('images/leona/logo.png') ?>">
     <?php require __DIR__ . '/views/fonts_head.php'; ?>
-    <link rel="stylesheet" href="<?= asset('css/style.css') ?>?v=162">
+    <link rel="stylesheet" href="<?= asset('css/style.css') ?>?v=163">
     <?php if (!empty($pageStylesheets) && is_array($pageStylesheets)): ?>
         <?php foreach ($pageStylesheets as $sheet): ?>
         <link rel="stylesheet" href="<?= asset($sheet) ?>?v=4">
@@ -65,10 +66,10 @@ $isHome = str_ends_with(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
                     <span class="cart-count" id="cartCount"><?= (int) $cartCount ?></span>
                 </button>
                 <?php if ($currentStudent): ?>
-                <a href="<?= APP_URL ?>/public/profile.php" class="header-user-btn" aria-label="โปรไฟล์">
+                <a href="<?= APP_URL ?>/public/profile.php?tab=profile" class="header-user-btn" aria-label="โปรไฟล์">
                     <?= lucide_icon('user', ['size' => 20]) ?>
                 </a>
-                <a href="<?= APP_URL ?>/public/my-courses.php" class="btn btn-primary btn-sm header-action-btn">เริ่มเรียน</a>
+                <a href="<?= e(function_exists('studentStartLearningUrl') ? studentStartLearningUrl() : (APP_URL . '/public/profile.php?tab=courses')) ?>" class="btn btn-primary btn-sm header-action-btn">เริ่มเรียน</a>
                 <?php else: ?>
                 <a href="<?= APP_URL ?>/public/register.php" class="btn btn-primary btn-sm header-action-btn header-btn-enroll">สมัครเรียน</a>
                 <a href="<?= APP_URL ?>/public/login.php" class="header-user-btn" aria-label="เข้าสู่ระบบ">
