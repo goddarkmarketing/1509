@@ -148,7 +148,7 @@ $lessons = $stmt->fetchAll();
 <?php if ($error): ?><div class="alert alert-error"><?= e($error) ?></div><?php endif; ?>
 
 <?php if ($action === 'add' || ($action === 'edit' && $editLesson)): ?>
-<div class="admin-card">
+<div class="admin-card" data-guide="lessons-form">
     <div class="admin-card-header">
         <h2><?= $editLesson ? 'แก้ไขบทเรียน' : 'เพิ่มบทเรียน' ?></h2>
         <a href="<?= APP_URL ?>/admin/lessons.php<?= $filterCourse ? '?course_id=' . $filterCourse : '' ?>" class="btn btn-secondary btn-sm">กลับ</a>
@@ -238,8 +238,8 @@ if ($filterCourse) {
 }
 ?>
 
-<div class="admin-card">
-    <div class="admin-card-header">
+<div class="admin-card" data-guide="lessons-form">
+    <div class="admin-card-header" data-guide-focus>
         <h2>บทเรียนทั้งหมด</h2>
         <a href="?action=add<?= $filterCourse ? '&course_id=' . $filterCourse : '' ?>" class="btn btn-primary btn-sm">+ เพิ่มบทเรียน</a>
     </div>

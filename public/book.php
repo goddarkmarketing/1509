@@ -6,6 +6,7 @@ require_once dirname(__DIR__) . '/includes/functions.php';
 require_once dirname(__DIR__) . '/includes/cart.php';
 require_once dirname(__DIR__) . '/includes/booking.php';
 require_once dirname(__DIR__) . '/includes/student_auth.php';
+require_once dirname(__DIR__) . '/includes/access.php';
 
 $slug = trim($_GET['course'] ?? '');
 if ($slug === '') {
@@ -23,20 +24,42 @@ if (!isLiveCourse($course)) {
     redirect('/public/cart.php');
 }
 
+$student = currentStudent();
+$studentId = $student ? (int) $student['id'] : 0;
+$hasCourseAccess = $studentId > 0 && studentHasCourseAccess($studentId, (int) $course['id']);
+$existingBooking = $hasCourseAccess ? getStudentBookingForCourse($studentId, (int) $course['id']) : null;
+
 $sessions = getAvailableSessions((int) $course['id']);
 $error = '';
 $courseUrl = APP_URL . '/public/course.php?slug=' . urlencode($course['slug']);
 $coverUrl = courseCoverUrl($course);
+$loginUrl = APP_URL . '/public/login.php?redirect=' . rawurlencode('/public/book.php?course=' . $course['slug']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verifyCsrf();
     $sessionId = (int) ($_POST['session_id'] ?? 0);
-    if ($sessionId <= 0 || !sessionHasCapacity($sessionId)) {
+    if ($sessionId <= 0) {
         $error = 'กรุณาเลือกวันเวลาที่ว่าง';
-    } else {
+    } elseif (!sessionHasCapacity($sessionId)) {
+        // Allow keeping the same session the student already holds even if listed full.
+        $sameHeld = $existingBooking && (int) ($existingBooking['session_id'] ?? 0) === $sessionId;
+        if (!$sameHeld) {
+            $error = 'กรุณาเลือกวันเวลาที่ว่าง';
+        }
+    }
+
+    if ($error === '') {
         $session = getSessionById($sessionId);
         if (!$session || (int) $session['course_id'] !== (int) $course['id']) {
             $error = 'รอบเรียนไม่ถูกต้อง';
+        } elseif ($hasCourseAccess) {
+            $result = bookSessionForEnrolledStudent($studentId, (int) $course['id'], $sessionId);
+            if (!$result['ok']) {
+                $error = $result['message'];
+            } else {
+                flash('account_success', $result['message'] . ' — ไม่ต้องชำระเงินซ้ำ');
+                redirect('/public/profile.php?tab=bookings');
+            }
         } else {
             addToCartCourse((int) $course['id']);
             setCartSessionForCourse((int) $course['id'], $sessionId);
@@ -66,6 +89,12 @@ require_once dirname(__DIR__) . '/includes/header.php';
                 <span class="book-step-label">เลือกรอบเรียน</span>
             </span>
             <span class="book-step-line" aria-hidden="true"></span>
+            <?php if ($hasCourseAccess): ?>
+            <span class="book-step">
+                <span class="book-step-num">2</span>
+                <span class="book-step-label">ยืนยันจอง</span>
+            </span>
+            <?php else: ?>
             <span class="book-step">
                 <span class="book-step-num">2</span>
                 <span class="book-step-label">ใส่ตะกร้า</span>
@@ -75,6 +104,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                 <span class="book-step-num">3</span>
                 <span class="book-step-label">ชำระเงิน</span>
             </span>
+            <?php endif; ?>
         </nav>
 
         <header class="checkout-main-header book-page-header">
@@ -83,11 +113,25 @@ require_once dirname(__DIR__) . '/includes/header.php';
             </span>
             <div>
                 <h1>จองคลาสออนไลน์</h1>
-                <p class="book-page-header-sub">เลือกวันและเวลาที่สะดวก แล้วดำเนินการชำระเงินในขั้นตอนถัดไป</p>
+                <p class="book-page-header-sub">
+                    <?php if ($hasCourseAccess): ?>
+                    คุณมีสิทธิ์เรียนคอร์สนี้อยู่แล้ว — เลือกรอบได้เลย ไม่ต้องชำระเงินซ้ำ
+                    <?php else: ?>
+                    เลือกวันและเวลาที่สะดวก แล้วดำเนินการชำระเงินในขั้นตอนถัดไป
+                    <?php endif; ?>
+                </p>
             </div>
         </header>
 
         <?php if ($error): ?><div class="alert alert-error checkout-alert"><?= e($error) ?></div><?php endif; ?>
+
+        <?php if ($hasCourseAccess): ?>
+        <div class="alert alert-success checkout-alert">ซื้อคอร์สแล้ว — จองรอบเรียนฟรี</div>
+        <?php elseif (!$student): ?>
+        <div class="alert checkout-alert" style="background:#f8fafc;border:1px solid #e2e8f0;color:#334155">
+            หากซื้อคอร์สนี้แล้ว กรุณา <a href="<?= e($loginUrl) ?>">เข้าสู่ระบบ</a> ก่อนจองรอบ เพื่อไม่ต้องจ่ายซ้ำ
+        </div>
+        <?php endif; ?>
 
         <?php if (!$sessions): ?>
         <div class="book-page-empty">
@@ -115,6 +159,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                             $sessionImg = sessionImageUrl($session);
                             $seatsClass = sessionSeatsStatus($remaining, (int) $session['capacity']);
                             $sessionTitle = $session['title'] !== '' ? $session['title'] : 'รอบเรียน';
+                            $isCurrent = $existingBooking && (int) ($existingBooking['session_id'] ?? 0) === $sid;
                         ?>
                         <li>
                             <label class="book-session-card">
@@ -123,6 +168,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                                     name="session_id"
                                     value="<?= $sid ?>"
                                     class="visually-hidden"
+                                    <?= ($isCurrent || ($index === 0 && !$existingBooking)) ? 'checked' : '' ?>
                                     <?= $index === 0 ? 'required' : '' ?>
                                 >
                                 <span class="book-session-radio" aria-hidden="true"></span>
@@ -135,7 +181,7 @@ require_once dirname(__DIR__) . '/includes/header.php';
                                 <?php endif; ?>
                                 <span class="book-session-main">
                                     <span class="book-session-top">
-                                        <strong class="book-session-title"><?= e($sessionTitle) ?></strong>
+                                        <strong class="book-session-title"><?= e($sessionTitle) ?><?php if ($isCurrent): ?> · จองไว้แล้ว<?php endif; ?></strong>
                                         <span class="book-session-seats book-session-seats--<?= e($seatsClass) ?>">
                                             <?= lucide_icon('users', ['size' => 14, 'stroke' => '2']) ?>
                                             ว่าง <?= $remaining ?>/<?= (int) $session['capacity'] ?>
@@ -158,10 +204,17 @@ require_once dirname(__DIR__) . '/includes/header.php';
                     </ul>
                 </section>
                 <footer class="book-page-actions">
+                    <?php if ($hasCourseAccess): ?>
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <?= lucide_icon('calendar-check', ['size' => 18, 'stroke' => '2']) ?>
+                        <?= $existingBooking ? 'เปลี่ยนรอบเรียน' : 'ยืนยันจองรอบเรียน' ?>
+                    </button>
+                    <?php else: ?>
                     <button type="submit" class="btn btn-primary btn-lg">
                         <?= lucide_icon('shopping-cart', ['size' => 18, 'stroke' => '2']) ?>
                         ใส่ตะกร้าและชำระเงิน
                     </button>
+                    <?php endif; ?>
                     <a href="<?= e($courseUrl) ?>" class="btn btn-outline">ยกเลิก</a>
                 </footer>
             </form>
@@ -194,8 +247,13 @@ require_once dirname(__DIR__) . '/includes/header.php';
                         </li>
                     </ul>
                     <div class="book-course-price">
+                        <?php if ($hasCourseAccess): ?>
+                        <span class="book-course-price-label">สถานะ</span>
+                        <strong>มีสิทธิ์เรียนแล้ว</strong>
+                        <?php else: ?>
                         <span class="book-course-price-label">ราคา</span>
                         <strong><?= e(formatPrice((float) ($course['price'] ?? 0))) ?></strong>
+                        <?php endif; ?>
                     </div>
                 </div>
             </aside>

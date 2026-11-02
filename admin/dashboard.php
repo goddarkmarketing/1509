@@ -60,7 +60,7 @@ try {
 }
 ?>
 
-<div class="stats-grid" data-feedback-id="dashboard-summary">
+<div class="stats-grid" data-feedback-id="dashboard-summary" data-guide="dashboard-summary">
     <div class="stat-card">
         <h3>นักเรียน</h3>
         <div class="stat-value"><?= $stats['students'] ?></div>
@@ -156,7 +156,7 @@ try {
 
 <div class="admin-card">
     <div class="admin-card-header"><h2>ทางลัด</h2></div>
-    <div class="admin-card-body admin-shortcuts">
+    <div class="admin-card-body admin-shortcuts" data-guide="dashboard-shortcuts">
         <a href="<?= APP_URL ?>/admin/courses.php?action=add" class="btn btn-primary btn-sm">เพิ่มคอร์ส</a>
         <a href="<?= APP_URL ?>/admin/quizzes.php?action=add" class="btn btn-secondary btn-sm">เพิ่มแบบทดสอบ</a>
         <a href="<?= APP_URL ?>/admin/coupons.php" class="btn btn-secondary btn-sm">คูปองส่วนลด</a>

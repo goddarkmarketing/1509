@@ -862,6 +862,66 @@ function getStudentBookingForCourse(int $studentId, int $courseId): ?array
     return $row ?: null;
 }
 
+/**
+ * Enrolled student books/changes a live session without paying again.
+ * @return array{ok:bool,message:string,booking_id?:int}
+ */
+function bookSessionForEnrolledStudent(int $studentId, int $courseId, int $sessionId): array
+{
+    require_once __DIR__ . '/access.php';
+    require_once __DIR__ . '/line_messaging.php';
+
+    if ($studentId <= 0 || $courseId <= 0 || $sessionId <= 0) {
+        return ['ok' => false, 'message' => 'ข้อมูลการจองไม่ครบ'];
+    }
+    if (!studentHasCourseAccess($studentId, $courseId)) {
+        return ['ok' => false, 'message' => 'ยังไม่มีสิทธิ์เรียนคอร์สนี้'];
+    }
+
+    $session = getSessionById($sessionId);
+    if (!$session || (int) ($session['course_id'] ?? 0) !== $courseId) {
+        return ['ok' => false, 'message' => 'รอบเรียนไม่ถูกต้อง'];
+    }
+    if (!sessionHasCapacity($sessionId)) {
+        $existingSame = getStudentBookingForCourse($studentId, $courseId);
+        if (!$existingSame || (int) ($existingSame['session_id'] ?? 0) !== $sessionId) {
+            return ['ok' => false, 'message' => 'รอบเรียนนี้เต็มแล้ว'];
+        }
+    }
+
+    $existing = getStudentBookingForCourse($studentId, $courseId);
+    if ($existing && (int) ($existing['session_id'] ?? 0) !== $sessionId) {
+        cancelSessionBooking((int) $existing['id']);
+    }
+
+    $bookingId = createSessionBooking($sessionId, $studentId, null, 'confirmed');
+    if (!$bookingId) {
+        return ['ok' => false, 'message' => 'จองรอบเรียนไม่สำเร็จ กรุณาลองใหม่'];
+    }
+
+    // Ensure confirmed + seat count if row already existed as pending.
+    confirmSessionBooking($bookingId);
+
+    $course = getCourseById($courseId);
+    $bookingPayload = [
+        'id' => $bookingId,
+        'session_id' => $sessionId,
+        'course_title' => $course['title'] ?? ($existing['course_title'] ?? ''),
+    ];
+    try {
+        notifyBookingConfirmed($studentId, $bookingPayload);
+    } catch (Throwable $e) {
+        // non-blocking
+    }
+    try {
+        linePushBookingConfirmed($studentId, $bookingPayload);
+    } catch (Throwable $e) {
+        // non-blocking
+    }
+
+    return ['ok' => true, 'message' => 'จองรอบเรียนเรียบร้อยแล้ว', 'booking_id' => $bookingId];
+}
+
 function notifyBookingConfirmed(int $studentId, array $booking): void
 {
     require_once __DIR__ . '/mailer.php';

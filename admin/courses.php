@@ -84,7 +84,7 @@ $courses = getCourses(null, false);
 <?php if ($error): ?><div class="alert alert-error"><?= e($error) ?></div><?php endif; ?>
 
 <?php if ($action === 'add' || ($action === 'edit' && $editCourse)): ?>
-<div class="admin-card">
+<div class="admin-card" data-guide="courses-add">
     <div class="admin-card-header">
         <h2><?= $editCourse ? 'แก้ไขคอร์ส' : 'เพิ่มคอร์สใหม่' ?></h2>
         <a href="<?= APP_URL ?>/admin/courses.php" class="btn btn-secondary btn-sm">กลับ</a>
@@ -193,11 +193,11 @@ $courses = getCourses(null, false);
 <?php else: ?>
 
 <div class="admin-card">
-    <div class="admin-card-header">
+    <div class="admin-card-header" data-guide="courses-add" data-guide-focus>
         <h2>รายการคอร์ส</h2>
         <a href="<?= APP_URL ?>/admin/courses.php?action=add" class="btn btn-primary btn-sm">+ เพิ่มคอร์ส</a>
     </div>
-    <div class="admin-card-body is-flush">
+    <div class="admin-card-body is-flush" data-guide="courses-list">
         <div class="table-responsive">
         <table class="data-table" data-feedback-id="package-list">
             <thead>

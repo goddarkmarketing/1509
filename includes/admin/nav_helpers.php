@@ -19,6 +19,7 @@ function adminNavIcon(string $name): string
         'users' => 'shield-check',
         'backup' => 'database',
         'settings' => 'settings',
+        'guide' => 'book-marked',
         'external' => 'external-link',
         'logout' => 'log-out',
     ];
@@ -29,7 +30,10 @@ function adminNavIcon(string $name): string
 function adminNavLink(string $page, string $href, string $label, string $icon, string $currentPage, ?string $extraClass = null): void
 {
     $classes = trim(($currentPage === $page ? 'active' : '') . ' ' . ($extraClass ?? ''));
-    echo '<a href="' . e($href) . '"' . ($classes !== '' ? ' class="' . e($classes) . '"' : '') . '>'
+    echo '<a href="' . e($href) . '"'
+        . ($classes !== '' ? ' class="' . e($classes) . '"' : '')
+        . ' data-guide-nav="' . e($page) . '"'
+        . '>'
         . adminNavIcon($icon)
         . '<span>' . e($label) . '</span></a>';
 }

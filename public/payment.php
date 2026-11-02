@@ -58,13 +58,22 @@ if ($name === '' || $phone === '') {
     redirect('/public/checkout.php');
 }
 
-if ($amount <= 0) {
+$isFreeCheckout = isFreeCheckoutEligible($email, $phone);
+
+if (!$isFreeCheckout && $amount <= 0) {
     flash('payment_error', 'ยอดชำระไม่ถูกต้อง');
     redirect('/public/checkout.php');
 }
 
+if ($isFreeCheckout) {
+    $amount = 0.0;
+    $note = ($note !== '' ? $note . "\n" : '') . 'free_checkout:coupon_100';
+    $transferDate = null;
+    $transferTime = null;
+}
+
 $slipPath = null;
-if (!empty($_FILES['slip_image']['name'])) {
+if (!$isFreeCheckout && !empty($_FILES['slip_image']['name'])) {
     $uploaded = storeSlipUpload($_FILES['slip_image']);
     if ($uploaded === false) {
         redirect('/public/checkout.php');
@@ -86,6 +95,33 @@ try {
         $couponCode
     );
     savePaymentItems($paymentId, $items);
+
+    if ($isFreeCheckout) {
+        $stmt = db()->prepare('UPDATE payments SET status = ? WHERE id = ?');
+        $stmt->execute(['verified', $paymentId]);
+
+        if ($couponCode) {
+            try {
+                incrementCouponUsage($couponCode);
+            } catch (Throwable $e) {
+                // non-blocking
+            }
+        }
+
+        $fetch = db()->prepare('SELECT * FROM payments WHERE id = ? LIMIT 1');
+        $fetch->execute([$paymentId]);
+        $payment = $fetch->fetch();
+        if ($payment) {
+            enrollFromPayment($payment);
+            rejectDuplicatePendingPayments($payment, $paymentId);
+        }
+
+        $_SESSION['checkout_phone'] = $phone;
+        clearAppliedCoupon();
+        clearCart();
+        flash('payment_success', 'ใช้รหัสส่วนลดครบยอดแล้ว — เปิดสิทธิ์เรียนทันที');
+        redirect('/public/my-courses.php');
+    }
 
     if ($couponCode) {
         try {

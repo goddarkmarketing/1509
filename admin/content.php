@@ -280,7 +280,7 @@ if ($action === 'edit') {
 <?php if ($message): ?><div class="alert alert-success"><?= e($message) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert alert-error"><?= e($error) ?></div><?php endif; ?>
 
-<div class="admin-card">
+<div class="admin-card" data-guide="content-editor">
     <div class="admin-card-header">
         <h2><?= e($editHeading) ?></h2>
         <div class="table-actions">

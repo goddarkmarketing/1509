@@ -149,7 +149,7 @@ try {
 <?php if ($schemaError && !$error): ?><div class="alert alert-warning"><?= e($schemaError) ?></div><?php endif; ?>
 
 <?php if ($action === 'add' || ($action === 'edit' && $editSession)): ?>
-<div class="admin-card">
+<div class="admin-card" data-guide="sessions-form">
     <div class="admin-card-header">
         <h2><?= $editSession ? 'แก้ไขรอบเรียน' : 'เพิ่มรอบเรียน Live' ?></h2>
         <a href="<?= APP_URL ?>/admin/sessions.php" class="btn btn-secondary btn-sm">กลับ</a>
@@ -229,7 +229,7 @@ try {
 </div>
 <?php else: ?>
 
-<div class="admin-card">
+<div class="admin-card" data-guide="sessions-form">
     <div class="admin-card-header">
         <h2>ตารางคลาส Live</h2>
         <div class="table-actions">

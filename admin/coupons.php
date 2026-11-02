@@ -111,10 +111,10 @@ $renderCouponForm = static function (?array $coupon): void {
 <div class="coupons-admin-page">
     <div class="admin-card coupons-list-card">
         <div class="admin-card-header">
-            <h2>รายการคูปอง (<?= count($coupons) ?>)</h2>
-            <button type="button" class="btn btn-primary btn-sm" data-open-coupon="new">+ เพิ่มคูปอง</button>
+            <h2 data-guide="coupons-add">รายการคูปอง (<?= count($coupons) ?>)</h2>
+            <button type="button" class="btn btn-primary btn-sm" data-open-coupon="new" data-guide="coupons-add">+ เพิ่มคูปอง</button>
         </div>
-        <div class="admin-card-body is-flush coupons-list-scroll">
+        <div class="admin-card-body is-flush coupons-list-scroll" data-guide="coupons-list">
             <table class="data-table coupons-compact-table">
                 <thead>
                     <tr>

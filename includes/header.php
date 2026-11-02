@@ -27,7 +27,7 @@ $isHome = str_ends_with(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
     <link rel="icon" href="<?= asset('images/leona/logo.png') ?>" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="<?= asset('images/leona/logo.png') ?>">
     <?php require __DIR__ . '/views/fonts_head.php'; ?>
-    <link rel="stylesheet" href="<?= asset('css/style.css') ?>?v=163">
+    <link rel="stylesheet" href="<?= asset('css/style.css') ?>?v=164">
     <?php if (!empty($pageStylesheets) && is_array($pageStylesheets)): ?>
         <?php foreach ($pageStylesheets as $sheet): ?>
         <link rel="stylesheet" href="<?= asset($sheet) ?>?v=4">

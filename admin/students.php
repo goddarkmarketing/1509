@@ -90,7 +90,7 @@ $studentStatusBadge = static function (array $student) use ($statusLabels): arra
 <?php if ($message): ?><div class="alert alert-success"><?= e($message) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert alert-error"><?= e($error) ?></div><?php endif; ?>
 
-<div class="admin-card students-list-card">
+<div class="admin-card students-list-card" data-guide="students-list">
     <div class="admin-card-header">
         <h2>รายชื่อนักเรียน (<?= count($students) ?>)</h2>
     </div>
@@ -215,7 +215,7 @@ $studentStatusBadge = static function (array $student) use ($statusLabels): arra
                 <?php endif; ?>
 
                 <h3 class="student-modal-section-title">เปิดสิทธิ์คอร์สใหม่</h3>
-                <form method="post" class="admin-inline-form student-enroll-form" data-feedback-id="customer-form-<?= (int) $s['id'] ?>">
+                <form method="post" class="admin-inline-form student-enroll-form" data-feedback-id="customer-form-<?= (int) $s['id'] ?>" data-guide="students-enroll-form">
                     <?= csrfField() ?>
                     <input type="hidden" name="action" value="enroll">
                     <input type="hidden" name="student_id" value="<?= (int) $s['id'] ?>">

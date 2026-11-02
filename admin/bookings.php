@@ -58,7 +58,7 @@ $bookings = getAdminBookings($filter !== '' ? $filter : null);
 <?php if ($message): ?><div class="alert alert-success"><?= e($message) ?></div><?php endif; ?>
 <?php if ($schemaError): ?><div class="alert alert-warning"><?= e($schemaError) ?></div><?php endif; ?>
 
-<div class="admin-card">
+<div class="admin-card" data-guide="bookings-list">
     <div class="admin-card-header">
         <h2>รายการจองคลาส</h2>
         <a href="<?= APP_URL ?>/admin/sessions.php" class="btn btn-outline btn-sm">จัดการตารางคลาส</a>

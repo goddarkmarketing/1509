@@ -37,6 +37,10 @@ $preselectCourseId = count($orderItems) === 1 ? (int) ($orderItems[0]['id'] ?? 0
 $orderTotal = cartTotal();
 $orderSubtotal = cartSubtotal();
 $orderDiscount = cartDiscount();
+$isFreeCheckout = !$paymentSuccess && isFreeCheckoutEligible(
+    (string) ($checkoutStudent['email'] ?? ''),
+    (string) ($checkoutStudent['phone'] ?? '')
+);
 $bankNumber = getSetting('bank_account_number');
 $bankName = getSetting('bank_name');
 $bankAccountName = getSetting('bank_account_name');
@@ -45,8 +49,8 @@ $bankNumberDisplay = strlen($bankDigits) === 10
     ? substr($bankDigits, 0, 3) . '-' . substr($bankDigits, 3, 1) . '-' . substr($bankDigits, 4, 5) . '-' . substr($bankDigits, 9, 1)
     : $bankNumber;
 $checkoutStep = $paymentSuccess ? 4 : 3;
-$promptPay = getCheckoutPromptPayData($orderTotal);
-$omiseEnabled = isOmiseCheckoutVisible();
+$promptPay = $isFreeCheckout ? null : getCheckoutPromptPayData($orderTotal);
+$omiseEnabled = !$isFreeCheckout && isOmiseCheckoutVisible();
 $omisePublicKey = omisePublicKey();
 $omiseReady = isOmiseEnabled();
 ?>
@@ -76,11 +80,53 @@ $omiseReady = isOmiseEnabled();
             <div class="checkout-main">
                 <header class="checkout-main-header">
                     <span class="checkout-main-icon" aria-hidden="true">
-                        <?= lucide_icon('credit-card', ['size' => 28, 'stroke' => '1.75']) ?>
+                        <?= lucide_icon($isFreeCheckout ? 'gift' : 'credit-card', ['size' => 28, 'stroke' => '1.75']) ?>
                     </span>
-                    <h1>ชำระเงินซื้อคอร์สเรียน</h1>
+                    <h1><?= $isFreeCheckout ? 'ลงทะเบียนด้วยรหัสส่วนลด' : 'ชำระเงินซื้อคอร์สเรียน' ?></h1>
                 </header>
 
+                <?php if ($isFreeCheckout): ?>
+                <section class="checkout-panel checkout-panel--pay-hub">
+                    <div class="checkout-pay-hub">
+                        <div class="alert alert-success checkout-alert" style="margin:0 0 1rem">
+                            รหัสส่วนลดครอบคลุมยอดเต็ม — ไม่ต้องโอนเงิน ยืนยันแล้วเปิดสิทธิ์เรียนทันที
+                        </div>
+                        <form action="<?= APP_URL ?>/public/payment.php" method="post" class="checkout-form" id="checkoutFreeForm">
+                            <?= csrfField() ?>
+                            <div class="form-row checkout-form-row">
+                                <div class="form-group">
+                                    <label for="student_name">ชื่อ-นามสกุล *</label>
+                                    <input type="text" id="student_name" name="student_name" class="form-control" required value="<?= e($checkoutStudent['full_name'] ?? '') ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="student_phone">เบอร์โทร *</label>
+                                    <input type="tel" id="student_phone" name="student_phone" class="form-control" required value="<?= e($checkoutStudent['phone'] ?? '') ?>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="student_email">อีเมล</label>
+                                <input type="email" id="student_email" name="student_email" class="form-control" placeholder="สำหรับรับการยืนยัน" value="<?= e($checkoutStudent['email'] ?? '') ?>">
+                            </div>
+                            <input type="hidden" name="from_cart" value="1">
+                            <?php if ($preselectCourseId > 0): ?>
+                            <input type="hidden" name="course_id" value="<?= $preselectCourseId ?>">
+                            <?php endif; ?>
+                            <div class="form-group">
+                                <label>ยอดชำระ</label>
+                                <div class="form-control checkout-readonly"><?= e(formatPayableAmount(0, true)) ?></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="note">หมายเหตุเพิ่มเติม</label>
+                                <textarea id="note" name="note" class="form-control" rows="3" placeholder="เช่น นักเรียนทุน / รหัสที่ได้รับ"><?= e($cartNotePrefill) ?></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block checkout-submit">
+                                <?= lucide_icon('circle-check', ['size' => 20]) ?>
+                                ยืนยันลงทะเบียนฟรี
+                            </button>
+                        </form>
+                    </div>
+                </section>
+                <?php else: ?>
                 <section class="checkout-panel checkout-panel--pay-hub">
                     <div class="checkout-pay-hub">
                         <div class="checkout-pay-picker">
@@ -314,6 +360,7 @@ $omiseReady = isOmiseEnabled();
                         </footer>
                     </div>
                 </section>
+                <?php endif; ?>
             </div>
 
             <aside class="checkout-sidebar">
@@ -351,12 +398,14 @@ $omiseReady = isOmiseEnabled();
                     <?php endif; ?>
                     <dl class="checkout-total-row">
                         <dt>ยอดชำระทั้งหมด</dt>
-                        <dd id="checkoutTotalDisplay"><?= e(formatPrice($orderTotal > 0 ? $orderTotal : null)) ?></dd>
+                        <dd id="checkoutTotalDisplay"><?= e($isFreeCheckout ? formatPayableAmount(0, true) : formatPrice($orderTotal > 0 ? $orderTotal : null)) ?></dd>
                     </dl>
 
                     <p class="checkout-summary-note">
                         <?= lucide_icon('circle-check', ['size' => 16]) ?>
-                        หลังชำระเงิน ทีมงานจะเปิดสิทธิ์เรียนและติดต่อกลับทางอีเมลหรือ Line
+                        <?= $isFreeCheckout
+                            ? 'ยืนยันแล้วเปิดสิทธิ์เรียนทันที ไม่ต้องรอตรวจสอบสลิป'
+                            : 'หลังชำระเงิน ทีมงานจะเปิดสิทธิ์เรียนและติดต่อกลับทางอีเมลหรือ Line' ?>
                     </p>
                 </div>
 

@@ -35,6 +35,7 @@ return [
     [
         'label' => 'ระบบ',
         'items' => [
+            ['page' => 'guide', 'href' => '/admin/guide.php', 'label' => 'คู่มือการใช้งาน', 'icon' => 'guide'],
             ['page' => 'feedback', 'href' => '/admin/feedback.php', 'label' => 'Website Feedback', 'icon' => 'announcements'],
             ['page' => 'users', 'href' => '/admin/users.php', 'label' => 'ผู้ดูแล', 'icon' => 'users'],
             ['page' => 'backup', 'href' => '/admin/backup.php', 'label' => 'สำรองข้อมูล', 'icon' => 'backup'],

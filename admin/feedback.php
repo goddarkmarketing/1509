@@ -151,7 +151,7 @@ $error = flash('admin_error');
     </div>
 </div>
 
-<div class="admin-card" style="margin-bottom:1.25rem">
+<div class="admin-card" style="margin-bottom:1.25rem" data-guide="feedback-settings">
     <div class="admin-card-header">
         <h2>ลิงก์ตรวจงานสำหรับลูกค้า</h2>
     </div>
@@ -201,7 +201,7 @@ $error = flash('admin_error');
     </div>
 </div>
 
-<div class="admin-card">
+<div class="admin-card" data-guide="feedback-list">
     <div class="admin-card-header">
         <h2>รายการ Feedback (<?= count($items) ?>)</h2>
     </div>

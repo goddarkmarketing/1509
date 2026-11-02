@@ -75,8 +75,17 @@ $statusLabels = [
 <?php if ($message): ?><div class="alert alert-success"><?= e($message) ?></div><?php endif; ?>
 <?php if (!empty($paymentsLoadError)): ?><div class="alert alert-error"><?= e($paymentsLoadError) ?></div><?php endif; ?>
 
-<?php if ($pendingEnrollments): ?>
-<div class="admin-card admin-card--spaced">
+<?php if (!$pendingEnrollments): ?>
+<div class="admin-card admin-card--spaced" data-guide="payments-pending-enroll">
+    <div class="admin-card-header">
+        <h2>นักเรียนรอเปิดสิทธิ์</h2>
+    </div>
+    <div class="admin-card-body">
+        <p class="form-hint" style="margin:0">ตอนนี้ไม่มีรายการรอเปิดสิทธิ์ — เมื่อมี enrollment สถานะ pending จะแสดงที่นี่</p>
+    </div>
+</div>
+<?php else: ?>
+<div class="admin-card admin-card--spaced" data-guide="payments-pending-enroll">
     <div class="admin-card-header">
         <h2>นักเรียนรอเปิดสิทธิ์ (<?= count($pendingEnrollments) ?>)</h2>
     </div>
@@ -114,8 +123,8 @@ $statusLabels = [
 </div>
 <?php endif; ?>
 
-<div class="admin-card">
-    <div class="admin-card-header">
+<div class="admin-card" data-guide="payments-list">
+    <div class="admin-card-header" data-guide="payments-actions" data-guide-focus>
         <h2>รายการแจ้งชำระเงิน</h2>
         <?php if ($paymentsTotal > 0): ?>
         <span class="admin-card-meta">
@@ -167,7 +176,7 @@ $statusLabels = [
                     <td class="payment-status">
                         <span class="badge badge-<?= e($paymentStatus) ?>"><?= e($statusLabels[$paymentStatus] ?? $paymentStatus) ?></span>
                     </td>
-                    <td class="actions payment-actions-cell">
+                    <td class="actions payment-actions-cell" data-guide="payments-actions">
                         <?php if ($slipUrl !== ''): ?>
                         <button
                             type="button"

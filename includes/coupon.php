@@ -113,17 +113,47 @@ function applyCouponCode(string $code): array
     return ['ok' => true, 'message' => 'ใช้รหัสส่วนลดเรียบร้อย'];
 }
 
+function couponDiscountAmount(array $coupon, float $subtotal): float
+{
+    if ($subtotal <= 0) {
+        return 0.0;
+    }
+    if (($coupon['discount_type'] ?? '') === 'fixed') {
+        return min($subtotal, (float) ($coupon['discount_value'] ?? 0));
+    }
+    return round($subtotal * ((float) ($coupon['discount_value'] ?? 0) / 100), 2);
+}
+
 function cartDiscount(): float
 {
     $coupon = getAppliedCoupon();
     if (!$coupon) {
         return 0.0;
     }
-    $subtotal = cartSubtotal();
-    if ($coupon['discount_type'] === 'fixed') {
-        return min($subtotal, (float) $coupon['discount_value']);
+    return couponDiscountAmount($coupon, cartSubtotal());
+}
+
+/** True when an active coupon covers the full cart (e.g. scholarship 100%). */
+function isFreeCheckoutEligible(string $email = '', string $phone = ''): bool
+{
+    $applied = getAppliedCoupon();
+    if (!$applied) {
+        return false;
     }
-    return round($subtotal * ((float) $coupon['discount_value'] / 100), 2);
+    $code = (string) ($applied['code'] ?? '');
+    $coupon = validateCoupon($code);
+    if (!$coupon) {
+        return false;
+    }
+    $blocked = couponRestrictionMessage($code, $email, $phone);
+    if ($blocked !== null) {
+        return false;
+    }
+    $subtotal = cartSubtotal();
+    if ($subtotal <= 0) {
+        return false;
+    }
+    return couponDiscountAmount($coupon, $subtotal) >= $subtotal;
 }
 
 function incrementCouponUsage(string $code): void

@@ -100,12 +100,12 @@ $appliedCoupon = getAppliedCoupon();
                         <?php endif; ?>
                         <div class="cart-page-summary-row cart-page-summary-row--payable">
                             <dt>ยอดชำระ</dt>
-                            <dd><?= e(formatPrice($total > 0 ? $total : null)) ?></dd>
+                            <dd><?= e($discount > 0 && $total <= 0 ? formatPayableAmount(0, true) : formatPrice($total > 0 ? $total : null)) ?></dd>
                         </div>
                     </dl>
                     <div class="cart-page-actions">
                         <a href="<?= APP_URL ?>/public/exams.php" class="btn btn-outline">ชุดข้อสอบ</a>
-                        <a href="<?= APP_URL ?>/public/checkout.php" class="btn btn-primary">ไปชำระเงิน</a>
+                        <a href="<?= APP_URL ?>/public/checkout.php" class="btn btn-primary"><?= $discount > 0 && $total <= 0 ? 'ยืนยันลงทะเบียนฟรี' : 'ไปชำระเงิน' ?></a>
                     </div>
                 </section>
             </aside>

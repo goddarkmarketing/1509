@@ -450,6 +450,15 @@ function formatPrice(?float $price): string
     return number_format($price, 0) . ' บาท';
 }
 
+/** Cart/checkout payable label — 0 after coupon shows as free, not “contact us”. */
+function formatPayableAmount(float $amount, bool $coveredByCoupon = false): string
+{
+    if ($coveredByCoupon || $amount <= 0) {
+        return 'ฟรี';
+    }
+    return number_format($amount, 0) . ' บาท';
+}
+
 function getSettings(): array
 {
     static $settings = null;

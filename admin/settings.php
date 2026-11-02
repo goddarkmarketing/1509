@@ -121,8 +121,8 @@ $promptPayReady = isPromptPayEnabled() && $promptPayTarget !== '';
                 </div>
             </div>
 
-            <h3>ชำระเงิน</h3>
-            <div class="form-group">
+            <h3 data-guide="settings-payment">ชำระเงิน</h3>
+            <div class="form-group" data-guide="settings-payment">
                 <label>ชื่อบัญชี</label>
                 <input type="text" name="bank_account_name" class="form-control" value="<?= e($settings['bank_account_name'] ?? '') ?>">
             </div>
